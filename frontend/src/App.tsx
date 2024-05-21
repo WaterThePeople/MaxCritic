@@ -3,20 +3,20 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import style from "./App.module.sass";
 
 import View from "./wrappers/View/View";
-import Header from "wrappers/Header/Header";
+import Navbar from "wrappers/Navbar/Navbar";
 
 function App() {
   return (
     <Router>
       <View>
-        <Header>
+        <Navbar>
           <Routes>
             <Route path="/" />
             <Route path="/products" />
             <Route path="/products/:id" />
             <Route path="/sales" />
           </Routes>
-        </Header>
+        </Navbar>
       </View>
     </Router>
   );

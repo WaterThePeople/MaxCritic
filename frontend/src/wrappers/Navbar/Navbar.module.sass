@@ -1,0 +1,36 @@
+@import utils/helpers
+
+.container
+    position: relative
+
+.container_top
+    margin-left: 64px
+    background: $b1
+    padding-right: $default-padding
+    padding-left: $small-padding
+    padding-top: $small-padding
+    padding-bottom: $small-padding
+    +m
+
+.header
+    @include element-flex(row, space-between, center)
+    gap: $default-gap
+    height: 100%
+
+.login
+    color: $w
+    background-color: $heavy-red
+    padding-inline: $big-padding
+    padding-top: $tiny-padding
+    padding-bottom: $tiny-padding
+    border-radius: $default-radius
+    +title
+    +m
+        +title-s
+
+.container_left
+    position: absolute
+    top: 0
+    width: 64px
+    height: 100vh
+    background: $b1
