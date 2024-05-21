@@ -1,0 +1,59 @@
+// media queries
+=m
+    @media only screen and (max-width: "1000px")
+        @content
+
+// colors
+$w: #fff6f6
+$w1: #efe5e5
+$w2: #ded4d4
+$w3: #b9b0b0
+$b4: #999090
+$b3: #716868
+$b2: #5d5555
+$b1: #3e3636
+$b: #1d1717
+
+$red: #c94c4c
+$heavy-red: #8A0D0D
+$light-blue: #b7d7e8
+
+// layout
+$default-radius: 12px
+
+$tiny-gap: 2px
+$small-gap: 6px
+$default-gap: 12px
+
+$tiny-padding: 2px
+$small-padding: 6px
+$default-padding: 12px
+$big-padding: 24px
+
+// typography
+=logo
+    font-size: 28px
+    font-weight: 600
+    font-style: normal
+
+=logo-s
+    font-size: 18px
+    font-weight: 600
+    font-style: normal
+
+=title
+    font-size: 24px
+    font-weight: 600
+    font-style: normal
+
+=title-s
+    font-size: 16px
+    font-weight: 600
+    font-style: normal
+
+// flex
+@mixin element-flex($d, $j: 'flex-start', $a: 'flex-start')
+    display: flex
+    flex-direction: $d
+    justify-content: unquote($j)
+    align-items: unquote($a)

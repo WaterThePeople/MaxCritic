@@ -1,18 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-//import style from "./App.module.sass";
+import style from "./App.module.sass";
 
-import ApiTestView from "./views/ApiTestView/ApiTestView";
+import View from "./wrappers/View/View";
+import Header from "wrappers/Header/Header";
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<ApiTestView />} />
-        <Route path="/products" />
-        <Route path="/products/:id" />
-        <Route path="/sales" />
-      </Routes>
+      <View>
+        <Header>
+          <Routes>
+            <Route path="/" />
+            <Route path="/products" />
+            <Route path="/products/:id" />
+            <Route path="/sales" />
+          </Routes>
+        </Header>
+      </View>
     </Router>
   );
 }

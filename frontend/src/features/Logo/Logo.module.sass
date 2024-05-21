@@ -1,0 +1,34 @@
+@import utils/helpers
+
+.container
+    @include element-flex(row, space-between, center)
+    gap: $default-gap
+    height: 100%
+
+.logo
+    @include element-flex(row, center, center)
+    gap: $tiny-gap
+
+.image
+    width: 48px
+    height: 48px
+    +m
+        width: 36px
+        height: 36px
+
+.text
+    color: $w
+    +logo
+    +m
+        +logo-s
+
+.login
+    color: $w
+    background-color: $heavy-red
+    padding-inline: $big-padding
+    padding-top: $tiny-padding
+    padding-bottom: $tiny-padding
+    border-radius: $default-radius
+    +title
+    +m
+        +title-s
