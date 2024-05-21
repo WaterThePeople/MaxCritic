@@ -4,7 +4,6 @@
     position: relative
 
 .container_top
-    margin-left: 64px
     background: $b1
     padding-right: $default-padding
     padding-left: $small-padding
@@ -21,16 +20,63 @@
     color: $w
     background-color: $heavy-red
     padding-inline: $big-padding
-    padding-top: $tiny-padding
-    padding-bottom: $tiny-padding
+    padding-top: $small-padding
+    padding-bottom: $small-padding
     border-radius: $default-radius
+    border: 0
+    &:hover
+        cursor: pointer
+        background-color: $red
     +title
     +m
         +title-s
 
+.corner_container
+    @include element-flex(row, center, center)
+
+.button_container
+    width: 52px
+    @include element-flex(row, center, center)
+
+.corner_button
+    height: 24px
+    width: 42px
+    @include element-flex(column, space-between, center)
+    background-color: transparent
+    border: 0
+    &:hover
+        cursor: pointer
+        .corner_line
+            background-color: $w
+    +m
+        width: 32px
+        height: 18px
+
+.corner_line
+    width: 100%
+    height: 2px
+    background-color: $w3
+
 .container_left
     position: absolute
-    top: 0
+    top: 64px
     width: 64px
-    height: 100vh
+    height: calc(100vh - 64px)
     background: $b1
+    @include element-flex(column, flex-start, flex-start)
+    gap: $small-gap
+    +m
+        top: 50px
+        height: calc(100vh - 50px)
+
+.container_left_open
+    position: absolute
+    top: 64px
+    width: 192px
+    height: calc(100vh - 64px)
+    background: $b1
+    @include element-flex(column, flex-start, flex-start)
+    gap: $small-gap
+    +m
+        top: 50px
+        height: calc(100vh - 50px)

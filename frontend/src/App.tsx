@@ -12,9 +12,12 @@ function App() {
         <Navbar>
           <Routes>
             <Route path="/" />
-            <Route path="/products" />
-            <Route path="/products/:id" />
-            <Route path="/sales" />
+            <Route path="/games" />
+            <Route path="/movies" />
+            <Route path="/shows" />
+            <Route path="/music" />
+            <Route path="/login" />
+            <Route path="/register" />
           </Routes>
         </Navbar>
       </View>

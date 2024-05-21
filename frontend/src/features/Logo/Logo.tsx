@@ -1,16 +1,16 @@
 import React from "react";
 import style from "./Logo.module.sass";
 
-function Logo() {
+function Logo({ onClick }: { onClick: () => void }) {
   return (
-    <div className={style.logo}>
+    <button className={style.logo} onClick={onClick}>
       <img
         src={process.env.PUBLIC_URL + "/logo.png"}
         alt="Logo"
         className={style.image}
       />
       <div className={style.text}>MaxCritic</div>
-    </div>
+    </button>
   );
 }
 
