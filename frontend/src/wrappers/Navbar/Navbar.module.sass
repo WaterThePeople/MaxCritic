@@ -5,42 +5,27 @@
 
 .container_top
     background: $b1
-    padding-right: $default-padding
-    padding-left: $small-padding
-    padding-top: $small-padding
-    padding-bottom: $small-padding
+    height: 64px
     +m
+        height: 48px
 
 .header
     @include element-flex(row, space-between, center)
     gap: $default-gap
     height: 100%
 
-.login
-    color: $w
-    background-color: $heavy-red
-    padding-inline: $big-padding
-    padding-top: $small-padding
-    padding-bottom: $small-padding
-    border-radius: $default-radius
-    border: 0
-    &:hover
-        cursor: pointer
-        background-color: $red
-    +title
-    +m
-        +title-s
-
 .corner_container
     @include element-flex(row, center, center)
 
 .button_container
-    width: 52px
+    width: 64px
     @include element-flex(row, center, center)
+    +m
+        width: 48px
 
 .corner_button
     height: 24px
-    width: 42px
+    width: 44px
     @include element-flex(column, space-between, center)
     background-color: transparent
     border: 0
@@ -57,6 +42,22 @@
     height: 2px
     background-color: $w3
 
+.login
+    color: $w
+    background-color: $heavy-red
+    padding-inline: $big-padding
+    padding-top: $small-padding
+    padding-bottom: $small-padding
+    border-radius: $default-radius
+    margin-right: $default-padding
+    border: 0
+    &:hover
+        cursor: pointer
+        background-color: $red
+    +title
+    +m
+        +title-s
+
 .container_left
     position: absolute
     top: 64px
@@ -65,18 +66,21 @@
     background: $b1
     @include element-flex(column, flex-start, flex-start)
     gap: $small-gap
+    transition: 0.5s
+    overflow: hidden
     +m
-        top: 50px
-        height: calc(100vh - 50px)
+        width: 48px
+        top: 48px
+        height: calc(100vh - 48px)
+    +s
+        width: 0
 
 .container_left_open
-    position: absolute
-    top: 64px
-    width: 192px
-    height: calc(100vh - 64px)
-    background: $b1
-    @include element-flex(column, flex-start, flex-start)
-    gap: $small-gap
+    transition: 0.5s
+    width: 192px !important
     +m
-        top: 50px
-        height: calc(100vh - 50px)
+        width: 128px !important
+    +s
+        width: 100% !important
+        top: 48px
+        height: calc(100vh - 48px)

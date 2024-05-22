@@ -38,7 +38,9 @@ function Navbar({ children }) {
       </div>
       <div
         className={
-          menuVisible ? style.container_left_open : style.container_left
+          menuVisible
+            ? cn(style.container_left, style.container_left_open)
+            : style.container_left
         }
       >
         <NavbarButton
@@ -46,15 +48,13 @@ function Navbar({ children }) {
           iconName="gamepad"
           size={width < 1000 ? 32 : 48}
           viewBox="-4 -3 32 32"
-          isMenuOpen={menuVisible}
           title="Games"
         />
         <NavbarButton
           onClick={() => navigate(`/movies`)}
           iconName="movie"
-          size={width < 1000 ? 32 : 42}
-          viewBox="-8 -10 64 64"
-          isMenuOpen={menuVisible}
+          size={width < 1000 ? 32 : 48}
+          viewBox="-13 -12 72 72"
           title="Movies"
         />
         <NavbarButton
@@ -62,7 +62,6 @@ function Navbar({ children }) {
           iconName="tv"
           size={width < 1000 ? 32 : 48}
           viewBox="-6 -6 28 28"
-          isMenuOpen={menuVisible}
           title="TV Shows"
         />
         <NavbarButton
@@ -70,7 +69,6 @@ function Navbar({ children }) {
           iconName="music"
           size={width < 1000 ? 32 : 48}
           viewBox="-5 -6 36 36"
-          isMenuOpen={menuVisible}
           title="Music"
         />
       </div>

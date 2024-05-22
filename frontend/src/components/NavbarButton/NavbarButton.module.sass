@@ -4,27 +4,13 @@
     background-color: transparent
     border: none
     padding: 0
-    width: 100%
+    width: 192px
     height: 64px
-    @include element-flex(row, center, center)
-    gap: $small-gap
+    transition: 0.5s
+    @include element-flex(row, flex-start, center)
     +m
         height: 48px
-    .icon
-        border: 2px solid $w3
-        border-radius: 50%
-        height: 48px
-        width: 48px
-        .svg
-            fill: $w3
-        +m
-            height: 36px
-            width: 36px
-    .title
-        +title
-        color: $w3
-        +m
-            +title-s
+        width: 128px
     &:hover
         cursor: pointer
         .title
@@ -34,8 +20,30 @@
             .svg
                 fill: $w
 
-.open
-    padding-inline: $small-padding
+.icon_container
+    width: 64px
+    height: 100%
+    @include element-flex(row, center, center)
     +m
-        padding-left: $default-padding
-    justify-content: flex-start
+        width: 48px
+
+.icon
+    border: 2px solid $w3
+    border-radius: 50%
+    height: 48px
+    width: 48px
+    .svg
+        fill: $w3
+    +m
+        height: 32px
+        width: 32px
+
+.title
+    +title-s
+    width: 128px
+    color: $w3
+    white-space: nowrap
+    text-align: left
+    +m
+        +title-t
+        width: 64px
