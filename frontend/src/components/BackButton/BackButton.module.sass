@@ -1,0 +1,25 @@
+@import utils/helpers
+
+.container
+    @include element-flex(row, center, center)
+    border: 2px solid $w3
+    padding-inline: 8px
+    border-radius: $default-radius
+    background: none
+    &:hover
+        cursor: pointer
+        background: $b1
+        border-color: $w
+        .text
+            color: $w
+        .svg
+            fill: $w
+
+.svg
+    fill: $w3
+
+.icon
+
+.text
+    color: $w3
+    +text-s

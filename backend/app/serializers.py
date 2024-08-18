@@ -1,8 +1,20 @@
 from rest_framework import serializers
-from .models import Item
+from django.contrib.auth import authenticate
 
+class CustomAuthTokenSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
 
-class ItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Item
-        fields = ('id', 'title', 'description', 'completed')
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        if email and password:
+            user = authenticate(request=self.context.get('request'), username=email, password=password)
+            if not user:
+                raise serializers.ValidationError('Invalid credentials')
+        else:
+            raise serializers.ValidationError('Must include "email" and "password".')
+
+        attrs['user'] = user
+        return attrs

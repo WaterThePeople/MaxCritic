@@ -2,3 +2,13 @@ How to start backend:
 
 python manage.py runserver
 
+
+Install packages: 
+
+pip install -r req.txt
+
+Admin user:
+Username: admin
+Email: admin@gmail.com
+Password: admin
+

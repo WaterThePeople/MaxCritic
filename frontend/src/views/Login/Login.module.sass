@@ -1,0 +1,106 @@
+@import utils/helpers
+
+.container
+    flex: 1
+    margin: 12px
+    @include element-flex(column, center, center)
+    gap: $big-gap
+
+.content
+    width: 80%
+    background: $b1
+    margin: $giant-padding
+    border-radius: $big-radius
+    @include element-flex(row, flex-start, flex-start)
+    +m
+        border-radius: $default-radius
+        margin: $small-padding
+
+.back_button
+    position: absolute
+    top: 24px
+    left: 24px
+
+.logo
+    position: absolute
+    top: 24px
+    right: 24px
+    height: 41px
+    @include element-flex(row, center, center)
+
+.image
+    width: calc(100% - 400px)
+    min-height: 500px
+    height: 100%
+    object-fit: cover
+    border-radius: $big-radius 0 0 $big-radius
+
+.login_container
+    width: 400px
+    padding-inline: 12px
+    min-height: 500px
+    height: 100%
+    background: $b2
+    border-radius: 0 $big-radius $big-radius 0
+    @include element-flex(column, center, center)
+    gap: 24px
+    +m
+        border-radius: $default-radius
+        width: 100%
+
+.title
+    +title-g
+    color: $w
+
+.error_container
+    width: 100%
+    @include element-flex(row, center, center)
+    gap: $small-gap
+
+.error_icon
+    background-color: $full-red
+    @include element-flex(column, center, center)
+    border-radius: 50%
+    padding: $tiny-padding
+    +m
+        padding: 0
+
+.svg
+    fill: $w3
+
+.error
+    color: $full-red
+    +text-s
+    +m
+        +text-t
+
+.modal_container
+    width: 100%
+    height: 100%
+    @include element-flex(column, center, center)
+
+.success
+    background: $w2
+    color: $b
+    padding: $big-padding
+    border-radius: $default-radius
+    @include element-flex(column, center, center)
+    gap: $default-gap
+
+.success_button_container
+    @include element-flex(row, center, center)
+    border: 2px solid $b3
+    padding: 8px 16px
+    border-radius: $default-radius
+    background: none
+    &:hover
+        cursor: pointer
+        border-color: $b
+        .success_button_text
+            color: $b
+        .svg
+            fill: $b
+
+.success_button_text
+    color: $b3
+    +text-b

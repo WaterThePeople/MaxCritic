@@ -2,7 +2,7 @@
 
 .container
     background-color: transparent
-    border: none
+    border: 0
     padding: 0
     width: 192px
     height: 64px
@@ -13,6 +13,7 @@
         width: 128px
     &:hover
         cursor: pointer
+        background-color: $b2
         .title
             color: $w
         .icon
@@ -28,18 +29,18 @@
         width: 48px
 
 .icon
-    border: 2px solid $w3
+    border: 1px solid $w3
     border-radius: 50%
-    height: 48px
-    width: 48px
+    height: 40px
+    width: 40px
     .svg
         fill: $w3
     +m
-        height: 32px
-        width: 32px
+        height: 24px
+        width: 24px
 
 .title
-    +title-s
+    +text-s
     width: 128px
     color: $w3
     white-space: nowrap

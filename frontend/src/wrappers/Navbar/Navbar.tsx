@@ -1,19 +1,46 @@
 import React, { useState, useEffect } from "react";
 import style from "./Navbar.module.sass";
-import Logo from "features/Logo/Logo";
+import Logo from "components/Logo/Logo";
 import NavbarButton from "components/NavbarButton/NavbarButton";
 import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "utils/useWindowDimensions";
 import cn from "classnames";
+import DefaultButton from "components/DefaultButton/DefaultButton";
 
-function Navbar({ children }) {
+function Navbar({
+  children,
+  isAuth,
+}: {
+  children: React.ReactNode;
+  isAuth: boolean;
+}) {
   const navigate = useNavigate();
+
+  const path = window.location.pathname;
 
   const { height, width } = useWindowDimensions();
 
   const [menuVisible, setMenuVisible] = useState(false);
 
-  return (
+  const [visibleNavbar, setVisibleNavbar] = useState(true);
+
+  useEffect(() => {
+    if (path === "/login") {
+      setVisibleNavbar(false);
+    } else if (path === "/register") {
+      setVisibleNavbar(false);
+    } else {
+      setVisibleNavbar(true);
+    }
+  }, [path]);
+
+  const logout = () => {
+    window.location.reload();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+  };
+
+  return visibleNavbar ? (
     <div className={style.container}>
       <div className={style.container_top}>
         <div className={style.header}>
@@ -30,49 +57,69 @@ function Navbar({ children }) {
             </div>
             <Logo onClick={() => navigate(`/`)} />
           </div>
-          <button onClick={() => navigate(`/login`)} className={style.login}>
-            Login
-          </button>
+          {isAuth ? (
+            <DefaultButton
+              text="Log out"
+              onClick={() => logout()}
+              classname={style.logout}
+              classnameText={style.logout_text}
+            />
+          ) : (
+            <button onClick={() => navigate(`/login`)} className={style.login}>
+              Login
+            </button>
+          )}
         </div>
-        {children}
       </div>
-      <div
-        className={
-          menuVisible
-            ? cn(style.container_left, style.container_left_open)
-            : style.container_left
-        }
-      >
-        <NavbarButton
-          onClick={() => navigate(`/games`)}
-          iconName="gamepad"
-          size={width < 1000 ? 32 : 48}
-          viewBox="-4 -3 32 32"
-          title="Games"
-        />
-        <NavbarButton
-          onClick={() => navigate(`/movies`)}
-          iconName="movie"
-          size={width < 1000 ? 32 : 48}
-          viewBox="-13 -12 72 72"
-          title="Movies"
-        />
-        <NavbarButton
-          onClick={() => navigate(`/shows`)}
-          iconName="tv"
-          size={width < 1000 ? 32 : 48}
-          viewBox="-6 -6 28 28"
-          title="TV Shows"
-        />
-        <NavbarButton
-          onClick={() => navigate(`/music`)}
-          iconName="music"
-          size={width < 1000 ? 32 : 48}
-          viewBox="-5 -6 36 36"
-          title="Music"
-        />
+
+      <div className={style.bottom_container}>
+        <div
+          className={
+            menuVisible
+              ? cn(style.container_left, style.container_left_open)
+              : style.container_left
+          }
+        >
+          <NavbarButton
+            onClick={() => navigate(`/games`)}
+            iconName="gamepad"
+            size={width < 1000 ? 24 : 40}
+            viewBox="-4 -3 32 32"
+            title="Games"
+          />
+          <NavbarButton
+            onClick={() => navigate(`/movies`)}
+            iconName="movie"
+            size={width < 1000 ? 24 : 40}
+            viewBox="-13 -12 72 72"
+            title="Movies"
+          />
+          <NavbarButton
+            onClick={() => navigate(`/shows`)}
+            iconName="tv"
+            size={width < 1000 ? 24 : 40}
+            viewBox="-6 -6 28 28"
+            title="TV Shows"
+          />
+          <NavbarButton
+            onClick={() => navigate(`/music`)}
+            iconName="music"
+            size={width < 1000 ? 24 : 40}
+            viewBox="-5 -6 36 36"
+            title="Music"
+          />
+        </div>
+        {width > 600 ? (
+          <div className={style.children_container}>{children}</div>
+        ) : (
+          !menuVisible && (
+            <div className={style.children_container}>{children}</div>
+          )
+        )}
       </div>
     </div>
+  ) : (
+    <div className={style.children_container_auth}>{children}</div>
   );
 }
 
