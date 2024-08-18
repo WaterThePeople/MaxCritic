@@ -114,6 +114,15 @@ function Login({ isAuth }: { isAuth: boolean }) {
             </div>
           )}
           <DefaultButton text="Log In" onClick={login} />
+          <div className={style.bottom_text}>
+            Don't have an account?
+            <div
+              onClick={() => navigate(`/register`)}
+              className={style.register_link}
+            >
+              Click here to create it!
+            </div>
+          </div>
         </div>
       </div>
       {success && (
