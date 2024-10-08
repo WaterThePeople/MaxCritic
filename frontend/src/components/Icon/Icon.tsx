@@ -27,7 +27,7 @@ interface SvgImagePropsScheme {
 }
 
 const Icon = (props: SvgImagePropsScheme) => {
-  const size = props.size ? props.size : 25;
+  const size = props.size ? props.size : 24;
   const name = props.name ? props.name : "heart";
   const viewBox = props.viewBox ? props.viewBox : "";
   const stroke = props.stroke ? props.stroke : "";

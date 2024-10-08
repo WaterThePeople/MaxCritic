@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./Login.module.sass";
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
@@ -15,7 +15,7 @@ import Modal from "components/Modal/Modal";
 function Login({ isAuth }: { isAuth: boolean }) {
   const navigate = useNavigate();
 
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -75,10 +75,10 @@ function Login({ isAuth }: { isAuth: boolean }) {
   return (
     <div className={style.container}>
       {width > 1000 ? (
-        <Logo onClick={() => navigate(`/`)} />
+        <Logo />
       ) : (
         <div className={style.logo}>
-          <Logo onClick={() => navigate(`/`)} />
+          <Logo />
         </div>
       )}
 
@@ -90,6 +90,7 @@ function Login({ isAuth }: { isAuth: boolean }) {
           <img
             src={process.env.PUBLIC_URL + "assets/wallpaper.png"}
             className={style.image}
+            alt="wallpaper"
           />
         )}
         <div className={style.login_container}>

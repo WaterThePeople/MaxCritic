@@ -1,23 +1,20 @@
 @import utils/helpers
 
 .container
-    display: flex
-    width: 100%
-    height: 100%
-    min-height: 100vh
-    flex-direction: column
-
-.container_top
     width: 100%
     background: $b1
+    position: sticky
+    z-index: 10
+    top: 0
     height: 64px
     +m
         height: 48px
 
-.header
+.inner
+    height: 100%
+    padding-right: $default-padding
     @include element-flex(row, space-between, center)
     gap: $default-gap
-    height: 100%
 
 .corner_container
     @include element-flex(row, center, center)
@@ -54,14 +51,11 @@
     padding-top: $medium-padding
     padding-bottom: $medium-padding
     border-radius: $default-radius
-    margin-right: $default-padding
     border: 0
     &:hover
         cursor: pointer
         background-color: $red
     +title-s
-    +m
-        +title-s
 
 .logout
     color: $w
@@ -71,7 +65,6 @@
     padding-top: $medium-padding
     padding-bottom: $medium-padding
     border-radius: $default-radius
-    margin-right: $default-padding
     &:hover
         cursor: pointer
 
@@ -79,51 +72,3 @@
     &:hover
         color: $w
     +title-s
-    +m
-        +title-s
-
-.bottom_container
-    flex: 1
-    height: 100%
-    background: $b
-    @include element-flex(row,flex-start, flex-start)
-
-.container_left
-    width: 64px
-    height: calc(100vh - 64px)
-    background: $b1
-    @include element-flex(column, flex-start, flex-start)
-    gap: $small-gap
-    transition: 0.5s
-    overflow: hidden
-    +m
-        width: 48px
-        top: 48px
-        height: calc(100vh - 48px)
-    +s
-        width: 0
-
-.container_left_open
-    transition: 0.5s
-    width: 192px !important
-    +m
-        width: 128px !important
-    +s
-        width: 100% !important
-        top: 48px
-        height: calc(100vh - 48px)
-
-.children_container
-    display: flex
-    width: 100%
-    height: calc(100vh - 64px)
-    +m
-        height: calc(100vh - 48px)
-
-.children_container_auth
-    display: flex
-    width: 100%
-    min-height: 100vh
-    +m
-        height: calc(100vh - 48px)
-    background: $b

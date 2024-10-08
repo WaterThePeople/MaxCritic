@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Navbar from "wrappers/Navbar/Navbar";
+import Wrapper from "wrappers/Wrapper/Wrapper";
 import Login from "views/Login/Login";
 import Home from "views/Home/Home";
 
-import { checkUserAuth } from "./Authentication";
+import { checkUserAuth } from "./utils/Authentication";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <Router>
-      <Navbar isAuth={isAuthenticated}>
+      <Wrapper isAuth={isAuthenticated}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/games" />
@@ -30,7 +30,7 @@ function App() {
           <Route path="/login" element={<Login isAuth={isAuthenticated} />} />
           <Route path="/register" />
         </Routes>
-      </Navbar>
+      </Wrapper>
     </Router>
   );
 }

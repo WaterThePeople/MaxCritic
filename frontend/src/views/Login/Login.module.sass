@@ -38,8 +38,9 @@
 .login_container
     width: 400px
     padding-inline: 12px
-    min-height: 500px
-    height: 100%
+    align-self: stretch
+    padding-top: $default-padding
+    padding-bottom: $default-padding
     background: $b2
     border-radius: 0 $big-radius $big-radius 0
     @include element-flex(column, center, center)
@@ -80,8 +81,8 @@
     @include element-flex(column, center, center)
 
 .success
-    background: $w2
-    color: $b
+    background: $b4
+    color: $w1
     padding: $big-padding
     border-radius: $default-radius
     @include element-flex(column, center, center)
@@ -89,20 +90,20 @@
 
 .success_button_container
     @include element-flex(row, center, center)
-    border: 2px solid $b3
+    border: 2px solid $w4
     padding: 8px 16px
     border-radius: $default-radius
     background: none
     &:hover
         cursor: pointer
-        border-color: $b
+        border-color: $w1
         .success_button_text
-            color: $b
+            color: $w1
         .svg
-            fill: $b
+            fill: $w1
 
 .success_button_text
-    color: $b3
+    color: $w4
     +text-b
 
 .bottom_text
