@@ -35,6 +35,20 @@ class UserInfoView(APIView):
         return Response(serializer.data)
 
 
+class RecentlyAddedView(APIView):
+    def get(self, request, *args, **kwargs):
+        games = Game.objects.all()
+        games_serializer = GamesSerializer(games, many=True)
+        recent_games = [
+            game for game in games_serializer.data if game['recently_added']]
+
+        data = {
+            'data': recent_games,
+        }
+
+        return Response(data)
+
+
 class GamesView(generics.ListAPIView):
     serializer_class = GamesSerializer
     queryset = Game.objects.all()
