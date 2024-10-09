@@ -25,7 +25,11 @@ function Home() {
 
   console.log(recentlyAdded);
 
-  return <div className={style.container}>THIS IS HOME SCREEN SECTION</div>;
+  return (
+    <div className={style.container}>
+      THIS IS HOME SCREEN SECTION TEST TEST TEST TEST
+    </div>
+  );
 }
 
 export default Home;
