@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import style from "./Login.module.sass";
+import style from "./Register.module.sass";
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
 import Logo from "components/Logo/Logo";
@@ -13,11 +13,12 @@ import { Icon } from "components/Icon/Icon";
 import Modal from "components/Modal/Modal";
 import LoadingSpinner from "components/LoadingSpinner";
 
-function Login({ isAuth }: { isAuth: boolean }) {
+function Register({ isAuth }: { isAuth: boolean }) {
   const navigate = useNavigate();
 
   const { width } = useWindowDimensions();
 
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,37 +28,42 @@ function Login({ isAuth }: { isAuth: boolean }) {
   const [loading, setLoading] = useState(false);
 
   const onSuccess = () => {
-    navigate(`/`);
+    navigate(`/login`);
     window.location.reload();
   };
 
-  const login = () => {
+  const register = () => {
     setLoading(true);
     axios
       .post(
-        `${serverPath}api/token/`,
+        `${serverPath}api/register/`,
         {
+          username: username,
           password: password,
           email: email,
         },
         {}
       )
       .then((response) => {
-        const { access, refresh } = response?.data;
-        localStorage.setItem("accessToken", access);
-        localStorage.setItem("refreshToken", refresh);
-        localStorage.setItem("email", email);
-        setSuccess("You have succesfully logged in!");
+        setSuccess(
+          "You have created your account successfully! Now go on and log into your account!"
+        );
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
-        if (email === "" || password === "") {
+        if (email === "" || password === "" || username === "") {
           setError("No field can be empty!");
         } else {
           console.log(error?.response);
           if (error?.response?.data?.email) {
             setError(error?.response?.data?.email[0]);
+          }
+          if (error?.response?.data?.password) {
+            setError(error?.response?.data?.password[0]);
+          }
+          if (error?.response?.data?.username) {
+            setError(error?.response?.data?.username[0]);
           }
           if (error?.response?.data?.non_field_errors) {
             setError(error?.response?.data?.non_field_errors[0]);
@@ -68,7 +74,7 @@ function Login({ isAuth }: { isAuth: boolean }) {
 
   useEffect(() => {
     setError("");
-  }, [email, password]);
+  }, [email, password, username]);
 
   useEffect(() => {
     if (isAuth) {
@@ -92,13 +98,14 @@ function Login({ isAuth }: { isAuth: boolean }) {
       <div className={style.content}>
         {width > 1000 && (
           <img
-            src={process.env.PUBLIC_URL + "assets/grid1.png"}
+            src={process.env.PUBLIC_URL + "assets/grid2.png"}
             className={style.image}
-            alt="grid1"
+            alt="grid2"
           />
         )}
-        <div className={style.login_container}>
-          <div className={style.title}>Sign In</div>
+        <div className={style.register_container}>
+          <div className={style.title}>Sign Up</div>
+          <Input label="Username" value={username} setValue={setUsername} />
           <Input label="Email" value={email} setValue={setEmail} />
           <InputPassword
             label="Password"
@@ -121,16 +128,15 @@ function Login({ isAuth }: { isAuth: boolean }) {
           {loading ? (
             <LoadingSpinner />
           ) : (
-            <DefaultButton text="Log In" onClick={login} />
+            <DefaultButton text="Create an account" onClick={register} />
           )}
-
           <div className={style.bottom_text}>
-            Don't have an account?
+            Already have an account?
             <div
-              onClick={() => navigate(`/register`)}
-              className={style.register_link}
+              onClick={() => navigate(`/login`)}
+              className={style.login_link}
             >
-              Click here to create it!
+              Click here to log in!
             </div>
           </div>
         </div>
@@ -141,7 +147,7 @@ function Login({ isAuth }: { isAuth: boolean }) {
             <div className={style.success}>
               {success}
               <DefaultButton
-                text="Go to home"
+                text="Go to login"
                 onClick={onSuccess}
                 classname={style.success_button_container}
                 classnameText={style.success_button_text}
@@ -154,4 +160,4 @@ function Login({ isAuth }: { isAuth: boolean }) {
   );
 }
 
-export default Login;
+export default Register;

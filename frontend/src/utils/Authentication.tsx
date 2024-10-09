@@ -73,3 +73,19 @@ const isAuthenticated = async (): Promise<boolean> => {
 export const checkUserAuth = async (): Promise<boolean> => {
   return await isAuthenticated();
 };
+
+export const returnAccessToken = async () => {
+  try {
+    const isAuth = await isAuthenticated();
+    if (isAuth) {
+      const accessToken = await localStorage.getItem("accessToken");
+      return { accessToken };
+    } else {
+      const accessToken = "";
+      return { accessToken };
+    }
+  } catch (e) {
+    console.error("Failed to fetch the tokens from storage", e);
+    return { accessToken: null };
+  }
+};
