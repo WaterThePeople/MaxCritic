@@ -55,10 +55,10 @@ class UserSerializer(serializers.ModelSerializer):
 class GamesSerializer(serializers.ModelSerializer):
     released = serializers.SerializerMethodField('get_released')
 
+    def get_released(self, obj):
+        return obj.release_date <= date.today()
+
     class Meta:
         model = Game
         fields = ['id', 'name', 'image', 'score',
                   'release_date', 'recently_added', 'released']
-
-    def get_released(self, obj):
-        return obj.release_date <= date.today()

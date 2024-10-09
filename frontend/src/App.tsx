@@ -47,8 +47,6 @@ function App() {
     }
   }, [isAuthenticated]);
 
-  console.log(userData);
-
   return (
     <Router>
       <Wrapper isAuth={isAuthenticated}>
