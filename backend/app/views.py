@@ -33,3 +33,8 @@ class UserInfoView(APIView):
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+
+class GamesView(generics.ListAPIView):
+    serializer_class = GamesSerializer
+    queryset = Game.objects.all()

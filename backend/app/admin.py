@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser
 from django.contrib.auth.models import Group
+from .models import Game
 
 
 class CustomUserAdmin(UserAdmin):
@@ -28,4 +28,5 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Game)
 admin.site.unregister(Group)

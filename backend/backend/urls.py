@@ -4,9 +4,7 @@ from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
-from app.views import CustomAuthToken
-from app.views import RegisterView
-from app.views import UserInfoView
+from app.views import CustomAuthToken, RegisterView, UserInfoView, GamesView
 
 router = routers.DefaultRouter()
 
@@ -17,4 +15,5 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/register/', RegisterView.as_view(), name='register'),
     path('api/user/info/', UserInfoView.as_view(), name='user_info'),
+    path('api/games', GamesView.as_view()),
 ]

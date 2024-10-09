@@ -12,3 +12,6 @@ Username: admin
 Email: admin@gmail.com
 Password: admin
 
+Migrations:
+python manage.py makemigrations
+python manage.py migrate
