@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser
 from django.contrib.auth.models import Group
-from .models import Game
+from .models import *
 
 
 class CustomUserAdmin(UserAdmin):
@@ -11,7 +11,7 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     model = CustomUser
     list_filter = ()
-    list_display = ('username', 'email')
+    list_display = ('username', 'email', 'is_staff', 'is_superuser')
     fieldsets = (
         (None, {"fields": ('username', "email", "password")}),
     )
@@ -28,5 +28,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Game)
 admin.site.unregister(Group)

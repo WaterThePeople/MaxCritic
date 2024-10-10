@@ -2,8 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
-from .models import Game
-from datetime import date
+from .models import *
 
 User = get_user_model()
 
@@ -50,15 +49,3 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email']
-
-
-class GamesSerializer(serializers.ModelSerializer):
-    released = serializers.SerializerMethodField('get_released')
-
-    def get_released(self, obj):
-        return obj.release_date <= date.today()
-
-    class Meta:
-        model = Game
-        fields = ['id', 'name', 'image', 'score',
-                  'release_date', 'recently_added', 'released']

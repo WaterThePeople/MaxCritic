@@ -7,6 +7,8 @@ from rest_framework import generics
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated
 from .pagination import Pagination
+from ..games.models import Game
+from ..games.serializers import GamesSerializer
 
 
 class CustomAuthToken(APIView):
@@ -50,8 +52,3 @@ class RecentlyAddedView(APIView):
         }
 
         return paginator.get_paginated_response(data)
-
-
-class GamesView(generics.ListAPIView):
-    serializer_class = GamesSerializer
-    queryset = Game.objects.all()
