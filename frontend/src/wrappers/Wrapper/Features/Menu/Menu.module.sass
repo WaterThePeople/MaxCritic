@@ -5,9 +5,9 @@
     height: calc(100vh - 64px)
     background: $b1
     @include element-flex(column, flex-start, flex-start)
-    //gap: $small-gap
     transition: 0.5s
     overflow: hidden
+    position: -webkit-sticky
     position: sticky
     z-index: 5
     top: 64px
@@ -24,7 +24,7 @@
     transition: 0.5s
     width: 228px
     +m
-        width: 164px
+        width: 180px
     +s
         width: 100%
         top: 48px

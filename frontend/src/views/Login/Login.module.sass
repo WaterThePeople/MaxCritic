@@ -4,17 +4,17 @@
     flex: 1
     margin: 12px
     @include element-flex(column, center, center)
-    gap: $big-gap
+    gap: $value-6
 
 .content
     width: 80%
     background: $b1
-    margin: $giant-padding
-    border-radius: $big-radius
+    margin: $value-12
+    border-radius: $value-6
     @include element-flex(row, flex-start, flex-start)
     +m
-        border-radius: $default-radius
-        margin: $small-padding
+        border-radius: $value-3
+        margin: $value-6
 
 .back_button
     position: absolute
@@ -33,20 +33,20 @@
     min-height: 500px
     height: 100%
     object-fit: cover
-    border-radius: $big-radius 0 0 $big-radius
+    border-radius: $value-6 0 0 $value-6
 
 .login_container
     width: 400px
     padding-inline: 12px
     align-self: stretch
-    padding-top: $default-padding
-    padding-bottom: $default-padding
+    padding-top: $value-3
+    padding-bottom: $value-3
     background: $b2
-    border-radius: 0 $big-radius $big-radius 0
+    border-radius: 0 $value-6 $value-6 0
     @include element-flex(column, center, center)
     gap: 24px
     +m
-        border-radius: $default-radius
+        border-radius: $value-3
         width: 100%
 
 .title
@@ -56,13 +56,13 @@
 .error_container
     width: 100%
     @include element-flex(row, center, center)
-    gap: $small-gap
+    gap: $value-2
 
 .error_icon
-    background-color: $full-red
+    background-color: $red4
     @include element-flex(column, center, center)
     border-radius: 50%
-    padding: $tiny-padding
+    padding: $value-6
     +m
         padding: 0
 
@@ -70,7 +70,7 @@
     fill: $w3
 
 .error
-    color: $full-red
+    color: $red4
     +text-s
     +m
         +text-t
@@ -83,16 +83,16 @@
 .success
     background: $b4
     color: $w1
-    padding: $big-padding
-    border-radius: $default-radius
+    padding: $value-6
+    border-radius: $value-3
     @include element-flex(column, center, center)
-    gap: $default-gap
+    gap: $value-3
 
 .success_button_container
     @include element-flex(row, center, center)
     border: 2px solid $w4
     padding: 8px 16px
-    border-radius: $default-radius
+    border-radius: $value-3
     background: none
     &:hover
         cursor: pointer
@@ -104,13 +104,14 @@
 
 .success_button_text
     color: $w4
-    +text-b
+    +text
 
 .bottom_text
     @include element-flex(column, center, center)
     color: $w
 
 .register_link
+    text-decoration: underline
     &:hover
         cursor: pointer
-        color: $blue
+        color: $blue6

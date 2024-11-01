@@ -2,7 +2,7 @@
 
 .logo
     @include element-flex(row, center, center)
-    gap: $tiny-gap
+    gap: $value-1
     background-color: transparent
     border: 0
     padding: 0
@@ -18,6 +18,10 @@
 
 .text
     color: $w
-    +logo
+    font-size: 28px
+    font-weight: 600
+    font-style: normal
     +m
-        +logo-s
+        font-size: 18px
+        font-weight: 600
+        font-style: normal

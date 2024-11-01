@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./Home.module.sass";
+import View from "wrappers/View/View";
 
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
+
+import Welcome from "./Features/Welcome/Welcome";
 
 function Home() {
   const [recentlyAdded, setRecentlyAdded] = useState<any[]>([]);
@@ -23,12 +26,12 @@ function Home() {
     getRecentlyAdded();
   }, []);
 
-  console.log(recentlyAdded);
-
   return (
-    <div className={style.container}>
-      THIS IS HOME SCREEN SECTION TEST TEST TEST TEST
-    </div>
+    <View>
+      <div className={style.container}>
+        <Welcome />
+      </div>
+    </View>
   );
 }
 

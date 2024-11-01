@@ -119,7 +119,7 @@ function Register({ isAuth }: { isAuth: boolean }) {
                   name={"info"}
                   size={18}
                   className={style.svg}
-                  viewBox="-7 -5 18 18"
+                  viewBox="-8 -5 18 18"
                 />
               </div>
               <div className={style.error}>{error}</div>

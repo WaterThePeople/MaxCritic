@@ -22,7 +22,7 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
       <NavbarButton
         onClick={() => navigate(`/games`)}
         iconName="gamepad"
-        size={width < 1000 ? 24 : 40}
+        size={width <= 1000 ? 24 : 40}
         viewBox="-4 -3 32 32"
         title="Games"
         isFocused={location.pathname === "/games"}
@@ -31,7 +31,7 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
       <NavbarButton
         onClick={() => navigate(`/movies`)}
         iconName="movie"
-        size={width < 1000 ? 24 : 40}
+        size={width <= 1000 ? 24 : 40}
         viewBox="-13 -12 72 72"
         title="Movies"
         isFocused={location.pathname === "/movies"}
@@ -40,7 +40,7 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
       <NavbarButton
         onClick={() => navigate(`/shows`)}
         iconName="tv"
-        size={width < 1000 ? 24 : 40}
+        size={width <= 1000 ? 24 : 40}
         viewBox="-6 -6 28 28"
         title="TV Shows"
         isFocused={location.pathname === "/shows"}
@@ -49,7 +49,7 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
       <NavbarButton
         onClick={() => navigate(`/music`)}
         iconName="music"
-        size={width < 1000 ? 24 : 40}
+        size={width <= 1000 ? 24 : 40}
         viewBox="-5 -6 36 36"
         title="Music"
         isFocused={location.pathname === "/music"}

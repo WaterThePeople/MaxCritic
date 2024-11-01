@@ -1,0 +1,79 @@
+@import utils/helpers
+
+.container
+    width: 100%
+    background: linear-gradient($b, $red, $red1, $red2)
+    border-radius: $value-6
+    padding: $value-6
+    @include element-flex(column, flex-start, center)
+    gap: $value-4
+    box-sizing: border-box
+
+.bottom_container
+    width: 100%
+    @include element-flex(row, space-between, center)
+    gap: $value-4
+    +m
+        @include element-flex(column-reverse, flex-start, center)
+
+.text_container
+    @include element-flex(column, center, center)
+    flex: 1
+
+.header_text
+    color: $w
+    +title-s
+    +m
+        +title-t
+
+.description_title
+    text-align: center
+    color: $w
+    +title
+    font-style: italic
+    +m
+        +title-s
+
+.description
+    width: calc(200% / 3)
+    text-align: center
+    padding-top: $value-4
+    color: $w
+    +text-s
+    +m
+        +text-t
+
+.logo
+    @include element-flex(row, center, center)
+    gap: $value-1
+    background-color: transparent
+    border: 0
+    padding: 0
+    &:hover
+        cursor: pointer
+
+.logo_image
+    width: 120px
+    height: 120px
+    +m
+        width: 80px
+        height: 80px
+
+.logo_text
+    color: $w
+    font-size: 48px
+    font-weight: 600
+    font-style: normal
+    +m
+        font-size: 36px
+        font-weight: 600
+        font-style: normal
+
+.image
+    width: auto
+    height: 300px
+    object-fit: contain
+    +m
+        height: 175px
+    +s
+        height: 125px
