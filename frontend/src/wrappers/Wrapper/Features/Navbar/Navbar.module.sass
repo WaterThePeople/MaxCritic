@@ -63,15 +63,19 @@
         padding-bottom: $value-2
 
 .logout
-    color: $w
     background-color: transparent
-    border: 2px solid $w3
+    border: 2px solid $bw
     padding-inline: $value-6
     padding-top: $value-3
     padding-bottom: $value-3
     border-radius: $value-3
     &:hover
         cursor: pointer
+        border-color: $w
+        background-color: $b2
+        .logout_text
+            color: $w
+
     +m
         +title-t
         padding-inline: $value-4
@@ -79,6 +83,5 @@
         padding-bottom: $value-2
 
 .logout_text
-    &:hover
-        color: $w
+    color: $bw
     +title-s
