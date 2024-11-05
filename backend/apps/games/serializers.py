@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from datetime import date
+import base64
 
 
 class GameCategorySerializer(serializers.ModelSerializer):
@@ -17,9 +18,15 @@ class GamePlatformSerializer(serializers.ModelSerializer):
 
 class GamesSerializer(serializers.ModelSerializer):
     released = serializers.SerializerMethodField('get_released')
+    image = serializers.SerializerMethodField()
 
     def get_released(self, obj):
         return obj.release_date <= date.today()
+    
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
 
     class Meta:
         model = Game

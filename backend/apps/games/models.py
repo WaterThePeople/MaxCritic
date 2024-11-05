@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from datetime import date
-
+import base64
 
 class GameESRB(models.Model):
     rating_name = models.CharField(max_length=50)
@@ -53,7 +53,6 @@ class Game(models.Model):
     developer = models.CharField(max_length=120, default='')
     publisher = models.CharField(max_length=120, default='')
     ESRB = models.ManyToManyField(GameESRB)
-    image = models.ImageField(blank=True)
     score = models.IntegerField(blank=True, default=0)
     reviews = models.ManyToManyField(GameReview, blank=True)
     recently_added = models.BooleanField(default=False)
@@ -61,6 +60,8 @@ class Game(models.Model):
     category = models.ManyToManyField(GameCategory)
     budget = models.ManyToManyField(GameBudget)
     platform = models.ManyToManyField(GamePlatform)
+    #image = models.ImageField(blank=True)
+    image = models.BinaryField(blank=True, null=True)
 
     def __str__(self):
         return self.name
