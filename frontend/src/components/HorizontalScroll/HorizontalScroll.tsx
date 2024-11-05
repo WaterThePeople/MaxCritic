@@ -1,7 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import style from "./HorizontalScroll.module.sass";
 
-const HorizontalScroll = ({ children }: { children: React.ReactNode }) => {
+const HorizontalScroll = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -48,7 +52,6 @@ const HorizontalScroll = ({ children }: { children: React.ReactNode }) => {
       className={style.container}
       ref={scrollRef}
       onMouseDown={handleMouseDown}
-      onTouchStart={(e) => e.preventDefault()}
     >
       {children}
     </div>

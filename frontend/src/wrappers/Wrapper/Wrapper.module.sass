@@ -11,14 +11,32 @@
     display: flex
 
 .inner
-    width: 100%
+    width: calc(100% - 64px)
     height: 100%
+    margin-left: 64px
     min-height: calc(100vh - 64px)
     +m
         min-height: calc(100vh - 48px)
     background-color: $b
     display: flex
     box-sizing: border-box
+    +s
+        width: 100%
+        margin-left: 0
+
+.inner_menu_open
+    width: calc(100% - 228px)
+    height: 100%
+    margin-left: 228px
+    min-height: calc(100vh - 64px)
+    +m
+        min-height: calc(100vh - 48px)
+    background-color: $b
+    display: flex
+    box-sizing: border-box
+    +s
+        width: 100%
+        margin-left: 0
 
 .inner_full
     width: 100%

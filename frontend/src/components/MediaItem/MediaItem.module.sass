@@ -1,0 +1,48 @@
+@import utils/helpers
+
+.container
+    flex: 0 0 260px
+    border-radius: $value-4
+    background: $b1
+    box-sizing: border-box
+    @include element-flex(column,flex-start,flex-start)
+    gap: $value-4
+    padding: $value-4
+
+.image
+    border: 2px solid $b2
+    border-radius: $value-3
+    width: 100%
+    height: 125px
+    object-fit: cover
+
+.name
+    width: 100%
+    +text-m
+    color: $w
+
+.separator
+    width: 100%
+    height: 2px
+    background: $bw
+
+.row
+    @include element-flex(row, space-between, flex-start)
+    width: 100%
+
+.type
+    border: 2px solid $bw
+    +text-s
+    color: $w
+    border-radius: $value-3
+    padding: $value-2 $value-4
+
+.score
+    border-radius: $value-3
+    height: 75px
+    width: 75px
+    @include element-flex(row, center, center)
+    background: $green1
+    color: $w
+    +title-g
+    font-weight: 900

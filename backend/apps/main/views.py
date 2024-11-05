@@ -45,7 +45,7 @@ class RecentlyAddedView(APIView):
         games = Game.objects.all()
         games_serializer = GamesSerializer(games, many=True)
         recent_games = [
-            {**game, 'type': 'game'} for game in games_serializer.data if game['recently_added']]
+            {**game, 'type': 'Game'} for game in games_serializer.data if game['recently_added']]
 
         return paginator.get_paginated_response(paginator.paginate_queryset(recent_games, request))
 

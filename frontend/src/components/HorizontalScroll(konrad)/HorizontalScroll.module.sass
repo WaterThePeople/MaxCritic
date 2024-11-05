@@ -1,0 +1,15 @@
+@import utils/helpers
+
+.container
+    @include element-flex(row, flex-start, center)
+    gap: $value-3
+    overflow-x: auto
+    overflow-y: hidden
+    max-width: 100%
+    -ms-overflow-style: none
+    scrollbar-width: 0.8rem
+    scrollbar-color: transparent transparent
+    &::-webkit-scrollbar
+        visibility: hidden
+        width: 0.8rem
+        height: 0.8rem

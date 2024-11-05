@@ -1,6 +1,6 @@
 import style from "./RecentlyAdded.module.sass";
 import HorizontalScroll from "components/HorizontalScroll/HorizontalScroll";
-import Image from "components/Image/Image";
+import MediaItem from "components/MediaItem/MediaItem";
 
 function RecentlyAdded({ items }: { items: any[] }) {
   return (
@@ -9,9 +9,13 @@ function RecentlyAdded({ items }: { items: any[] }) {
       <div className={style.separator} />
       <HorizontalScroll>
         {items.map((item: any, index: number) => (
-          <div key={index} className={style.item}>
-            <Image image={item?.image} classname={style.image}/>
-          </div>
+          <MediaItem
+            key={index}
+            name={item?.name}
+            image={item?.image}
+            type={item?.type}
+            score={item?.score}
+          />
         ))}
       </HorizontalScroll>
     </div>
