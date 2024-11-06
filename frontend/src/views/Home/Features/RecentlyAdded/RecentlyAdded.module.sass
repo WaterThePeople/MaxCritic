@@ -5,10 +5,34 @@
     @include element-flex(column)
     gap: $value-4
 
+.row
+    width: 100%
+    @include element-flex(row, space-between, center)
+    gap: $value-1
+
 .title
     width: 100%
     color: $w
     +title
+
+.buttons
+    @include element-flex(row, center, center)
+    gap: $value-1
+
+.button
+    @include element-flex(row, center, center)
+    height: 32px
+    width: 32px
+    background: $bw
+    border-radius: 50%
+    &:hover
+        background: $w
+        cursor: pointer
+        .svg
+            fill: $b
+
+.svg
+    fill: $b2
 
 .separator
     width: 100%
