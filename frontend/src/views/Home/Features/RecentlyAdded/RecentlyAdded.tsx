@@ -47,6 +47,7 @@ function RecentlyAdded({ items }: { items: any[] }) {
             image={item?.image}
             type={item?.type}
             score={item?.score}
+            slug={item?.slug}
           />
         ))}
       </HorizontalScroll>

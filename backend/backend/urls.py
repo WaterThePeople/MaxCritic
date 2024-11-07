@@ -12,12 +12,13 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/token/', CustomAuthToken.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/register/', RegisterView.as_view(), name='register'),
-    path('api/user/info/', UserInfoView.as_view(), name='user_info'),
+    path('api/token/', CustomAuthToken.as_view()),
+    path('api/token/refresh/', TokenRefreshView.as_view()),
+    path('api/register/', RegisterView.as_view()),
+    path('api/user/info/', UserInfoView.as_view()),
     path('api/games/list', GamesView.as_view()),
-    path('api/games/category', GameCategoriesView.as_view()),
+    path('api/games/<slug:slug>/', GameView.as_view()),
+    path('api/games/categories', GameCategoriesView.as_view()),
     path('api/games/platforms', GamePlatformsView.as_view()),
     path('api/recent', RecentlyAddedView.as_view()),
 ]

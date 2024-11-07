@@ -6,6 +6,9 @@ import Login from "views/Login/Login";
 import Register from "views/Register/Register";
 import Home from "views/Home/Home";
 
+import Games from "views/Games/Games";
+import GameDetail from "views/Games/GameDetail/GameDetail";
+
 import { checkUserAuth } from "./utils/Authentication";
 
 import axios from "axios";
@@ -52,7 +55,8 @@ function App() {
       <Wrapper isAuth={isAuthenticated}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/games" />
+          <Route path="/games" element={<Games />} />
+          <Route path="/games/:slug" element={<GameDetail />} />
           <Route path="/movies" />
           <Route path="/shows" />
           <Route path="/music" />

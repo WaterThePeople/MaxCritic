@@ -18,9 +18,11 @@
     object-fit: cover
 
 .name
-    width: 100%
     +text-m
     color: $w
+    &:hover
+        text-decoration: underline
+        cursor: pointer
 
 .separator
     width: 100%
@@ -30,18 +32,26 @@
 .row
     @include element-flex(row, space-between, flex-start)
     width: 100%
+    gap: $value-4
+
+.col
+    @include element-flex(column)
+    gap: $value-4
+    flex: 1
 
 .type
     border: 2px solid $bw
     +text-s
     color: $w
     border-radius: $value-3
-    padding: $value-2 $value-4
+    height: 32px
+    padding-inline: $value-2
+    box-sizing: border-box
 
 .score
     border-radius: $value-3
-    height: 75px
-    width: 75px
+    height: 80px
+    width: 80px
     @include element-flex(row, center, center)
     color: $w
     +title-g
@@ -55,3 +65,28 @@
 
 .red
     background: $red4
+
+.expand
+    width: 100%
+    border-radius: $value-3
+    border: 2px solid $bw
+    background: transparent
+    height: 32px
+    padding-inline: $value-2
+    @include element-flex(row, space-between, center)
+    box-sizing: border-box
+    &:hover
+        cursor: pointer
+        border-color: $w
+        background-color: $b2
+        .expand_text
+            color: $w
+        .svg
+            fill: $w
+
+.expand_text
+    +text-s
+    color: $bw
+
+.svg
+    fill: $bw

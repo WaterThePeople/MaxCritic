@@ -1,0 +1,44 @@
+@import utils/helpers
+
+.container
+    width: 100%
+    +title
+    color: $w
+    background: $b1
+    border-radius: $value-6
+    @include element-flex(column, flex-start, center)
+    box-sizing: border-box
+
+.row
+    width: 100%
+    @include element-flex(row, space-between, flex-start)
+    +s
+        @include element-flex(column, center, center)
+
+.video
+    width: calc(200% / 3)
+    aspect-ratio: 16 / 9
+    background: $b2
+    border-radius: $value-6 0 $value-6 0
+    border: none
+    box-sizing: border-box
+    +s
+        width: 100%
+        background: $b1
+        padding: $value-4
+        border-radius: $value-6
+
+.info
+    width: calc(100% / 3)
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-4
+    padding: $value-4
+    align-self: stretch
+
+.name
+    color: $w
+    +title-g
+    +m
+        +title
+    +s
+        +title-t

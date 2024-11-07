@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from datetime import date
-import base64
+from django.utils.text import slugify
+
 
 class GameESRB(models.Model):
     rating_name = models.CharField(max_length=50)
@@ -48,6 +49,7 @@ class GameReview(models.Model):
 
 class Game(models.Model):
     name = models.CharField(max_length=120)
+    slug = models.SlugField(max_length=150, unique=True, blank=True, null=True)
     youtube_video = models.CharField(max_length=1000, default='')
     description = models.CharField(max_length=500, default='')
     developer = models.CharField(max_length=120, default='')
@@ -57,11 +59,26 @@ class Game(models.Model):
     reviews = models.ManyToManyField(GameReview, blank=True)
     recently_added = models.BooleanField(default=False)
     release_date = models.DateField(_("Date"), default=date.today)
-    category = models.ManyToManyField(GameCategory)
+    categories = models.ManyToManyField(GameCategory)
     budget = models.ManyToManyField(GameBudget)
-    platform = models.ManyToManyField(GamePlatform)
-    #image = models.ImageField(blank=True)
+    platforms = models.ManyToManyField(GamePlatform)
     image = models.BinaryField(blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self.generate_unique_slug()
+        super().save(*args, **kwargs)
+
+    def generate_unique_slug(self):
+        base_slug = slugify(self.name)
+        slug = base_slug
+        num = 1
+
+        while Game.objects.filter(slug=slug).exists():
+            slug = f"{base_slug}-{num}"
+            num += 1
+
+        return slug
