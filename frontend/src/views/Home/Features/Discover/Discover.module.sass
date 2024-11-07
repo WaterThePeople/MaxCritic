@@ -1,0 +1,60 @@
+@import utils/helpers
+
+.container
+    width: 100%
+    gap: $value-8
+    @include element-flex(column, flex-start, center)
+
+.header
+    width: 100%
+    color: $w
+    +title-g
+    text-align: center
+    +s
+        +title
+
+.row
+    width: 100%
+    @include element-flex(row, center, center)
+    gap: $value-4
+    box-sizing: border-box
+    flex-wrap: wrap
+    +s
+        @include element-flex(column, flex-start, center)
+
+.card
+    width: calc((100% / 3) - ($value-4 * 2 / 3))
+    min-width: 260px
+    border-radius: $value-4
+    background: $b1
+    box-sizing: border-box
+    padding: $value-4
+    padding-top: $value-8
+    gap: $value-4
+    @include element-flex(column, flex-start, center)
+    align-self: stretch
+    position: relative
+    +s
+        width: 100%
+
+.title
+    color: $w
+    +title
+    text-align: center
+    font-style: italic
+    +s
+        +title-s
+
+.text
+    color: $bw
+    +text-s
+    text-align: center
+    +s
+        +text-t
+
+.svg
+    stroke-width: 2px
+    stroke: $red5
+    fill: $b1
+    position: absolute
+    top: -24px

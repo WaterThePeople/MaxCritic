@@ -7,6 +7,7 @@ import { serverPath } from "BackendServerPath";
 
 import Welcome from "./Features/Welcome/Welcome";
 import RecentlyAdded from "./Features/RecentlyAdded/RecentlyAdded";
+import Discover from "./Features/Discover/Discover";
 
 function Home() {
   const [recentlyAdded, setRecentlyAdded] = useState<any[]>([]);
@@ -32,6 +33,7 @@ function Home() {
       <div className={style.container}>
         <Welcome />
         <RecentlyAdded items={recentlyAdded} />
+        <Discover />
       </div>
     </View>
   );

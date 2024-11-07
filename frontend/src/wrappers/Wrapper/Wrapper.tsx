@@ -47,7 +47,9 @@ function Wrapper({
       <Navbar isAuth={isAuth} setMenuVisible={setMenuVisible} />
       <div className={cn(style.content)}>
         <Menu menuVisible={menuVisible} />
-        <div className={cn(style.inner)}>{children}</div>
+        <div className={menuVisible ? style.inner_menu_open : style.inner}>
+          {children}
+        </div>
       </div>
     </div>
   ) : (
