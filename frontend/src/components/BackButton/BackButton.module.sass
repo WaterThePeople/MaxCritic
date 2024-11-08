@@ -2,13 +2,13 @@
 
 .container
     @include element-flex(row, center, center)
-    border: 2px solid $w3
+    border: 2px solid $bw
     padding-inline: 8px
     border-radius: $value-3
     background: none
+    height: 32px
     &:hover
         cursor: pointer
-        background: $b1
         border-color: $w
         .text
             color: $w
@@ -16,10 +16,8 @@
             fill: $w
 
 .svg
-    fill: $w3
-
-.icon
+    fill: $bw
 
 .text
-    color: $w3
+    color: $bw
     +text-s

@@ -78,7 +78,7 @@ export const returnAccessToken = async () => {
   try {
     const isAuth = await isAuthenticated();
     if (isAuth) {
-      const accessToken = await localStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
       return { accessToken };
     } else {
       const accessToken = "";

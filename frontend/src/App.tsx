@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import ApiTestView from "views/ApiTestView/ApiTestView";
+
 import Wrapper from "wrappers/Wrapper/Wrapper";
 import Login from "views/Login/Login";
 import Register from "views/Register/Register";
@@ -54,6 +56,8 @@ function App() {
     <Router>
       <Wrapper isAuth={isAuthenticated}>
         <Routes>
+          <Route path="/test" element={<ApiTestView />} />
+
           <Route path="/" element={<Home />} />
           <Route path="/games" element={<Games />} />
           <Route path="/games/:slug" element={<GameDetail />} />

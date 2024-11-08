@@ -1,2 +1,7 @@
-# Auto detect text files and perform LF normalization
+# Handle text files with LF endings in the repo
 * text=auto
+
+# Force binary files to use their native format
+*.jpg binary
+*.png binary
+*.exe binary

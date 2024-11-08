@@ -8,37 +8,180 @@
     border-radius: $value-6
     @include element-flex(column, flex-start, center)
     box-sizing: border-box
+    gap: $value-4
 
 .row
     width: 100%
     @include element-flex(row, space-between, flex-start)
-    +s
-        @include element-flex(column, center, center)
+    +m
+        @include element-flex(column-reverse, center, center)
+
+.video_and_description
+    width: calc(200% / 3)
+    @include element-flex(column, flex-start, center)
+    gap: $value-4
+    +m
+        width: 100%
 
 .video
-    width: calc(200% / 3)
+    width: 100%
     aspect-ratio: 16 / 9
     background: $b2
     border-radius: $value-6 0 $value-6 0
     border: none
     box-sizing: border-box
-    +s
+    +m
         width: 100%
         background: $b1
         padding: $value-4
+        padding-bottom: 0
         border-radius: $value-6
+
+.description_container
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-2
+    width: calc(100% - $value-4)
+    padding-left: $value-4
+    color: $bw
+    +text-m
+    span
+        color: $w
+        +title-m
+    +m
+        +text-s
+        span
+            +title-s
+    +s
+        +text-t
+        span
+            +title-t
 
 .info
     width: calc(100% / 3)
+    min-width: 260px
     @include element-flex(column, flex-start, flex-start)
     gap: $value-4
     padding: $value-4
-    align-self: stretch
+    box-sizing: border-box
+    +m
+        width: 100%
 
 .name
+    width: 100%
+    box-sizing: border-box
     color: $w
+    text-wrap: wrap
+    overflow-wrap: break-word
     +title-g
     +m
+        +title-s
+
+.image
+    border: 2px solid $b2
+    border-radius: $value-3
+    width: 100%
+    aspect-ratio: 16 / 9
+    object-fit: cover
+    +m
+        width: 50%
+    +s
+        width: 100%
+
+.released_on
+    width: 100%
+    box-sizing: border-box
+    color: $w
+    text-wrap: wrap
+    overflow-wrap: break-word
+    +text-m
+    +m
+        +text-s
+    +s
+        +text-t
+    span
+        color: $bw
+
+.separator
+    width: 100%
+    height: 2px
+    background: $bw
+
+.score_row
+    width: 100%
+    @include element-flex(row, space-between, center)
+    gap: $value-2
+
+.score_text_container
+    @include element-flex(column, space-between, flex-start)
+    gap: $value-2
+    align-self: stretch
+
+.score_title
+    color: $red4
+    +text
+    +m
+        +text-m
+    +s
+        +text-s
+
+.score_text
+    color: $w
+    +text-m
+    +m
+        +text-s
+    +s
+        +text-t
+
+.score
+    border-radius: $value-3
+    height: 80px
+    width: 80px
+    @include element-flex(row, center, center)
+    color: $w
+    +title-g
+    font-weight: 900
+    +m
+        height: 60px
+        width: 60px
         +title
     +s
-        +title-t
+        height: 51px
+        width: 51px
+        +title-s
+
+.green
+    background: $green4
+
+.yellow
+    background: $yellow4
+
+.red
+    background: $red4
+
+.add_score
+    border-radius: $value-3
+    border: 2px solid $bw
+    height: 80px
+    width: 80px
+    @include element-flex(row, center, center)
+    color: $bw
+    +title-g
+    font-weight: 900
+    box-sizing: border-box
+    +m
+        height: 60px
+        width: 60px
+        +title
+    +s
+        height: 51px
+        width: 51px
+        +title-s
+    &:hover
+        cursor: pointer
+        border-color: $w
+        color: $w
+        .plus_svg
+            fill: $w
+
+.plus_svg
+    fill: $bw

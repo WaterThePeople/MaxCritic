@@ -1,39 +1,61 @@
 import React, { useState, useEffect } from "react";
 import style from "./ApiTestView.module.sass";
 import axios from "axios";
+import { serverPath } from "BackendServerPath";
+import { returnAccessToken } from "utils/Authentication";
 
 function ApiTestView() {
-  const [data, setData] = useState<any[]>([]);
+  const [rating, setRating] = useState(0);
+  const [description, setDescription] = useState("");
+  const [platform, setPlatform] = useState<any[]>([]);
 
-  useEffect(() => {
+  const postReview = async () => {
+    const { accessToken } = await returnAccessToken();
     axios
-      .get("/api/items/")
+      .post(
+        `${serverPath}/api/games/reviews/create/`,
+        {
+          game_id: 1,
+          rating: rating,
+          description: description,
+          platform: platform,
+        },
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      )
       .then((response) => {
-        const data = response.data;
-        setData(data);
+        console.log(response);
       })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
+        console.log(error);
       });
-  }, []);
+  };
 
   return (
     <div className={style.container}>
       <div className={style.title}>THIS VIEW IS FOR TESTING API CALLS ONLY</div>
-      <div className={style.items_container}>
-        {data.map((item, index) => (
-          <div className={style.item} key={index}>
-            {item?.id}
-            {item?.title}
-            {item?.description}
-            {item?.completed}
-          </div>
-        ))}
-      </div>
+      <input
+        placeholder="platform"
+        className={style.input}
+        type="number"
+        value={platform}
+        onChange={(e) => setPlatform([parseInt(e.target.value)])}
+      />
+      <input
+        placeholder="description"
+        className={style.input}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <input
+        placeholder="rating"
+        className={style.input}
+        type="number"
+        value={rating}
+        onChange={(e) => setRating(parseInt(e.target.value))}
+      />
+      <button onClick={() => postReview()}>Post review</button>
     </div>
   );
 }

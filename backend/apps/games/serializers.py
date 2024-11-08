@@ -28,10 +28,47 @@ class GamePlatformsSerializer(serializers.ModelSerializer):
         fields = ['id', 'platform_name']
 
 
-class GameReviewsSerializer(serializers.ModelSerializer):
+class GameReviewSerializer(serializers.ModelSerializer):
+    game_id = serializers.IntegerField(write_only=True)
+
     class Meta:
         model = GameReview
-        fields = '__all__'
+        fields = ['game_id', 'rating', 'description', 'platform']
+
+    def create(self, validated_data):
+        game_id = validated_data.pop('game_id')
+        platform_data = validated_data.pop('platform', [])
+
+        try:
+            game = Game.objects.get(id=game_id)
+        except Game.DoesNotExist:
+            raise serializers.ValidationError(
+                "Game with the provided ID does not exist.")
+
+        user = self.context['request'].user
+
+        try:
+            latest_review = GameReview.objects.latest('id')
+            review_id = latest_review.id + 1
+        except GameReview.DoesNotExist:
+            review_id = 1
+
+        review = GameReview.objects.create(
+            game_name=game.name,
+            game_id=game_id,
+            review_id=review_id,
+            author=user.username,
+            author_id=user.id,
+            date=date.today(),
+            **validated_data
+        )
+
+        review.platform.set(platform_data)
+
+        game.reviews.add(review)
+        game.save()
+
+        return review
 
 
 class GamesSerializer(serializers.ModelSerializer):
@@ -57,7 +94,7 @@ class GameSerializer(serializers.ModelSerializer):
     platforms = GamePlatformsSerializer(many=True)
     ESRB = GameESRBSerializer(many=True)
     budget = GameBudgetSerializer(many=True)
-    reviews = GameReviewsSerializer(many=True)
+    reviews = GameReviewSerializer(many=True)
 
     class Meta:
         model = Game

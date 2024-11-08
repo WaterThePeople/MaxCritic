@@ -3,6 +3,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 
 class GameCategoriesView(generics.ListCreateAPIView):
@@ -18,6 +19,18 @@ class GamePlatformsView(generics.ListCreateAPIView):
 class GamesView(generics.ListAPIView):
     serializer_class = GamesSerializer
     queryset = Game.objects.all()
+
+
+class GameReviewCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = GameReviewSerializer(
+            data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GameView(APIView):

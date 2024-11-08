@@ -16,7 +16,6 @@ function Home() {
     axios
       .get(`${serverPath}api/recent?page_size=8`, {})
       .then((response) => {
-        console.log(response);
         setRecentlyAdded(response?.data?.results);
       })
       .catch((error) => {

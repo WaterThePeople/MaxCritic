@@ -44,7 +44,7 @@ class GameReview(models.Model):
     platform = models.ManyToManyField(GamePlatform)
 
     def __str__(self):
-        return self.review_id
+        return str(self.review_id)
 
 
 class Game(models.Model):

@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/user/info/', UserInfoView.as_view()),
     path('api/games/list', GamesView.as_view()),
     path('api/games/<slug:slug>/', GameView.as_view()),
+    path('api/games/reviews/create/', GameReviewCreateView.as_view()),
     path('api/games/categories', GameCategoriesView.as_view()),
     path('api/games/platforms', GamePlatformsView.as_view()),
     path('api/recent', RecentlyAddedView.as_view()),
