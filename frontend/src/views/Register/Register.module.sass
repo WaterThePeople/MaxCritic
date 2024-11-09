@@ -41,7 +41,7 @@
     align-self: stretch
     padding-top: $value-3
     padding-bottom: $value-3
-    background: $b2
+    background: $b1
     border-radius: 0 $value-6 $value-6 0
     @include element-flex(column, center, center)
     gap: 24px
@@ -81,29 +81,31 @@
     @include element-flex(column, center, center)
 
 .success
-    background: $b4
+    background: $b1
     color: $w1
     padding: $value-6
     border-radius: $value-3
     @include element-flex(column, center, center)
     gap: $value-3
+    border: 2px solid $b2
 
 .success_button_container
     @include element-flex(row, center, center)
-    border: 2px solid $w4
+    border: 2px solid $bw
     padding: 8px 16px
     border-radius: $value-3
     background: none
     &:hover
         cursor: pointer
-        border-color: $w1
+        border-color: $w
+        background: $b2
         .success_button_text
-            color: $w1
+            color: $w
         .svg
-            fill: $w1
+            fill: $w
 
 .success_button_text
-    color: $w4
+    color: $bw
     +text
 
 .bottom_text

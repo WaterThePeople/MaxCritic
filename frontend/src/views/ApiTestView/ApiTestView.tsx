@@ -3,6 +3,7 @@ import style from "./ApiTestView.module.sass";
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
 import { returnAccessToken } from "utils/Authentication";
+import LoadingCard from "components/LoadingCard/LoadingCard";
 
 function ApiTestView() {
   const [rating, setRating] = useState(0);
@@ -56,6 +57,7 @@ function ApiTestView() {
         onChange={(e) => setRating(parseInt(e.target.value))}
       />
       <button onClick={() => postReview()}>Post review</button>
+      <LoadingCard classname={style.loading_card} spinnerSize={50} />
     </div>
   );
 }
