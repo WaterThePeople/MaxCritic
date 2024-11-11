@@ -121,6 +121,33 @@ function GameDetail() {
             </div>
           </div>
           <div className={style.separator} />
+          <div className={style.categories_container}>
+            <span>Genres:</span>
+            <div className={style.categories}>
+              {game?.categories?.map((item: any, index: number) => (
+                <div className={style.category_row} key={index}>
+                  <Image image={item?.image} classname={style.category_image} />
+                  {item?.category_name}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={style.separator} />
+          <div className={style.platforms_container}>
+            <span>Available on:</span>
+            <div className={style.platforms}>
+              {game?.platforms?.map((item: any, index: number) => (
+                <div className={style.platform_row} key={index}>
+                  <Image image={item?.image} classname={style.platform_image} />
+                  {item?.platform_name}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className={style.separator} />
+          <div className={style.details_container}>
+            <span>Details:</span>
+          </div>
         </div>
       )}
     </View>

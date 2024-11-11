@@ -24,7 +24,7 @@ const isTokenExpired = (token: string): boolean => {
   if (!decoded) {
     return true;
   }
-  const currentTime = Date.now() / 1000; // current time in seconds
+  const currentTime = Date.now() / 1000;
   return decoded.exp < currentTime;
 };
 

@@ -9,6 +9,7 @@
     @include element-flex(column, flex-start, center)
     box-sizing: border-box
     gap: $value-4
+    padding-bottom: $value-4
 
 .row
     width: 100%
@@ -46,15 +47,15 @@
     +text-m
     span
         color: $w
-        +title-m
+        +text-m
     +m
         +text-s
         span
-            +title-s
+            +text-s
     +s
         +text-t
         span
-            +title-t
+            +text-t
 
 .info
     width: calc(100% / 3)
@@ -196,3 +197,104 @@
 
 .plus_svg
     fill: $bw
+
+.platforms_container
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-2
+    width: calc(100% - $value-4*2)
+    padding-inline: $value-4
+    color: $bw
+    +text-m
+    span
+        color: $w
+        +text-m
+    +m
+        +text-s
+        span
+            +text-s
+    +s
+        +text-t
+        span
+            +text-t
+
+.platforms
+    @include element-flex(row, flex-start, center)
+    gap: $value-4
+    flex-wrap: wrap
+    +m
+        gap: $value-2
+
+.platform_row
+    @include element-flex(row, flex-start, center)
+    gap: $value-2
+    padding: $value-2
+    background: $b2
+    border-radius: $value-3
+
+.platform_image
+    height: 48px
+    width: 48px
+    border-radius: $value-1
+    +m
+        height: 24px
+        width: 24px
+
+.categories_container
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-2
+    width: calc(100% - $value-4*2)
+    padding-inline: $value-4
+    color: $bw
+    +text-m
+    span
+        color: $w
+        +text-m
+    +m
+        +text-s
+        span
+            +text-s
+    +s
+        +text-t
+        span
+            +text-t
+
+.categories
+    @include element-flex(row, flex-start, center)
+    gap: $value-4
+    flex-wrap: wrap
+    +m
+        gap: $value-2
+
+.category_row
+    @include element-flex(row, flex-start, center)
+    gap: $value-2
+    padding: $value-2
+    background: $b2
+    border-radius: $value-3
+
+.category_image
+    height: 48px
+    width: 48px
+    border-radius: $value-1
+    +m
+        height: 24px
+        width: 24px
+
+.details_container
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-2
+    width: calc(100% - $value-4*2)
+    padding-inline: $value-4
+    color: $bw
+    +text-m
+    span
+        color: $w
+        +text-m
+    +m
+        +text-s
+        span
+            +text-s
+    +s
+        +text-t
+        span
+            +text-t
