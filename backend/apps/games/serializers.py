@@ -5,27 +5,81 @@ import base64
 
 
 class GameESRBSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
+
     class Meta:
         model = GameESRB
-        fields = ['id', 'rating_name']
+        fields = ['id', 'rating_name', 'image']
 
 
 class GameCategoriesSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
+
     class Meta:
         model = GameCategory
-        fields = ['id', 'category_name']
+        fields = ['id', 'category_name', 'image']
 
 
 class GameBudgetSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
+
     class Meta:
         model = GameBudget
-        fields = ['id', 'budget_name']
+        fields = ['id', 'budget_name', 'image']
 
 
 class GamePlatformsSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
+
     class Meta:
         model = GamePlatform
-        fields = ['id', 'platform_name']
+        fields = ['id', 'platform_name', 'image']
+
+
+class GamePublisherSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
+
+    class Meta:
+        model = GamePublisher
+        fields = ['id', 'name', 'image']
+
+
+class GameDeveloperSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
+
+    class Meta:
+        model = GameDeveloper
+        fields = ['id', 'name', 'image']
 
 
 class GameReviewSerializer(serializers.ModelSerializer):
@@ -92,8 +146,10 @@ class GamesSerializer(serializers.ModelSerializer):
 class GameSerializer(serializers.ModelSerializer):
     categories = GameCategoriesSerializer(many=True)
     platforms = GamePlatformsSerializer(many=True)
-    ESRB = GameESRBSerializer(many=True)
-    budget = GameBudgetSerializer(many=True)
+    ESRB = GameESRBSerializer(many=False)
+    budget = GameBudgetSerializer(many=False)
+    publisher = GamePublisherSerializer(many=False)
+    developer = GameDeveloperSerializer(many=False)
     reviews = GameReviewSerializer(many=True)
 
     class Meta:

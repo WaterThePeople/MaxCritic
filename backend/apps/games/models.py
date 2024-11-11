@@ -2,10 +2,17 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from datetime import date
 from django.utils.text import slugify
+import base64
 
 
 class GameESRB(models.Model):
     rating_name = models.CharField(max_length=50)
+    image = models.BinaryField(blank=True, null=True)
+
+    def image_as_base64(self):
+        if self.image:
+            return base64.b64encode(self.image).decode('utf-8')
+        return None
 
     def __str__(self):
         return self.rating_name
@@ -13,6 +20,12 @@ class GameESRB(models.Model):
 
 class GameCategory(models.Model):
     category_name = models.CharField(max_length=50)
+    image = models.BinaryField(blank=True, null=True)
+
+    def image_as_base64(self):
+        if self.image:
+            return base64.b64encode(self.image).decode('utf-8')
+        return None
 
     def __str__(self):
         return self.category_name
@@ -20,6 +33,12 @@ class GameCategory(models.Model):
 
 class GameBudget(models.Model):
     budget_name = models.CharField(max_length=50)
+    image = models.BinaryField(blank=True, null=True)
+
+    def image_as_base64(self):
+        if self.image:
+            return base64.b64encode(self.image).decode('utf-8')
+        return None
 
     def __str__(self):
         return self.budget_name
@@ -27,9 +46,41 @@ class GameBudget(models.Model):
 
 class GamePlatform(models.Model):
     platform_name = models.CharField(max_length=50)
+    image = models.BinaryField(blank=True, null=True)
+
+    def image_as_base64(self):
+        if self.image:
+            return base64.b64encode(self.image).decode('utf-8')
+        return None
 
     def __str__(self):
         return self.platform_name
+
+
+class GameDeveloper(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+    image = models.BinaryField(blank=True, null=True)
+
+    def image_as_base64(self):
+        if self.image:
+            return base64.b64encode(self.image).decode('utf-8')
+        return None
+
+    def __str__(self):
+        return self.name
+
+
+class GamePublisher(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+    image = models.BinaryField(blank=True, null=True)
+
+    def image_as_base64(self):
+        if self.image:
+            return base64.b64encode(self.image).decode('utf-8')
+        return None
+
+    def __str__(self):
+        return self.name
 
 
 class GameReview(models.Model):
@@ -51,16 +102,20 @@ class Game(models.Model):
     name = models.CharField(max_length=120)
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True)
     youtube_video = models.CharField(max_length=1000, default='')
-    description = models.CharField(max_length=500, default='')
-    developer = models.CharField(max_length=120, default='')
-    publisher = models.CharField(max_length=120, default='')
-    ESRB = models.ManyToManyField(GameESRB)
+    description = models.TextField(max_length=500, default='')
+    developer = models.ForeignKey(
+        GameDeveloper, on_delete=models.CASCADE, null=True)
+    publisher = models.ForeignKey(
+        GamePublisher, on_delete=models.CASCADE, null=True)
+    ESRB = models.ForeignKey(
+        GameESRB, on_delete=models.CASCADE, null=True)
     score = models.IntegerField(blank=True, default=0)
     reviews = models.ManyToManyField(GameReview, blank=True)
     recently_added = models.BooleanField(default=False)
     release_date = models.DateField(_("Date"), default=date.today)
     categories = models.ManyToManyField(GameCategory)
-    budget = models.ManyToManyField(GameBudget)
+    budget = models.ForeignKey(
+        GameBudget, on_delete=models.CASCADE, null=True)
     platforms = models.ManyToManyField(GamePlatform)
     image = models.BinaryField(blank=True, null=True)
 
@@ -71,6 +126,11 @@ class Game(models.Model):
         if not self.slug:
             self.slug = self.generate_unique_slug()
         super().save(*args, **kwargs)
+
+    def image_as_base64(self):
+        if self.image:
+            return base64.b64encode(self.image).decode('utf-8')
+        return None
 
     def generate_unique_slug(self):
         base_slug = slugify(self.name)
