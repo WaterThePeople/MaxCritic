@@ -5,8 +5,9 @@ import HorizontalScroll, {
 } from "components/HorizontalScroll/HorizontalScroll";
 import MediaItem from "components/MediaItem/MediaItem";
 import { Icon } from "components/Icon/Icon";
+import LoadingCard from "components/LoadingCard/LoadingCard";
 
-function RecentlyAdded({ items }: { items: any[] }) {
+function RecentlyAdded({ items, loading }: { items: any[]; loading: boolean }) {
   const horizontalScrollRef = useRef<HorizontalScrollRef>(null);
 
   return (
@@ -39,18 +40,26 @@ function RecentlyAdded({ items }: { items: any[] }) {
         </div>
       </div>
       <div className={style.separator} />
-      <HorizontalScroll ref={horizontalScrollRef}>
-        {items.map((item: any, index: number) => (
-          <MediaItem
-            key={index}
-            name={item?.name}
-            image={item?.image}
-            type={item?.type}
-            score={item?.score}
-            slug={item?.slug}
-          />
-        ))}
-      </HorizontalScroll>
+      {loading ? (
+        <HorizontalScroll ref={horizontalScrollRef}>
+          {[...Array(8)].map((item: any, index: number) => (
+            <LoadingCard key={index} classname={style.loading_card} />
+          ))}
+        </HorizontalScroll>
+      ) : (
+        <HorizontalScroll ref={horizontalScrollRef}>
+          {items.map((item: any, index: number) => (
+            <MediaItem
+              key={index}
+              name={item?.name}
+              image={item?.image}
+              type={item?.type}
+              score={item?.score}
+              slug={item?.slug}
+            />
+          ))}
+        </HorizontalScroll>
+      )}
     </div>
   );
 }

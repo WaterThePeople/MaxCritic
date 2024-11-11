@@ -93,13 +93,24 @@
     color: $w
     text-wrap: wrap
     overflow-wrap: break-word
-    +text-m
-    +m
-        +text-s
+    +text-s
     +s
         +text-t
     span
         color: $bw
+
+.released_on_row
+    @include element-flex(row, flex-start, center)
+    gap: $value-2
+
+.released_on_box
+    background: $bw
+    color: $b
+    border-radius: $value-1
+    padding-inline: $value-2
+    +text-s
+    +s
+        +text-t
 
 .separator
     width: 100%
