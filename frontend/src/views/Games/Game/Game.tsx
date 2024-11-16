@@ -25,7 +25,6 @@ function Game() {
     axios
       .get(`${serverPath}api/games/${slug}/`, {})
       .then((response) => {
-        console.log(response?.data);
         setGame(response?.data);
         setLoading(false);
       })

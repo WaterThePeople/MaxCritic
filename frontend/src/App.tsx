@@ -8,6 +8,8 @@ import Login from "views/Login/Login";
 import Register from "views/Register/Register";
 import Home from "views/Home/Home";
 
+import Profile from "views/Profile/Profile";
+
 import Games from "views/Games/Games";
 import GameDetail from "views/Games/Game/Game";
 
@@ -54,11 +56,12 @@ function App() {
 
   return (
     <Router>
-      <Wrapper isAuth={isAuthenticated}>
+      <Wrapper isAuth={isAuthenticated} userData={userData}>
         <Routes>
           <Route path="/test" element={<ApiTestView />} />
 
           <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/games" element={<Games />} />
           <Route path="/games/:slug" element={<GameDetail />} />
           <Route path="/movies" />

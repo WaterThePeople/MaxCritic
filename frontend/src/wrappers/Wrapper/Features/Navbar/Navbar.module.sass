@@ -62,7 +62,147 @@
         padding-top: $value-2
         padding-bottom: $value-2
 
+.user_menu
+    @include element-flex(column)
+    gap: $value-2
+    position: relative
+
+.user
+    min-width: 125px
+    background-color: $b1
+    @include element-flex(row, space-between, center)
+    gap: $value-4
+    border-radius: $value-3
+    box-sizing: border-box
+    height: 48px
+    border: 2px solid $bw
+    &:hover
+        cursor: pointer
+        border-color: $w
+        background-color: $b2
+        .user_text
+            color: $w
+    +m
+        min-width: 75px
+        height: 32px
+        border-radius: $value-2
+        &.visible
+            border-radius: $value-2 $value-2 0 0
+        .user_image
+            border-radius: 0 $value-2 $value-2 0
+        .user_text
+            +title-12
+    &.visible
+        border-radius: $value-3 $value-3 0 0
+
+.user_text
+    box-sizing: border-box
+    flex: 1
+    color: $bw
+    padding-left: $value-4
+    +title-16
+
+.user_image
+    box-sizing: border-box
+    border-radius: 0 $value-3 $value-3 0
+    border-left: 2px solid $bw
+    height: 100%
+    width: 48px
+    +m
+        height: 100%
+        width: 32px
+
+.user_menu_item
+    width: 100%
+    @include element-flex(row, center, center)
+    position: absolute
+    top: 48px
+    left: 0
+    background-color: $b1
+    box-sizing: border-box
+    height: 48px
+    border: 2px solid $bw
+    border-top: 0
+    border-bottom: 0
+    &:hover
+        cursor: pointer
+        border-color: $w
+        background-color: $b2
+        .user_text
+            color: $w
+    +m
+        top: 32px
+        height: 32px
+        .user_text
+            +title-12
+
+.user_menu_item_2
+    width: 100%
+    @include element-flex(row, center, center)
+    position: absolute
+    top: 96px
+    left: 0
+    background-color: $b1
+    border-radius: 0 0 $value-3 $value-3
+    box-sizing: border-box
+    height: 48px
+    border: 2px solid $bw
+    &:hover
+        cursor: pointer
+        border-color: $w
+        background-color: $b2
+        .user_text
+            color: $w
+    +m
+        top: 64px
+        height: 32px
+        .user_text
+            +title-12
+
+.logout_modal_container
+    max-width: 260px
+    background: $b1
+    color: $w1
+    padding: $value-6
+    border-radius: $value-3
+    @include element-flex(column, center, center)
+    gap: $value-4
+    border: 2px solid $b2
+
+.confirm_logout_text
+    color: $w
+    +title-18
+    text-align: center
+
+.logout_modal_row
+    @include element-flex(row, space-between, center)
+    gap: $value-4
+
 .logout
+    background-color: transparent
+    border: 2px solid $red6
+    padding-inline: $value-6
+    padding-top: $value-3
+    padding-bottom: $value-3
+    border-radius: $value-3
+    &:hover
+        cursor: pointer
+        border-color: $red4
+        background-color: $b2
+        .logout_text
+            color: $red4
+
+    +m
+        +title-12
+        padding-inline: $value-4
+        padding-top: $value-2
+        padding-bottom: $value-2
+
+.logout_text
+    color: $red6
+    +title-16
+
+.logout_cancel
     background-color: transparent
     border: 2px solid $bw
     padding-inline: $value-6
@@ -82,6 +222,6 @@
         padding-top: $value-2
         padding-bottom: $value-2
 
-.logout_text
+.logout_cancel_text
     color: $bw
     +title-16

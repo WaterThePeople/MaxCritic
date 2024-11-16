@@ -9,9 +9,11 @@ import useWindowDimensions from "utils/useWindowDimensions";
 function Wrapper({
   children,
   isAuth,
+  userData,
 }: {
   children: React.ReactNode;
   isAuth: boolean;
+  userData: any;
 }) {
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -44,7 +46,11 @@ function Wrapper({
 
   return visibleNavbar ? (
     <div className={style.container}>
-      <Navbar isAuth={isAuth} setMenuVisible={setMenuVisible} />
+      <Navbar
+        isAuth={isAuth}
+        setMenuVisible={setMenuVisible}
+        userData={userData}
+      />
       <div className={cn(style.content)}>
         <Menu menuVisible={menuVisible} />
         <div className={menuVisible ? style.inner_menu_open : style.inner}>

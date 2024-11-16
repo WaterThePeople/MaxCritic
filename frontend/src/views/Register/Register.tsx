@@ -143,16 +143,14 @@ function Register({ isAuth }: { isAuth: boolean }) {
       </div>
       {success && (
         <Modal>
-          <div className={style.modal_container}>
-            <div className={style.success}>
-              {success}
-              <DefaultButton
-                text="Go to login"
-                onClick={onSuccess}
-                classname={style.success_button_container}
-                classnameText={style.success_button_text}
-              />
-            </div>
+          <div className={style.success}>
+            {success}
+            <DefaultButton
+              text="Go to login"
+              onClick={onSuccess}
+              classname={style.success_button_container}
+              classnameText={style.success_button_text}
+            />
           </div>
         </Modal>
       )}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "./Modal.module.sass";
+import OutsideClickHandler from "components/OutsideClickHandler/OutsideClickHandler";
 
 function Modal({
   children,
@@ -10,7 +11,17 @@ function Modal({
   visible?: boolean;
   setVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  return <div className={style.modal}>{children}</div>;
+  return (
+    <div className={style.modal}>
+      {setVisible ? (
+        <OutsideClickHandler onClickOutside={() => setVisible(false)}>
+          {children}
+        </OutsideClickHandler>
+      ) : (
+        children
+      )}
+    </div>
+  );
 }
 
 export default Modal;
