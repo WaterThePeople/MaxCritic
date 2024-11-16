@@ -1,4 +1,4 @@
-@import utils/helpers
+@import 'styles'
 
 .container
     width: 100%
@@ -22,26 +22,26 @@
 
 .header_text
     color: $w
-    +title-s
+    +title-16
     +m
-        +title-t
+        +title-12
 
 .description_title
     text-align: center
     color: $w
-    +title
+    +title-24
     font-style: italic
     +m
-        +title-s
+        +title-16
 
 .description
     width: calc(200% / 3)
     text-align: center
     padding-top: $value-4
     color: $bw
-    +text-s
+    +label-16
     +m
-        +text-t
+        +label-12
 
 .logo
     @include element-flex(row, center, center)

@@ -1,8 +1,8 @@
-@import utils/helpers
+@import 'styles'
 
 .container
     width: 100%
-    +title
+    +title-24
     color: $w
     background: $b1
     border-radius: $value-6
@@ -38,25 +38,6 @@
         padding-bottom: 0
         border-radius: $value-6
 
-.description_container
-    @include element-flex(column, flex-start, flex-start)
-    gap: $value-2
-    width: calc(100% - $value-4)
-    padding-left: $value-4
-    color: $bw
-    +text-m
-    span
-        color: $w
-        +text-m
-    +m
-        +text-s
-        span
-            +text-s
-    +s
-        +text-t
-        span
-            +text-t
-
 .info
     width: calc(100% / 3)
     min-width: 260px
@@ -73,9 +54,9 @@
     color: $w
     text-wrap: wrap
     overflow-wrap: break-word
-    +title-g
+    +title-32
     +m
-        +title-s
+        +title-16
 
 .image
     border: 2px solid $b2
@@ -94,9 +75,9 @@
     color: $w
     text-wrap: wrap
     overflow-wrap: break-word
-    +text-s
+    +label-16
     +s
-        +text-t
+        +label-12
     span
         color: $bw
 
@@ -109,9 +90,9 @@
     color: $b
     border-radius: $value-1
     padding-inline: $value-2
-    +text-s
+    +label-16
     +s
-        +text-t
+        +label-12
 
 .separator
     width: 100%
@@ -130,19 +111,19 @@
 
 .score_title
     color: $red4
-    +text
+    +label-24
     +m
-        +text-m
+        +label-20
     +s
-        +text-s
+        +label-16
 
 .score_text
     color: $w
-    +text-m
+    +label-20
     +m
-        +text-s
+        +label-16
     +s
-        +text-t
+        +label-12
 
 .score
     border-radius: $value-3
@@ -150,16 +131,16 @@
     width: 80px
     @include element-flex(row, center, center)
     color: $w
-    +title-g
+    +title-32
     font-weight: 900
     +m
         height: 60px
         width: 60px
-        +title
+        +title-24
     +s
         height: 51px
         width: 51px
-        +title-s
+        +title-16
 
 .green
     background: $green4
@@ -177,17 +158,17 @@
     width: 80px
     @include element-flex(row, center, center)
     color: $bw
-    +title-g
+    +title-32
     font-weight: 900
     box-sizing: border-box
     +m
         height: 60px
         width: 60px
-        +title
+        +title-24
     +s
         height: 51px
         width: 51px
-        +title-s
+        +title-16
     &:hover
         cursor: pointer
         border-color: $w
@@ -197,104 +178,33 @@
 
 .plus_svg
     fill: $bw
-
-.platforms_container
-    @include element-flex(column, flex-start, flex-start)
-    gap: $value-2
-    width: calc(100% - $value-4*2)
-    padding-inline: $value-4
-    color: $bw
-    +text-m
-    span
-        color: $w
-        +text-m
-    +m
-        +text-s
-        span
-            +text-s
-    +s
-        +text-t
-        span
-            +text-t
-
-.platforms
-    @include element-flex(row, flex-start, center)
-    gap: $value-4
-    flex-wrap: wrap
-    +m
-        gap: $value-2
-
-.platform_row
-    @include element-flex(row, flex-start, center)
-    gap: $value-2
-    padding: $value-2
-    background: $b2
-    border-radius: $value-3
-
-.platform_image
     height: 48px
     width: 48px
-    border-radius: $value-1
     +m
+        height: 32px
+        width: 32px
+    +s
         height: 24px
         width: 24px
 
-.categories_container
-    @include element-flex(column, flex-start, flex-start)
-    gap: $value-2
-    width: calc(100% - $value-4*2)
-    padding-inline: $value-4
-    color: $bw
-    +text-m
-    span
-        color: $w
-        +text-m
-    +m
-        +text-s
-        span
-            +text-s
-    +s
-        +text-t
-        span
-            +text-t
-
-.categories
-    @include element-flex(row, flex-start, center)
-    gap: $value-4
-    flex-wrap: wrap
-    +m
-        gap: $value-2
-
-.category_row
-    @include element-flex(row, flex-start, center)
-    gap: $value-2
-    padding: $value-2
-    background: $b2
+.library_button
     border-radius: $value-3
-
-.category_image
-    height: 48px
-    width: 48px
-    border-radius: $value-1
-    +m
-        height: 24px
-        width: 24px
-
-.details_container
-    @include element-flex(column, flex-start, flex-start)
-    gap: $value-2
-    width: calc(100% - $value-4*2)
-    padding-inline: $value-4
+    border: 2px solid $bw
+    height: 80px
+    width: 100%
+    @include element-flex(row, center, center)
     color: $bw
-    +text-m
-    span
-        color: $w
-        +text-m
+    +label-24
+    box-sizing: border-box
     +m
-        +text-s
-        span
-            +text-s
+        height: 60px
+        +label-20
     +s
-        +text-t
-        span
-            +text-t
+        height: 51px
+        +label-16
+    &:hover
+        cursor: pointer
+        border-color: $w
+        color: $w
+        .plus_svg
+            fill: $w

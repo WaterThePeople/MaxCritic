@@ -1,0 +1,51 @@
+@import 'styles'
+
+.container
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-2
+    width: calc(100% - $value-4*2)
+    padding-inline: $value-4
+
+.title_row
+    width: 100%
+    @include element-flex(row, flex-start, center)
+    gap: $value-2
+    height: 28px
+    +m
+        height: 26px
+    +s
+        height: 24px
+
+.square
+    height: 100%
+    width: $value-4
+    border-radius: $value-1
+    +m
+        width: $value-3
+    &.default
+        background-color: $bw
+    &.red
+        background-color: $red4
+    &.green
+        background-color: $green4
+    &.yellow
+        background-color: $yellow4
+    &.blue
+        background-color: $blue4
+
+.title
+    color: $w
+    +label-20
+    +m
+        +label-18
+    +s
+        +label-14
+
+.content
+    width: 100%
+    color: $bw
+    +label-18
+    +m
+        +label-16
+    +s
+        +label-12

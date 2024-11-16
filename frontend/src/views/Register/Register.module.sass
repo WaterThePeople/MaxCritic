@@ -1,4 +1,4 @@
-@import utils/helpers
+@import 'styles'
 
 .container
     flex: 1
@@ -50,7 +50,7 @@
         width: 100%
 
 .title
-    +title-g
+    +title-32
     color: $w
 
 .error_container
@@ -71,9 +71,9 @@
 
 .error
     color: $red4
-    +text-s
+    +label-16
     +m
-        +text-t
+        +label-12
 
 .modal_container
     width: 100%
@@ -106,7 +106,7 @@
 
 .success_button_text
     color: $bw
-    +text
+    +label-24
 
 .bottom_text
     @include element-flex(column, center, center)

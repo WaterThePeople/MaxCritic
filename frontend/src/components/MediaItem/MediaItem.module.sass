@@ -1,4 +1,4 @@
-@import utils/helpers
+@import 'styles'
 
 .container
     flex: 0 0 260px
@@ -18,7 +18,7 @@
     object-fit: cover
 
 .name
-    +text-m
+    +label-20
     color: $w
     &:hover
         text-decoration: underline
@@ -41,7 +41,7 @@
 
 .type
     border: 2px solid $bw
-    +text-s
+    +label-16
     color: $w
     border-radius: $value-3
     height: 32px
@@ -54,7 +54,7 @@
     width: 80px
     @include element-flex(row, center, center)
     color: $w
-    +title-g
+    +title-32
     font-weight: 900
 
 .green
@@ -85,7 +85,7 @@
             fill: $w
 
 .expand_text
-    +text-s
+    +label-16
     color: $bw
 
 .svg

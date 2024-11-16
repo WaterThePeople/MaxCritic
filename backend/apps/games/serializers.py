@@ -149,7 +149,7 @@ class GameSerializer(serializers.ModelSerializer):
     ESRB = GameESRBSerializer(many=False)
     budget = GameBudgetSerializer(many=False)
     publisher = GamePublisherSerializer(many=False)
-    developer = GameDeveloperSerializer(many=False)
+    developer = GameDeveloperSerializer(many=True)
     reviews = GameReviewSerializer(many=True)
 
     class Meta:

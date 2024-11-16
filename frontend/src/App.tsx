@@ -9,7 +9,7 @@ import Register from "views/Register/Register";
 import Home from "views/Home/Home";
 
 import Games from "views/Games/Games";
-import GameDetail from "views/Games/GameDetail/GameDetail";
+import GameDetail from "views/Games/Game/Game";
 
 import { checkUserAuth } from "./utils/Authentication";
 

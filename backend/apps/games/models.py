@@ -103,8 +103,7 @@ class Game(models.Model):
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True)
     youtube_video = models.CharField(max_length=1000, default='')
     description = models.TextField(max_length=500, default='')
-    developer = models.ForeignKey(
-        GameDeveloper, on_delete=models.CASCADE, null=True)
+    developer = models.ManyToManyField(GameDeveloper)
     publisher = models.ForeignKey(
         GamePublisher, on_delete=models.CASCADE, null=True)
     ESRB = models.ForeignKey(

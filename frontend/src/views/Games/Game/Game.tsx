@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import style from "./GameDetail.module.sass";
+import style from "./Game.module.sass";
 import View from "wrappers/View/View";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -9,8 +9,12 @@ import axios from "axios";
 import { serverPath } from "BackendServerPath";
 import { Icon } from "components/Icon/Icon";
 import LoadingCard from "components/LoadingCard/LoadingCard";
+import Section from "components/Section/Section";
+import GameCategories from "./Features/GameCategories/GameCategories";
+import GamePlatforms from "./Features/GamePlatforms/GamePlatforms";
+import GameDetails from "./Features/GameDetails/GameDetails";
 
-function GameDetail() {
+function Game() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [game, setGame] = useState<any>();
@@ -69,17 +73,16 @@ function GameDetail() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-              <div className={style.description_container}>
-                <span>Summary:</span>
+              <Section title="Summary" sectionColor="yellow">
                 {game?.description}
-              </div>
+              </Section>
             </div>
             <div className={style.info}>
               <div className={style.name}>{game?.name}</div>
               <Image image={game?.image} classname={style.image} />
               <div className={style.released_on}>
                 <div className={style.released_on_row}>
-                  <span>Released on: </span>
+                  <span>Released </span>
                   <div className={style.released_on_box}>
                     {game?.release_date?.split("-")[2]}
                   </div>
@@ -113,45 +116,47 @@ function GameDetail() {
                   <Icon
                     name={"plus"}
                     className={style.plus_svg}
-                    size={48}
                     viewBox="0 0 24 24"
                   />
                 </div>
               </div>
+              <div className={style.separator} />
+              <div className={cn(style.library_button)}>
+                Add to library
+                <Icon
+                  name={"plus"}
+                  className={style.plus_svg}
+                  viewBox="0 0 24 24"
+                />
+              </div>
             </div>
           </div>
           <div className={style.separator} />
-          <div className={style.categories_container}>
-            <span>Genres:</span>
-            <div className={style.categories}>
-              {game?.categories?.map((item: any, index: number) => (
-                <div className={style.category_row} key={index}>
-                  <Image image={item?.image} classname={style.category_image} />
-                  {item?.category_name}
-                </div>
-              ))}
-            </div>
-          </div>
+          <Section title="Genres" sectionColor="blue">
+            <GameCategories data={game?.categories} />
+          </Section>
           <div className={style.separator} />
-          <div className={style.platforms_container}>
-            <span>Available on:</span>
-            <div className={style.platforms}>
-              {game?.platforms?.map((item: any, index: number) => (
-                <div className={style.platform_row} key={index}>
-                  <Image image={item?.image} classname={style.platform_image} />
-                  {item?.platform_name}
-                </div>
-              ))}
-            </div>
-          </div>
+          <Section title="Available on" sectionColor="green">
+            <GamePlatforms data={game?.platforms} />
+          </Section>
           <div className={style.separator} />
-          <div className={style.details_container}>
-            <span>Details:</span>
-          </div>
+          <Section title="Details" sectionColor="red">
+            <GameDetails
+              developers={game?.developer}
+              publisher={game?.publisher}
+              esrb={game?.ESRB}
+              budget={game?.budget}
+              release_date={game?.release_date}
+            />
+          </Section>
+          <div className={style.separator} />
+          <Section title="Reviews">
+            <></>
+          </Section>
         </div>
       )}
     </View>
   );
 }
 
-export default GameDetail;
+export default Game;
