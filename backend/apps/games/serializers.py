@@ -91,7 +91,7 @@ class GameReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = GameReview
         fields = ['game_id', 'rating', 'description',
-                  'platform', 'author', 'date', 'review_id']
+                  'platform', 'author', 'date', 'id']
         read_only_fields = ['author']
 
 
@@ -117,16 +117,9 @@ class GameCreateReviewSerializer(serializers.ModelSerializer):
 
         user = self.context['request'].user
 
-        try:
-            latest_review = GameReview.objects.latest('id')
-            review_id = latest_review.id + 1
-        except GameReview.DoesNotExist:
-            review_id = 1
-
         review = GameReview.objects.create(
             game_name=game.name,
             game_id=game_id,
-            review_id=review_id,
             author=user,
             date=date.today(),
             **validated_data

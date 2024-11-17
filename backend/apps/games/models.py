@@ -87,7 +87,6 @@ class GamePublisher(models.Model):
 class GameReview(models.Model):
     game_name = models.CharField(max_length=100)
     game_id = models.IntegerField()
-    review_id = models.IntegerField()
     rating = models.IntegerField()
     description = models.CharField(max_length=500)
     date = models.DateField(_("Date"), default=date.today)
@@ -96,7 +95,7 @@ class GameReview(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="game_reviews")
 
     def __str__(self):
-        return str(self.review_id)
+        return str(self.id)
 
 
 class Game(models.Model):

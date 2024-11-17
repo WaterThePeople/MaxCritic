@@ -29,7 +29,7 @@ function EditGameReview({ data, platforms }: { data: any; platforms: any[] }) {
     const { accessToken } = await returnAccessToken();
     axios
       .put(
-        `${serverPath}api/games/review/edit/${data?.review_id}/`,
+        `${serverPath}api/games/review/edit/${data?.id}/`,
         {
           description: description,
           platform: selectedPlatforms,
@@ -50,7 +50,7 @@ function EditGameReview({ data, platforms }: { data: any; platforms: any[] }) {
   const deleteReview = async () => {
     setLoading(true);
     axios
-      .delete(`${serverPath}api/games/review/delete/${data?.review_id}/`, {})
+      .delete(`${serverPath}api/games/review/delete/${data?.id}/`, {})
       .then((response) => {
         window.location.reload();
         setLoading(false);

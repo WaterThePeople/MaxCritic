@@ -135,9 +135,7 @@ function Game({ userData }: { userData: any }) {
                       onClick={() => setUserReviewModal(true)}
                     />
                   ) : (
-                    <div className={style.score_text}>
-                      "Add your own Review!"
-                    </div>
+                    <div className={style.score_text}>Add your own Review!</div>
                   )}
                 </div>
                 {userReview ? (

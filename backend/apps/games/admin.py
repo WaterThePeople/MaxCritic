@@ -32,7 +32,7 @@ class GameAdmin(admin.ModelAdmin):
 
 
 class GameReviewAdmin(admin.ModelAdmin):
-    list_display = ('review_id',)
+    list_display = ('id',)
 
 # Game age rating
 
