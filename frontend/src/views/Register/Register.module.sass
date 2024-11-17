@@ -84,25 +84,6 @@
     gap: $value-3
     border: 2px solid $b2
 
-.success_button_container
-    @include element-flex(row, center, center)
-    border: 2px solid $bw
-    padding: 8px 16px
-    border-radius: $value-3
-    background: none
-    &:hover
-        cursor: pointer
-        border-color: $w
-        background: $b2
-        .success_button_text
-            color: $w
-        .svg
-            fill: $w
-
-.success_button_text
-    color: $bw
-    +label-24
-
 .bottom_text
     @include element-flex(column, center, center)
     color: $w

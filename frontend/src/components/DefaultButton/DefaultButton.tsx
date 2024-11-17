@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import style from "./DefaultButton.module.sass";
+import cn from "classnames";
 
 function DefaultButton({
   onClick,
@@ -14,10 +14,10 @@ function DefaultButton({
 }) {
   return (
     <button
-      className={classname ? classname : style.container}
+      className={cn(style.container, classname)}
       onClick={() => onClick()}
     >
-      <div className={classnameText ? classnameText : style.text}>{text}</div>
+      <div className={cn(style.text, classnameText)}>{text}</div>
     </button>
   );
 }

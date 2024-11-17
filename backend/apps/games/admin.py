@@ -11,7 +11,12 @@ class GameAdmin(admin.ModelAdmin):
     GameForm = get_image_display_form(Game, forms.ModelForm)
     form = GameForm
     list_display = ('name',)
-    readonly_fields = ('image_preview',)
+    readonly_fields = ('image_preview', 'reviews',)
+
+    def score(self, obj):
+        return obj.score
+
+    score.short_description = 'Score'
 
     def image_preview(self, obj):
         if obj.image_as_base64():

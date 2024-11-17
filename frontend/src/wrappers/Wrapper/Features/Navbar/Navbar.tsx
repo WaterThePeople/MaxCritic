@@ -67,7 +67,20 @@ function Navbar({
                   onClick={() => setProfileMenuVisible(!profileMenuVisible)}
                 >
                   <div className={style.user_text}>{userData?.username}</div>
-                  <Image image={userData?.image} classname={style.user_image} />
+                  {userData?.image ? (
+                    <Image
+                      image={userData?.image}
+                      classname={style.user_image}
+                    />
+                  ) : (
+                    <img
+                      src={
+                        process.env.PUBLIC_URL + "../assets/default_avatar.png"
+                      }
+                      alt="Avatar"
+                      className={style.user_image}
+                    />
+                  )}
                 </div>
                 {profileMenuVisible && (
                   <div className={style.user_menu_item} onClick={goToProfile}>
@@ -101,8 +114,6 @@ function Navbar({
               <DefaultButton
                 text="Cancel"
                 onClick={() => setLogoutModal(false)}
-                classname={style.logout_cancel}
-                classnameText={style.logout_cancel_text}
               />
               <DefaultButton
                 text="Confirm"

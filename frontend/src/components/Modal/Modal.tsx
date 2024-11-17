@@ -11,6 +11,13 @@ function Modal({
   visible?: boolean;
   setVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
     <div className={style.modal}>
       {setVisible ? (

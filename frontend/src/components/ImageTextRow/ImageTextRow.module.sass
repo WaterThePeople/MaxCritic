@@ -1,0 +1,27 @@
+@import 'styles'
+
+.row
+    @include element-flex(row, flex-start, center)
+    gap: $value-2
+    padding: $value-2
+    background: $b2
+    border-radius: $value-3
+    color: $bw
+    +label-16
+    +m
+        +label-12
+
+.clickable
+    &:hover
+        cursor: pointer
+
+.selected
+    background: $blue2
+
+.image
+    height: 36px
+    width: 36px
+    border-radius: $value-1
+    +m
+        height: 24px
+        width: 24px

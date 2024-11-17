@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import *
 from datetime import date
 import base64
+from ..main.serializers import UserSerializer
 
 
 class GameESRBSerializer(serializers.ModelSerializer):
@@ -84,10 +85,25 @@ class GameDeveloperSerializer(serializers.ModelSerializer):
 
 class GameReviewSerializer(serializers.ModelSerializer):
     game_id = serializers.IntegerField(write_only=True)
+    platform = GamePlatformsSerializer(many=True)
+    author = UserSerializer()
 
     class Meta:
         model = GameReview
-        fields = ['game_id', 'rating', 'description', 'platform']
+        fields = ['game_id', 'rating', 'description',
+                  'platform', 'author', 'date', 'review_id']
+        read_only_fields = ['author']
+
+
+class GameCreateReviewSerializer(serializers.ModelSerializer):
+    game_id = serializers.IntegerField(write_only=True)
+    author = UserSerializer(read_only=True)
+
+    class Meta:
+        model = GameReview
+        fields = ['game_id', 'rating', 'description',
+                  'platform', 'author', 'date']
+        read_only_fields = ['author']
 
     def create(self, validated_data):
         game_id = validated_data.pop('game_id')
@@ -111,8 +127,7 @@ class GameReviewSerializer(serializers.ModelSerializer):
             game_name=game.name,
             game_id=game_id,
             review_id=review_id,
-            author=user.username,
-            author_id=user.id,
+            author=user,
             date=date.today(),
             **validated_data
         )
@@ -125,9 +140,38 @@ class GameReviewSerializer(serializers.ModelSerializer):
         return review
 
 
+class GameEditReviewSerializer(serializers.ModelSerializer):
+    game_id = serializers.IntegerField(write_only=True, required=False)
+    author = UserSerializer(read_only=True)
+
+    class Meta:
+        model = GameReview
+        fields = ['game_id', 'rating', 'description',
+                  'platform', 'author', 'date']
+        read_only_fields = ['author', 'game_id', 'date']
+
+    def update(self, instance, validated_data):
+        platform_data = validated_data.pop('platform', None)
+
+        user = self.context['request'].user
+        if instance.author != user and not user.is_staff:
+            raise serializers.ValidationError(
+                "You can only edit your own reviews.")
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        if platform_data is not None:
+            instance.platform.set(platform_data)
+
+        instance.save()
+        return instance
+
+
 class GamesSerializer(serializers.ModelSerializer):
     released = serializers.SerializerMethodField('get_released')
     image = serializers.SerializerMethodField()
+    score = serializers.SerializerMethodField()
 
     def get_released(self, obj):
         return obj.release_date <= date.today()
@@ -137,6 +181,9 @@ class GamesSerializer(serializers.ModelSerializer):
             return base64.b64encode(obj.image).decode('utf-8')
         return None
 
+    def get_score(self, obj):
+        return round(obj.score)
+
     class Meta:
         model = Game
         fields = ['id', 'name', 'slug', 'image', 'score',
@@ -144,6 +191,7 @@ class GamesSerializer(serializers.ModelSerializer):
 
 
 class GameSerializer(serializers.ModelSerializer):
+    score = serializers.SerializerMethodField()
     categories = GameCategoriesSerializer(many=True)
     platforms = GamePlatformsSerializer(many=True)
     ESRB = GameESRBSerializer(many=False)
@@ -155,3 +203,6 @@ class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = '__all__'
+
+    def get_score(self, obj):
+        return round(obj.score)

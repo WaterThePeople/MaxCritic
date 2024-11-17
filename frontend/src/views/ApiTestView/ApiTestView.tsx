@@ -6,25 +6,9 @@ import { returnAccessToken } from "utils/Authentication";
 import LoadingCard from "components/LoadingCard/LoadingCard";
 
 function ApiTestView() {
-  const [rating, setRating] = useState(0);
-  const [description, setDescription] = useState("");
-  const [platform, setPlatform] = useState<any[]>([]);
-
-  const postReview = async () => {
-    const { accessToken } = await returnAccessToken();
+  const deleteReview = async () => {
     axios
-      .post(
-        `${serverPath}/api/games/reviews/create/`,
-        {
-          game_id: 1,
-          rating: rating,
-          description: description,
-          platform: platform,
-        },
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
-      )
+      .delete(`${serverPath}api/games/review/delete/12/`, {})
       .then((response) => {
         console.log(response);
       })
@@ -36,27 +20,7 @@ function ApiTestView() {
   return (
     <div className={style.container}>
       <div className={style.title}>THIS VIEW IS FOR TESTING API CALLS ONLY</div>
-      <input
-        placeholder="platform"
-        className={style.input}
-        type="number"
-        value={platform}
-        onChange={(e) => setPlatform([parseInt(e.target.value)])}
-      />
-      <input
-        placeholder="description"
-        className={style.input}
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        placeholder="rating"
-        className={style.input}
-        type="number"
-        value={rating}
-        onChange={(e) => setRating(parseInt(e.target.value))}
-      />
-      <button onClick={() => postReview()}>Post review</button>
+      <button onClick={() => deleteReview()}>Delete review</button>
       <LoadingCard classname={style.loading_card} spinnerSize={50} />
     </div>
   );

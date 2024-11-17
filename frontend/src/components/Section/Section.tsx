@@ -6,10 +6,12 @@ function Section({
   children,
   title,
   sectionColor = "default",
+  classname,
 }: {
   children: React.ReactNode;
   title: string;
   sectionColor?: "default" | "green" | "red" | "yellow" | "blue";
+  classname?: string;
 }) {
   const squareClasses = cn(style.square, {
     [style.default]: sectionColor === "default",
@@ -20,7 +22,7 @@ function Section({
   });
 
   return (
-    <div className={style.container}>
+    <div className={cn(style.container, classname)}>
       <div className={style.title_row}>
         <div className={squareClasses} />
         <div className={style.title}>{title}</div>

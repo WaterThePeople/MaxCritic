@@ -1,0 +1,41 @@
+@import 'styles'
+
+.user
+    min-width: 125px
+    background-color: $b2
+    @include element-flex(row, space-between, center)
+    border-radius: $value-2
+    box-sizing: border-box
+    height: 48px
+    border: 2px solid $bw
+    &:hover
+        cursor: pointer
+        border-color: $w
+        background-color: $b3
+        .user_text
+            color: $w
+    +m
+        min-width: 75px
+        height: 32px
+        border-radius: $value-1
+        .user_image
+            border-radius: $value-1 0 0 $value-1
+        .user_text
+            +title-12
+
+.user_text
+    box-sizing: border-box
+    flex: 1
+    color: $bw
+    padding-inline: $value-2
+    +title-16
+
+.user_image
+    box-sizing: border-box
+    border-radius: $value-2 0 0 $value-2
+    border-right: 2px solid $bw
+    height: 100%
+    width: 48px
+    +m
+        height: 100%
+        width: 32px

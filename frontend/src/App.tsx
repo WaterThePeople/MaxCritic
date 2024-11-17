@@ -11,26 +11,18 @@ import Home from "views/Home/Home";
 import Profile from "views/Profile/Profile";
 
 import Games from "views/Games/Games";
-import GameDetail from "views/Games/Game/Game";
+import Game from "views/Games/Game/Game";
 
-import { checkUserAuth } from "./utils/Authentication";
+import { isAuthenticated } from "./utils/Authentication";
 
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
 import { returnAccessToken } from "./utils/Authentication";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const isAuth = isAuthenticated();
   const [userDataLoading, setUserDataLoading] = useState<boolean>(false);
   const [userData, setUserData] = useState<any>();
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const authStatus = await checkUserAuth();
-      setIsAuthenticated(authStatus);
-    };
-    checkAuth();
-  }, []);
 
   const getUserData = async () => {
     const { accessToken } = await returnAccessToken();
@@ -49,29 +41,26 @@ function App() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuth) {
       getUserData();
     }
-  }, [isAuthenticated]);
+  }, [isAuth]);
 
   return (
     <Router>
-      <Wrapper isAuth={isAuthenticated} userData={userData}>
+      <Wrapper isAuth={isAuth} userData={userData}>
         <Routes>
           <Route path="/test" element={<ApiTestView />} />
 
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/games" element={<Games />} />
-          <Route path="/games/:slug" element={<GameDetail />} />
+          <Route path="/games/:slug" element={<Game userData={userData} />} />
           <Route path="/movies" />
           <Route path="/shows" />
           <Route path="/music" />
-          <Route path="/login" element={<Login isAuth={isAuthenticated} />} />
-          <Route
-            path="/register"
-            element={<Register isAuth={isAuthenticated} />}
-          />
+          <Route path="/login" element={<Login isAuth={isAuth} />} />
+          <Route path="/register" element={<Register isAuth={isAuth} />} />
         </Routes>
       </Wrapper>
     </Router>

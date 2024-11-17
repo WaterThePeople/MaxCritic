@@ -54,24 +54,25 @@ const refreshAccessToken = async (
   }
 };
 
-const isAuthenticated = async (): Promise<boolean> => {
+export const isAuthenticated = (): boolean => {
   const accessToken = getAccessToken();
+
   if (!accessToken || isTokenExpired(accessToken)) {
     const refreshToken = getRefreshToken();
+
     if (refreshToken && !isTokenExpired(refreshToken)) {
-      const newAccessToken = await refreshAccessToken(refreshToken);
-      if (newAccessToken) {
-        setAccessToken(newAccessToken);
-        return true;
-      }
+      refreshAccessToken(refreshToken).then((newAccessToken) => {
+        if (newAccessToken) {
+          setAccessToken(newAccessToken);
+        }
+      });
+      return false;
     }
+
     return false;
   }
-  return true;
-};
 
-export const checkUserAuth = async (): Promise<boolean> => {
-  return await isAuthenticated();
+  return true;
 };
 
 export const returnAccessToken = async () => {

@@ -25,12 +25,37 @@ class GameReviewCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        serializer = GameReviewSerializer(
+        serializer = GameCreateReviewSerializer(
             data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GameReviewDeleteView(APIView):
+    def delete(self, request, id):
+        try:
+            review = GameReview.objects.get(id=id)
+            review.delete()
+            return Response({'message': 'Review deleted successfully'}, status=status.HTTP_200_OK)
+        except review.DoesNotExist:
+            return Response({'error': 'Review not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class GameReviewEditView(APIView):
+    def put(self, request, id):
+        try:
+            review = GameReview.objects.get(id=id)
+        except GameReview.DoesNotExist:
+            return Response({"error": "Review not found."}, status=404)
+
+        serializer = GameEditReviewSerializer(
+            review, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            updated_review = serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
 
 
 class GameView(APIView):

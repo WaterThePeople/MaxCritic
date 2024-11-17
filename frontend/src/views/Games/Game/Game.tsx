@@ -13,12 +13,20 @@ import Section from "components/Section/Section";
 import GameCategories from "./Features/GameCategories/GameCategories";
 import GamePlatforms from "./Features/GamePlatforms/GamePlatforms";
 import GameDetails from "./Features/GameDetails/GameDetails";
+import GameReviews from "./Features/GameReviews/GameReviews";
+import Modal from "components/Modal/Modal";
+import AddGameReview from "./Features/AddGameReview/AddGameReview";
+import DefaultButton from "components/DefaultButton/DefaultButton";
+import EditGameReview from "./Features/EditGameReview/EditGameReview";
 
-function Game() {
+function Game({ userData }: { userData: any }) {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [game, setGame] = useState<any>();
   const [loading, setLoading] = useState(false);
+  const [addReviewModal, setAddReviewModal] = useState(false);
+  const [userReview, setUserReview] = useState<any>();
+  const [userReviewModal, setUserReviewModal] = useState(false);
 
   const getGameData = async () => {
     setLoading(true);
@@ -38,6 +46,18 @@ function Game() {
   useEffect(() => {
     getGameData();
   }, []);
+
+  const checkIfUserReview = () => {
+    game?.reviews?.map((item: any) => {
+      if (item?.author?.id === userData?.id) {
+        setUserReview(item);
+      }
+    });
+  };
+
+  useEffect(() => {
+    checkIfUserReview();
+  }, [game]);
 
   const getYoutubeEmbededURL = (link: string) => {
     return link?.split("https://www.youtube.com/watch?v=")[1];
@@ -67,7 +87,7 @@ function Game() {
                 className={style.video}
                 src={`https://www.youtube.com/embed/${getYoutubeEmbededURL(
                   game?.youtube_video
-                )}`}
+                )}?rel=0&iv_load_policy=3&modestbranding=1&autoplay=0&mute=1`}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -109,15 +129,35 @@ function Game() {
               <div className={style.score_row}>
                 <div className={style.score_text_container}>
                   <div className={style.score_title}>YOUR REVIEW</div>
-                  <div className={style.score_text}>Add your own Review!</div>
+                  {userReview ? (
+                    <DefaultButton
+                      text="Your review"
+                      onClick={() => setUserReviewModal(true)}
+                    />
+                  ) : (
+                    <div className={style.score_text}>
+                      "Add your own Review!"
+                    </div>
+                  )}
                 </div>
-                <div className={cn(style.add_score)}>
-                  <Icon
-                    name={"plus"}
-                    className={style.plus_svg}
-                    viewBox="0 0 24 24"
-                  />
-                </div>
+                {userReview ? (
+                  <div
+                    className={cn(style.score, scoreColor(userReview?.rating))}
+                  >
+                    {userReview?.rating}
+                  </div>
+                ) : (
+                  <div
+                    className={cn(style.add_score)}
+                    onClick={() => setAddReviewModal(true)}
+                  >
+                    <Icon
+                      name={"plus"}
+                      className={style.plus_svg}
+                      viewBox="0 0 24 24"
+                    />
+                  </div>
+                )}
               </div>
               <div className={style.separator} />
               <div className={cn(style.library_button)}>
@@ -150,9 +190,19 @@ function Game() {
           </Section>
           <div className={style.separator} />
           <Section title="Reviews">
-            <></>
+            <GameReviews data={game?.reviews} />
           </Section>
         </div>
+      )}
+      {addReviewModal && (
+        <Modal setVisible={setAddReviewModal}>
+          <AddGameReview platforms={game?.platforms} id={game?.id} />
+        </Modal>
+      )}
+      {userReviewModal && (
+        <Modal setVisible={setUserReviewModal}>
+          <EditGameReview platforms={game?.platforms} data={userReview} />
+        </Modal>
       )}
     </View>
   );

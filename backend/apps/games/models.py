@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from datetime import date
 from django.utils.text import slugify
 import base64
+from django.conf import settings
 
 
 class GameESRB(models.Model):
@@ -87,12 +88,12 @@ class GameReview(models.Model):
     game_name = models.CharField(max_length=100)
     game_id = models.IntegerField()
     review_id = models.IntegerField()
-    author = models.CharField(max_length=100)
-    author_id = models.IntegerField()
     rating = models.IntegerField()
     description = models.CharField(max_length=500)
     date = models.DateField(_("Date"), default=date.today)
     platform = models.ManyToManyField(GamePlatform)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="game_reviews")
 
     def __str__(self):
         return str(self.review_id)
@@ -120,6 +121,14 @@ class Game(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def score(self):
+        reviews = self.reviews.all()
+        if reviews.exists():
+            total_score = sum(review.rating for review in reviews)
+            return total_score / reviews.count()
+        return 0
 
     def save(self, *args, **kwargs):
         if not self.slug:

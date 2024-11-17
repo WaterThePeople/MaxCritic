@@ -139,12 +139,7 @@ function Login({ isAuth }: { isAuth: boolean }) {
         <Modal>
           <div className={style.success}>
             {success}
-            <DefaultButton
-              text="Go to home"
-              onClick={onSuccess}
-              classname={style.success_button_container}
-              classnameText={style.success_button_text}
-            />
+            <DefaultButton text="Go to home" onClick={onSuccess} />
           </div>
         </Modal>
       )}
