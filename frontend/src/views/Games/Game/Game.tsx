@@ -18,6 +18,8 @@ import Modal from "components/Modal/Modal";
 import AddGameReview from "./Features/AddGameReview/AddGameReview";
 import DefaultButton from "components/DefaultButton/DefaultButton";
 import EditGameReview from "./Features/EditGameReview/EditGameReview";
+import Score from "components/Score/Score";
+import Date from "components/Date/Date";
 
 function Game({ userData }: { userData: any }) {
   const { slug } = useParams();
@@ -63,18 +65,6 @@ function Game({ userData }: { userData: any }) {
     return link?.split("https://www.youtube.com/watch?v=")[1];
   };
 
-  const scoreColor = (x: number) => {
-    if (x >= 70) {
-      return style.green;
-    }
-    if (x < 70 && x > 35) {
-      return style.yellow;
-    }
-    if (x <= 35) {
-      return style.red;
-    }
-  };
-
   return (
     <View background={true} backButton={true}>
       {loading ? (
@@ -99,20 +89,7 @@ function Game({ userData }: { userData: any }) {
             <div className={style.info}>
               <div className={style.name}>{game?.name}</div>
               <Image image={game?.image} classname={style.image} />
-              <div className={style.released_on}>
-                <div className={style.released_on_row}>
-                  <span>Released </span>
-                  <div className={style.released_on_box}>
-                    {game?.release_date?.split("-")[2]}
-                  </div>
-                  <div className={style.released_on_box}>
-                    {game?.release_date?.split("-")[1]}
-                  </div>
-                  <div className={style.released_on_box}>
-                    {game?.release_date?.split("-")[0]}
-                  </div>
-                </div>
-              </div>
+              <Date date={game?.release_date} />
               <div className={style.separator} />
               <div className={style.score_row}>
                 <div className={style.score_text_container}>
@@ -121,9 +98,7 @@ function Game({ userData }: { userData: any }) {
                     Based on {game?.reviews?.length} reviews
                   </div>
                 </div>
-                <div className={cn(style.score, scoreColor(game?.score))}>
-                  {game?.score}
-                </div>
+                <Score score={game?.score} scale />
               </div>
               <div className={style.separator} />
               <div className={style.score_row}>
@@ -139,11 +114,7 @@ function Game({ userData }: { userData: any }) {
                   )}
                 </div>
                 {userReview ? (
-                  <div
-                    className={cn(style.score, scoreColor(userReview?.rating))}
-                  >
-                    {userReview?.rating}
-                  </div>
+                  <Score score={userReview?.rating} scale />
                 ) : (
                   <div
                     className={cn(style.add_score)}

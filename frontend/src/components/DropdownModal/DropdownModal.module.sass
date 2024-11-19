@@ -1,0 +1,70 @@
+@import 'styles'
+
+.container
+    position: relative
+    min-width: 125px
+
+.button
+    width: 100%
+    background-color: $b1
+    box-sizing: border-box
+    padding-inline: $value-2
+    padding-top: 0
+    padding-bottom: 0
+    height: 48px
+    @include element-flex(row, space-between, center)
+    gap: $value-2
+    .arrow
+        fill: $bw
+    .text
+        box-sizing: border-box
+        flex: 1
+        text-align: left
+        color: $bw
+        +label-16
+
+    &:hover
+        cursor: pointer
+        background-color: $b2
+        &.top
+            border-color: $w
+        .arrow
+            fill: $w
+        .text
+            color: $w
+
+    &.top
+        border-radius: $value-3
+        border: 2px solid $bw
+
+    &.visible
+        border-radius: $value-3 $value-3 0 0
+
+    &.item
+        border: 0
+        border-bottom: 2px solid $bw
+
+    &.last
+        border-radius: 0 0 $value-3 $value-3
+        border-bottom: 0
+
+    +m
+        min-width: 75px
+        height: 32px
+        &.top
+            border-radius: $value-2
+        &.visible
+            border-radius: $value-2 $value-2 0 0
+        .text
+            +label-12
+
+.modal
+    width: 100%
+    position: absolute
+    box-sizing: border-box
+    background-color: $b1
+    border-radius: $value-3
+    border-radius: 0 0 $value-3 $value-3
+    border: 2px solid $bw
+    border-top: 0
+    @include element-flex(column)

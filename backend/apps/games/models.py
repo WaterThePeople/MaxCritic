@@ -117,6 +117,7 @@ class Game(models.Model):
         GameBudget, on_delete=models.CASCADE, null=True)
     platforms = models.ManyToManyField(GamePlatform)
     image = models.BinaryField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.name

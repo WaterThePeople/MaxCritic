@@ -2,20 +2,9 @@ import style from "./GameReview.module.sass";
 import User from "components/User/User";
 import cn from "classnames";
 import ImageTextRow from "components/ImageTextRow/ImageTextRow";
+import Score from "components/Score/Score";
 
 function GameReview({ item }: { item: any }) {
-  const scoreColor = (x: number) => {
-    if (x >= 70) {
-      return style.green;
-    }
-    if (x < 70 && x > 35) {
-      return style.yellow;
-    }
-    if (x <= 35) {
-      return style.red;
-    }
-  };
-
   return (
     <div className={style.item}>
       <div className={style.row}>
@@ -25,9 +14,7 @@ function GameReview({ item }: { item: any }) {
           }`}
           <User user={item?.author} />
         </div>
-        <div className={cn(style.score, scoreColor(item?.rating))}>
-          {item?.rating}
-        </div>
+        <Score score={item?.rating} scale />
       </div>
       <div className={style.description}>{item?.description}</div>
       <div className={style.separator} />

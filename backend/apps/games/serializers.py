@@ -183,6 +183,24 @@ class GamesSerializer(serializers.ModelSerializer):
                   'release_date', 'recently_added', 'released']
 
 
+class GamesListSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    score = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
+
+    def get_score(self, obj):
+        return round(obj.score)
+
+    class Meta:
+        model = Game
+        fields = ['id', 'name', 'slug', 'image', 'score',
+                  'release_date', 'description']
+
+
 class GameSerializer(serializers.ModelSerializer):
     score = serializers.SerializerMethodField()
     categories = GameCategoriesSerializer(many=True)

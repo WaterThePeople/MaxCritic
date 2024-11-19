@@ -4,3 +4,10 @@
     flex-direction: $d
     justify-content: unquote($j)
     align-items: unquote($a)
+
+@mixin limit-lines($line-s-amount)
+    overflow: hidden
+    text-overflow: ellipsis
+    display: -webkit-box
+    -webkit-line-clamp: $line-s-amount
+    -webkit-box-orient: vertical

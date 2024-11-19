@@ -12,6 +12,7 @@ import { Icon } from "components/Icon/Icon";
 import { returnAccessToken } from "utils/Authentication";
 import LoadingSpinner from "components/LoadingSpinner";
 import OutsideClickHandler from "components/OutsideClickHandler/OutsideClickHandler";
+import Score from "components/Score/Score";
 
 function EditGameReview({ data, platforms }: { data: any; platforms: any[] }) {
   const navigate = useNavigate();
@@ -59,18 +60,6 @@ function EditGameReview({ data, platforms }: { data: any; platforms: any[] }) {
         console.log(error);
         setLoading(false);
       });
-  };
-
-  const scoreColor = (x: number) => {
-    if (x >= 70) {
-      return style.green;
-    }
-    if (x < 70 && x > 35) {
-      return style.yellow;
-    }
-    if (x <= 35) {
-      return style.red;
-    }
   };
 
   const getSliderBackground = (value: number): string => {
@@ -155,7 +144,7 @@ function EditGameReview({ data, platforms }: { data: any; platforms: any[] }) {
                 className={style.slider}
                 style={{ background: getSliderBackground(score) }}
               />
-              <div className={cn(style.score, scoreColor(score))}>{score}</div>
+              <Score score={score} scale />
             </div>
           </Section>
           <Section

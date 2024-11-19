@@ -5,18 +5,6 @@ import GameReview from "components/GameReview/GameReview";
 
 function GameReviews({ data }: { data: [] }) {
   const [limit, setLimit] = useState(5);
-  const scoreColor = (x: number) => {
-    if (x >= 70) {
-      return style.green;
-    }
-    if (x < 70 && x > 35) {
-      return style.yellow;
-    }
-    if (x <= 35) {
-      return style.red;
-    }
-  };
-
   const handleMoreReviews = () => {
     setLimit(data?.length);
   };

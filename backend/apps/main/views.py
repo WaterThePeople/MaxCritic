@@ -6,7 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import generics
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated
-from .pagination import Pagination
+from ..pagination import Pagination
 from ..games.models import Game
 from ..games.serializers import GamesSerializer
 
@@ -42,10 +42,13 @@ class RecentlyAddedView(APIView):
 
     def get(self, request, *args, **kwargs):
         paginator = Pagination()
-        games = Game.objects.all()
+        games = Game.objects.all().order_by('-created_at')
         games_serializer = GamesSerializer(games, many=True)
         recent_games = [
-            {**game, 'type': 'Game'} for game in games_serializer.data if game['recently_added']]
+            {**game, 'type': 'Game'}
+            for game in games_serializer.data
+            if game['recently_added'] and game['released']
+        ]
 
         return paginator.get_paginated_response(paginator.paginate_queryset(recent_games, request))
 

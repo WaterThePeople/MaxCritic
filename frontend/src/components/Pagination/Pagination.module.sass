@@ -1,0 +1,47 @@
+@import 'styles'
+
+.container
+    width: 100%
+    @include element-flex(row, center, center)
+    gap: $value-2
+
+.arrow
+    @include element-flex(row, center, center)
+    height: 32px
+    width: 32px
+    border-radius: 50%
+    border: 0
+    background: transparent
+    &:hover
+        background: $b2
+        cursor: pointer
+        .svg
+            fill: $w
+
+.svg
+    fill: $bw
+
+.buttons
+    @include element-flex(row, center, center)
+    gap: $value-2
+
+.page_button
+    border-radius: $value-2
+    height: $value-8
+    width: $value-8
+    padding: 0
+    border: 2px solid black
+    background-color: transparent
+    @include element-flex(row, center, center)
+    &:hover
+        cursor: pointer
+        background-color: $b1
+    &.current
+        background-color: $b2
+.dots
+    +label-16
+    color: $bw
+
+.text
+    +label-14
+    color: $bw

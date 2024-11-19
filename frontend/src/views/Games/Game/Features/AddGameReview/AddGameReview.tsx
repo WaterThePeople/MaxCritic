@@ -11,6 +11,7 @@ import ImageTextRow from "components/ImageTextRow/ImageTextRow";
 import { Icon } from "components/Icon/Icon";
 import { returnAccessToken } from "utils/Authentication";
 import LoadingSpinner from "components/LoadingSpinner";
+import Score from "components/Score/Score";
 
 function AddGameReview({ id, platforms }: { id: number; platforms: any[] }) {
   const navigate = useNavigate();
@@ -21,18 +22,6 @@ function AddGameReview({ id, platforms }: { id: number; platforms: any[] }) {
   const [selectedPlatforms, setSelectedPlatforms] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const scoreColor = (x: number) => {
-    if (x >= 70) {
-      return style.green;
-    }
-    if (x < 70 && x > 35) {
-      return style.yellow;
-    }
-    if (x <= 35) {
-      return style.red;
-    }
-  };
 
   const getSliderBackground = (value: number): string => {
     const percentage = (value / 100) * 100;
@@ -125,7 +114,7 @@ function AddGameReview({ id, platforms }: { id: number; platforms: any[] }) {
                 className={style.slider}
                 style={{ background: getSliderBackground(score) }}
               />
-              <div className={cn(style.score, scoreColor(score))}>{score}</div>
+              <Score score={score} scale />
             </div>
           </Section>
           <Section

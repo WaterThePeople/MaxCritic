@@ -4,6 +4,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from .filters import GameFilter
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
+from rest_framework.generics import ListAPIView
+from django.db.models import Avg
+from ..pagination import Pagination
+from django.http import JsonResponse
+from django.db.models import Min, Max
 
 
 class GameCategoriesView(generics.ListCreateAPIView):
@@ -66,3 +74,29 @@ class GameView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Game.DoesNotExist:
             return Response({"error": "Game not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class GamesListView(ListAPIView):
+    serializer_class = GamesListSerializer
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_class = GameFilter
+    ordering_fields = ['average_score', 'release_date']
+    ordering = ['-average_score']
+    pagination_class = Pagination
+
+    def get_queryset(self):
+        return Game.objects.annotate(
+            average_score=Avg('reviews__rating')
+        )
+
+
+def game_year_range(request):
+    year_range = Game.objects.aggregate(
+        oldest_year=Min('release_date'),
+        newest_year=Max('release_date')
+    )
+    response_data = {
+        "oldest_year": year_range['oldest_year'].year if year_range['oldest_year'] else None,
+        "newest_year": year_range['newest_year'].year if year_range['newest_year'] else None,
+    }
+    return JsonResponse(response_data)

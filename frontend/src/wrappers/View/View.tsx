@@ -14,7 +14,7 @@ function View({
 }) {
   return (
     <div className={cn(style.container, background && style.background)}>
-      <div className={cn(style.content, style.content_button)}>
+      <div className={cn(style.content, backButton && style.content_button)}>
         {children}
         {backButton && (
           <div className={style.button}>

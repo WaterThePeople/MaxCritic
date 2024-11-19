@@ -1,0 +1,48 @@
+@import 'styles'
+
+.container
+    position: relative
+    background: $b2
+    border-radius: $value-3
+    height: $value-2
+
+.bar
+    position: absolute
+    background-color: $bw
+    height: $value-2
+    z-index: 2
+    border-radius: $value-3
+
+.left_input
+
+.right_input
+
+.input
+    cursor: pointer
+    position: absolute
+    top: -9px
+    left: -2px
+    -webkit-appearance: none
+    -moz-appearance: none
+    outline: none !important
+    background: transparent
+    width: 100%
+    &::-ms-track
+        border: none
+        height: 0
+        background: black
+    &::-webkit-slider-runnable-track
+        border: none
+        height: 0
+        background: black
+    &::-moz-range-track
+        border: none
+        height: 0
+        background: black
+    &::-webkit-slider-thumb
+        -webkit-appearance: none
+        width: $value-3
+        height: $value-6
+        background: $bw
+        border: 2px solid $b3
+        border-radius: $value-1

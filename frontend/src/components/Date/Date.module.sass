@@ -1,0 +1,23 @@
+@import 'styles'
+
+.container
+    box-sizing: border-box
+    color: $w
+    text-wrap: wrap
+    overflow-wrap: break-word
+    @include element-flex(row, flex-start, center)
+    gap: $value-2
+    +label-16
+    +s
+        +label-12
+    span
+        color: $bw
+
+.item
+    background: $bw
+    color: $b
+    border-radius: $value-1
+    padding-inline: $value-2
+    +label-16
+    +s
+        +label-12

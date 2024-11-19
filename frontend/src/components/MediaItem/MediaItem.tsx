@@ -1,8 +1,8 @@
 import style from "./MediaItem.module.sass";
 import Image from "components/Image/Image";
-import cn from "classnames";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "components/Icon/Icon";
+import Score from "components/Score/Score";
 
 function MediaItem({
   name,
@@ -18,18 +18,6 @@ function MediaItem({
   slug?: string;
 }) {
   const navigate = useNavigate();
-
-  const scoreColor = (x: number) => {
-    if (x >= 70) {
-      return style.green;
-    }
-    if (x < 70 && x > 35) {
-      return style.yellow;
-    }
-    if (x <= 35) {
-      return style.red;
-    }
-  };
 
   return (
     <div className={style.container}>
@@ -61,7 +49,7 @@ function MediaItem({
           )}
         </div>
 
-        <div className={cn(style.score, scoreColor(score))}>{score}</div>
+        <Score score={score} />
       </div>
     </div>
   );

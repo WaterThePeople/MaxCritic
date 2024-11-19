@@ -69,31 +69,6 @@
     +s
         width: 100%
 
-.released_on
-    width: 100%
-    box-sizing: border-box
-    color: $w
-    text-wrap: wrap
-    overflow-wrap: break-word
-    +label-16
-    +s
-        +label-12
-    span
-        color: $bw
-
-.released_on_row
-    @include element-flex(row, flex-start, center)
-    gap: $value-2
-
-.released_on_box
-    background: $bw
-    color: $b
-    border-radius: $value-1
-    padding-inline: $value-2
-    +label-16
-    +s
-        +label-12
-
 .separator
     width: 100%
     height: 2px
@@ -124,32 +99,6 @@
         +label-16
     +s
         +label-12
-
-.score
-    border-radius: $value-3
-    height: 80px
-    width: 80px
-    @include element-flex(row, center, center)
-    color: $w
-    +title-32
-    font-weight: 900
-    +m
-        height: 60px
-        width: 60px
-        +title-24
-    +s
-        height: 51px
-        width: 51px
-        +title-16
-
-.green
-    background: $green4
-
-.yellow
-    background: $yellow4
-
-.red
-    background: $red4
 
 .add_score
     border-radius: $value-3

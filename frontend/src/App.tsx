@@ -10,7 +10,7 @@ import Home from "views/Home/Home";
 
 import Profile from "views/Profile/Profile";
 
-import Games from "views/Games/Games";
+import GamesList from "views/Games/GamesList/GamesList";
 import Game from "views/Games/Game/Game";
 
 import { isAuthenticated } from "./utils/Authentication";
@@ -54,7 +54,7 @@ function App() {
 
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/games" element={<Games />} />
+          <Route path="/games" element={<GamesList />} />
           <Route path="/games/:slug" element={<Game userData={userData} />} />
           <Route path="/movies" />
           <Route path="/shows" />

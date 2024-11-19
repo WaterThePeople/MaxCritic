@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./GameDetails.module.sass";
 import ImageTextRow from "components/ImageTextRow/ImageTextRow";
+import Date from "components/Date/Date";
 
 function GameDetails({
   developers,
@@ -37,20 +38,7 @@ function GameDetails({
         <span>Age rating</span>
         <ImageTextRow image={esrb?.image} text={esrb?.rating_name} />
       </div>
-      <div className={style.released_on}>
-        <div className={style.released_on_row}>
-          <span>Released </span>
-          <div className={style.released_on_box}>
-            {release_date?.split("-")[2]}
-          </div>
-          <div className={style.released_on_box}>
-            {release_date?.split("-")[1]}
-          </div>
-          <div className={style.released_on_box}>
-            {release_date?.split("-")[0]}
-          </div>
-        </div>
-      </div>
+      <Date date={release_date} />
     </div>
   );
 }
