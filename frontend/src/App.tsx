@@ -19,6 +19,13 @@ import axios from "axios";
 import { serverPath } from "BackendServerPath";
 import { returnAccessToken } from "./utils/Authentication";
 
+import useScrollManager from "./utils/useScrollManager";
+
+const ScrollManager: React.FC = () => {
+  useScrollManager();
+  return null;
+};
+
 function App() {
   const isAuth = isAuthenticated();
   const [userDataLoading, setUserDataLoading] = useState<boolean>(false);
@@ -48,6 +55,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollManager />
       <Wrapper isAuth={isAuth} userData={userData}>
         <Routes>
           <Route path="/test" element={<ApiTestView />} />

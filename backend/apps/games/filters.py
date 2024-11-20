@@ -12,6 +12,16 @@ class GameFilter(django_filters.FilterSet):
         label="Filter by categories"
     )
 
+    budget = django_filters.CharFilter(
+        method='filter_by_budget',
+        label="Filter by budget"
+    )
+
+    age = django_filters.CharFilter(
+        method='filter_by_age',
+        label="Filter by ESRB"
+    )
+
     year1 = django_filters.NumberFilter(
         field_name='release_date__year',
         lookup_expr='gte',
@@ -36,7 +46,7 @@ class GameFilter(django_filters.FilterSet):
 
     class Meta:
         model = Game
-        fields = ['platforms', 'categories', 'year1', 'year2']
+        fields = ['platforms', 'categories', 'year1', 'year2', 'budget', 'age']
 
     def filter_by_categories(self, queryset, name, value):
         category_names = value.split(',')
@@ -45,3 +55,11 @@ class GameFilter(django_filters.FilterSet):
     def filter_by_platforms(self, queryset, name, value):
         platform_names = value.split(',')
         return queryset.filter(platforms__platform_name__in=platform_names).distinct()
+
+    def filter_by_budget(self, queryset, name, value):
+        budget_names = value.split(',')
+        return queryset.filter(budget__budget_name__in=budget_names).distinct()
+
+    def filter_by_age(self, queryset, name, value):
+        age_names = value.split(',')
+        return queryset.filter(ESRB__rating_name__in=age_names).distinct()

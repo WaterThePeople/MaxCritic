@@ -10,8 +10,6 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView
 from django.db.models import Avg
 from ..pagination import Pagination
-from django.http import JsonResponse
-from django.db.models import Min, Max
 
 
 class GameCategoriesView(generics.ListCreateAPIView):
@@ -22,6 +20,16 @@ class GameCategoriesView(generics.ListCreateAPIView):
 class GamePlatformsView(generics.ListCreateAPIView):
     serializer_class = GamePlatformsSerializer
     queryset = GamePlatform.objects.all()
+
+
+class GameESRBView(generics.ListCreateAPIView):
+    serializer_class = GameESRBSerializer
+    queryset = GameESRB.objects.all()
+
+
+class GameBudgetView(generics.ListCreateAPIView):
+    serializer_class = GameBudgetSerializer
+    queryset = GameBudget.objects.all()
 
 
 class GamesView(generics.ListAPIView):
@@ -88,15 +96,3 @@ class GamesListView(ListAPIView):
         return Game.objects.annotate(
             average_score=Avg('reviews__rating')
         )
-
-
-def game_year_range(request):
-    year_range = Game.objects.aggregate(
-        oldest_year=Min('release_date'),
-        newest_year=Max('release_date')
-    )
-    response_data = {
-        "oldest_year": year_range['oldest_year'].year if year_range['oldest_year'] else None,
-        "newest_year": year_range['newest_year'].year if year_range['newest_year'] else None,
-    }
-    return JsonResponse(response_data)

@@ -6,12 +6,12 @@ import cn from "classnames";
 function Pagination({
   amount,
   currentPage,
-  setCurrentPage,
+  changePage,
   pageSize,
 }: {
   amount: number;
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  changePage: Function;
   pageSize: number;
 }) {
   const pages = Math.ceil(amount / pageSize);
@@ -49,7 +49,7 @@ function Pagination({
       {currentPage > 1 && (
         <button
           className={style.arrow}
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => changePage(currentPage - 1)}
         >
           <Icon
             name={"basic_arrow"}
@@ -67,7 +67,7 @@ function Pagination({
                 currentPage === index + 1 && style.current
               )}
               key={index}
-              onClick={() => setCurrentPage(index + 1)}
+              onClick={() => changePage(index + 1)}
             >
               <div className={style.text}>{index + 1}</div>
             </button>
@@ -79,7 +79,7 @@ function Pagination({
                   style.page_button,
                   currentPage === manyPages[index] && style.current
                 )}
-                onClick={() => setCurrentPage(manyPages[index])}
+                onClick={() => changePage(manyPages[index])}
               >
                 <div className={style.text}>{manyPages[index]}</div>
               </button>
@@ -112,7 +112,7 @@ function Pagination({
       {currentPage < pages && (
         <button
           className={style.arrow}
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={() => changePage(currentPage + 1)}
         >
           <Icon
             name={"basic_arrow"}

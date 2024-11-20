@@ -9,12 +9,14 @@ function ImageTextRow({
   classname,
   selected,
   onClick,
+  small,
 }: {
   image: any;
   text: string;
   classname?: string;
   selected?: boolean;
   onClick?: Function;
+  small?: boolean;
 }) {
   return onClick ? (
     <div
@@ -22,16 +24,24 @@ function ImageTextRow({
         style.row,
         classname,
         selected && style.selected,
-        onClick && style.clickable
+        onClick && style.clickable,
+        small && style.small
       )}
       onClick={() => onClick()}
     >
-      <Image image={image} classname={style.image} />
+      <Image image={image} classname={cn(style.image, small && style.small)} />
       {text}
     </div>
   ) : (
-    <div className={cn(style.row, classname, selected && style.selected)}>
-      <Image image={image} classname={style.image} />
+    <div
+      className={cn(
+        style.row,
+        classname,
+        selected && style.selected,
+        small && style.small
+      )}
+    >
+      <Image image={image} classname={cn(style.image, small && style.small)} />
       {text}
     </div>
   );

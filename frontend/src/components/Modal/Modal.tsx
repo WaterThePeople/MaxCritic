@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./Modal.module.sass";
 import OutsideClickHandler from "components/OutsideClickHandler/OutsideClickHandler";
+import CloseButton from "components/CloseButton/CloseButton";
 
 function Modal({
   children,
@@ -21,11 +22,19 @@ function Modal({
   return (
     <div className={style.modal}>
       {setVisible ? (
-        <OutsideClickHandler onClickOutside={() => setVisible(false)}>
-          {children}
-        </OutsideClickHandler>
+        <div className={style.container}>
+          <OutsideClickHandler
+            onClickOutside={() => setVisible(false)}
+            classname={style.content}
+          >
+            <div className={style.close_button}>
+              <CloseButton onClick={() => setVisible(false)} />
+            </div>
+            {children}
+          </OutsideClickHandler>
+        </div>
       ) : (
-        children
+        <div className={style.container}>{children}</div>
       )}
     </div>
   );

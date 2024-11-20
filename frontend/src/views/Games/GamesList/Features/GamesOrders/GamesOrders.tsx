@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from "react";
 import style from "./GamesOrders.module.sass";
 import DropdownModal from "components/DropdownModal/DropdownModal";
 import DoubleRangeSlider from "components/DoubleRangeSlider/DoubleRangeSlider";
-import LoadingCard from "components/LoadingCard/LoadingCard";
 
 function GamesOrders({
   array,
   current,
-  setCurrent,
+  changeOrder,
   oldestYear,
   newestYear,
   minYear,
-  setMinYear,
   maxYear,
-  setMaxYear,
+  yearChange,
 }: {
-  array: string[];
+  array: any[];
   current: string;
-  setCurrent: React.Dispatch<React.SetStateAction<string>>;
+  changeOrder: Function;
   oldestYear: number;
   newestYear: number;
   minYear: number;
-  setMinYear: React.Dispatch<React.SetStateAction<number>>;
   maxYear: number;
-  setMaxYear: React.Dispatch<React.SetStateAction<number>>;
+  yearChange: Function;
 }) {
   return (
     <div className={style.container}>
@@ -37,9 +33,8 @@ function GamesOrders({
         </div>
         <DoubleRangeSlider
           leftValue={minYear}
-          setLeftValue={setMinYear}
           rightValue={maxYear}
-          setRightValue={setMaxYear}
+          valueChange={yearChange}
           classname={style.slider}
           min={oldestYear}
           max={newestYear}
@@ -47,11 +42,7 @@ function GamesOrders({
       </div>
       <div className={style.content}>
         <span>Order by</span>
-        <DropdownModal
-          array={array}
-          value={current}
-          onClick={(x: string) => setCurrent(x)}
-        />
+        <DropdownModal array={array} value={current} onClick={changeOrder} />
       </div>
     </div>
   );

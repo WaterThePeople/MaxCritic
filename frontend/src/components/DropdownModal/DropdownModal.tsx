@@ -4,6 +4,7 @@ import { Icon } from "components/Icon/Icon";
 import cn from "classnames";
 import useWindowDimensions from "utils/useWindowDimensions";
 import { getTextWidth } from "utils/getTextWidth";
+import OutsideClickHandler from "components/OutsideClickHandler/OutsideClickHandler";
 
 function DropdownModal({
   value,
@@ -12,7 +13,7 @@ function DropdownModal({
 }: {
   value: string;
   onClick: Function;
-  array: string[];
+  array: any[];
 }) {
   const [visible, setVisible] = useState(false);
   const [modalWidth, setModalWidth] = useState<number>(0);
@@ -32,37 +33,39 @@ function DropdownModal({
   }, [array, width]);
 
   return (
-    <div className={style.container} style={{ width: `${modalWidth}px` }}>
-      <button
-        className={cn(style.button, style.top, visible && style.visible)}
-        onClick={() => setVisible(!visible)}
-      >
-        <div className={style.text}>{value}</div>
-        <Icon
-          name={"basic_arrow"}
-          className={style.arrow}
-          viewBox="4 4 24 24"
-          rotate={visible ? "180deg" : "0deg"}
-        />
-      </button>
-      {visible && (
-        <div className={style.modal}>
-          {array.map((item, index) => (
-            <button
-              className={cn(
-                style.button,
-                style.item,
-                index + 1 === array?.length && style.last
-              )}
-              key={index}
-              onClick={() => onSelect(item)}
-            >
-              <div className={style.text}>{item}</div>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+    <OutsideClickHandler onClickOutside={() => setVisible(false)}>
+      <div className={style.container} style={{ width: `${modalWidth}px` }}>
+        <button
+          className={cn(style.button, style.top, visible && style.visible)}
+          onClick={() => setVisible(!visible)}
+        >
+          <div className={style.text}>{value}</div>
+          <Icon
+            name={"basic_arrow"}
+            className={style.arrow}
+            viewBox="4 4 24 24"
+            rotate={visible ? "180deg" : "0deg"}
+          />
+        </button>
+        {visible && (
+          <div className={style.modal}>
+            {array.map((item, index) => (
+              <button
+                className={cn(
+                  style.button,
+                  style.item,
+                  index + 1 === array?.length && style.last
+                )}
+                key={index}
+                onClick={() => onSelect(item?.value)}
+              >
+                <div className={style.text}>{item?.name}</div>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </OutsideClickHandler>
   );
 }
 

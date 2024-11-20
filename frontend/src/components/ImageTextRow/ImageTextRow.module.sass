@@ -7,8 +7,13 @@
     background: $b2
     border-radius: $value-3
     color: $bw
+    &:hover
+        color: $w
+        background: $b3
     +label-16
     +m
+        +label-12
+    &.small
         +label-12
 
 .clickable
@@ -17,11 +22,16 @@
 
 .selected
     background: $blue2
+    &:hover
+        background: $blue3
 
 .image
     height: 36px
     width: 36px
     border-radius: $value-1
     +m
+        height: 24px
+        width: 24px
+    &.small
         height: 24px
         width: 24px

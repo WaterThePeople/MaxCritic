@@ -1,0 +1,14 @@
+@import 'styles'
+
+.container
+    @include element-flex(row, center, center)
+    height: 32px
+    width: 32px
+    transition: transform 0.3s ease-in-out
+    .svg
+        fill: $bw
+    &:hover
+        cursor: pointer
+        transform: rotate(90deg)
+        .svg
+            fill: $w
