@@ -7,16 +7,14 @@ import Image from "components/Image/Image";
 import cn from "classnames";
 import OutsideClickHandler from "components/OutsideClickHandler/OutsideClickHandler";
 import Modal from "components/Modal/Modal";
+import { useAuth } from "wrappers/AuthContext/AuthContext";
 
 function Navbar({
-  isAuth,
   setMenuVisible,
-  userData,
 }: {
-  isAuth: boolean;
   setMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  userData: any;
 }) {
+  const { isAuth, userData } = useAuth();
   const navigate = useNavigate();
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);

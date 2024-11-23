@@ -20,8 +20,10 @@ import DefaultButton from "components/DefaultButton/DefaultButton";
 import EditGameReview from "./Features/EditGameReview/EditGameReview";
 import Score from "components/Score/Score";
 import Date from "components/Date/Date";
+import { useAuth } from "wrappers/AuthContext/AuthContext";
 
-function Game({ userData }: { userData: any }) {
+function Game() {
+  const { userData } = useAuth();
   const { slug } = useParams();
   const navigate = useNavigate();
   const [game, setGame] = useState<any>();

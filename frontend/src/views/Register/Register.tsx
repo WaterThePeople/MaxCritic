@@ -12,8 +12,10 @@ import DefaultButton from "components/DefaultButton/DefaultButton";
 import { Icon } from "components/Icon/Icon";
 import Modal from "components/Modal/Modal";
 import LoadingSpinner from "components/LoadingSpinner";
+import { useAuth } from "wrappers/AuthContext/AuthContext";
 
-function Register({ isAuth }: { isAuth: boolean }) {
+function Register() {
+  const { isAuth } = useAuth();
   const navigate = useNavigate();
 
   const { width } = useWindowDimensions();

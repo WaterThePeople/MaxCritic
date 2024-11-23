@@ -1,37 +1,59 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .forms import CustomUserCreationForm
 from .models import CustomUser
 from django.contrib.auth.models import Group
 from .models import *
 from django.utils.safestring import mark_safe
 from django import forms
-from io import BytesIO
-from PIL import Image
 
 
 class CustomUserAdminForm(forms.ModelForm):
-    image_file = forms.ImageField(required=False)
+    image_upload = forms.FileField(required=False, label='Upload Image')
+    remove_image = forms.BooleanField(
+        required=False, label='Remove Current Image (on save)',
+        widget=forms.CheckboxInput(attrs={'class': 'remove-image-checkbox'})
+    )
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password',
-                  'is_staff', 'is_superuser', 'image_file')
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        if CustomUser is None:
+            raise ValueError(
+                "You must provide a CustomUser to use this form.")
+        self.Meta.model = CustomUser
+
+        super(CustomUserAdminForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.image_as_base64():
+            self.fields['image_preview'] = forms.CharField(
+                required=False,
+                label='Current Image',
+                widget=forms.TextInput(attrs={
+                    'readonly': 'readonly',
+                    'style': 'display: none;',
+                })
+            )
+            self.image_preview_html = mark_safe(
+                f'<img src="data:image/jpeg;base64,{self.instance.image_as_base64()}" '
+                f'style="max-width: 200px; max-height: 200px;" />'
+            )
+        else:
+            self.image_preview_html = "No image available."
 
     def save(self, commit=True):
-        user = super().save(commit=False)
-        image_file = self.cleaned_data.get('image_file')
-        if image_file:
-            img = Image.open(image_file)
-            img_byte_arr = BytesIO()
-            img.save(img_byte_arr, format='JPEG')
-            img_byte_arr.seek(0)
+        instance = super(CustomUserAdminForm, self).save(commit=False)
 
-            user.image = img_byte_arr.read()
+        if self.cleaned_data.get('remove_image'):
+            instance.image = None
+
+        if self.cleaned_data.get('image_upload'):
+            image_file = self.cleaned_data['image_upload']
+            instance.image = image_file.read()
 
         if commit:
-            user.save()
-        return user
+            instance.save()
+        return instance
 
 
 class UserProfileAdmin(admin.ModelAdmin):
@@ -42,8 +64,17 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {"fields": ('username', 'email', 'is_staff',
-         'is_superuser', 'image_file', 'image_preview')}),
-    )
+         'is_superuser', 'image_upload', 'image_preview', 'remove_image')})
+    ),
+
+    # fieldsets = (
+    #     (None, {
+    #         'fields': ('username', 'email', 'password', 'is_staff', 'is_superuser')
+    #     }),
+    #     ('Image', {
+    #         'fields': ('image_upload',),
+    #     }),
+    # )
 
     def get_fieldsets(self, request, obj=None):
         fieldsets = super().get_fieldsets(request, obj)

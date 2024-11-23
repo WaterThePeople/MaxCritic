@@ -1,4 +1,3 @@
-// auth.ts
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
 const parseJwt = (token: string): { exp: number } | null => {
