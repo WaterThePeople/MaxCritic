@@ -53,19 +53,18 @@ const refreshAccessToken = async (
   }
 };
 
-export const isAuthenticated = (): boolean => {
+export const isAuthenticated = async (): Promise<boolean> => {
   const accessToken = getAccessToken();
 
   if (!accessToken || isTokenExpired(accessToken)) {
     const refreshToken = getRefreshToken();
 
     if (refreshToken && !isTokenExpired(refreshToken)) {
-      refreshAccessToken(refreshToken).then((newAccessToken) => {
-        if (newAccessToken) {
-          setAccessToken(newAccessToken);
-        }
-      });
-      return false;
+      const newAccessToken = await refreshAccessToken(refreshToken);
+      if (newAccessToken) {
+        setAccessToken(newAccessToken);
+        return true;
+      }
     }
 
     return false;
@@ -74,16 +73,13 @@ export const isAuthenticated = (): boolean => {
   return true;
 };
 
-export const returnAccessToken = async () => {
+export const returnAccessToken = async (): Promise<{
+  accessToken: string | null;
+}> => {
   try {
     const isAuth = await isAuthenticated();
-    if (isAuth) {
-      const accessToken = localStorage.getItem("accessToken");
-      return { accessToken };
-    } else {
-      const accessToken = "";
-      return { accessToken };
-    }
+    const accessToken = isAuth ? getAccessToken() : null;
+    return { accessToken };
   } catch (e) {
     console.error("Failed to fetch the tokens from storage", e);
     return { accessToken: null };

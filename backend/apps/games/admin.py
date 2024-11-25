@@ -145,6 +145,11 @@ class GamePublisherAdmin(admin.ModelAdmin):
     image_preview.short_description = "Current Image"
 
 
+class UserGamesLibraryAdmin(admin.ModelAdmin):
+    list_display = ('user',)
+    search_fields = ('user__username',)
+
+
 admin.site.register(Game, GameAdmin)
 admin.site.register(GameReview, GameReviewAdmin)
 admin.site.register(GameCategory, GameCategoryAdmin)
@@ -153,3 +158,4 @@ admin.site.register(GamePlatform, GamePlatformAdmin)
 admin.site.register(GameESRB, GameESRBAdmin)
 admin.site.register(GameDeveloper, GameDeveloperAdmin)
 admin.site.register(GamePublisher, GamePublisherAdmin)
+admin.site.register(UserGamesLibrary, UserGamesLibraryAdmin)

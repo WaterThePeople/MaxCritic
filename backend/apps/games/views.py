@@ -10,6 +10,8 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView
 from django.db.models import Avg
 from ..pagination import Pagination
+from django.shortcuts import get_object_or_404
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 
 
 class GameCategoriesView(generics.ListCreateAPIView):
@@ -96,3 +98,41 @@ class GamesListView(ListAPIView):
         return Game.objects.annotate(
             average_score=Avg('reviews__rating')
         )
+
+
+class UserGamesLibraryView(ListAPIView):
+    serializer_class = GamesListSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        try:
+            user_library = UserGamesLibrary.objects.get(user=self.request.user)
+            print(user_library)
+            return user_library.games.annotate(
+                average_score=Avg('reviews__rating')
+            )
+        except UserGamesLibrary.DoesNotExist:
+            return Game.objects.none()
+
+
+class AddToGamesLibraryView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, game_id):
+        game = get_object_or_404(Game, id=game_id)
+        library = request.user.library
+        library.games.add(game)
+        return Response({"message": f"{game.name} added to your library."})
+
+
+class RemoveFromGamesLibraryView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, game_id):
+        game = get_object_or_404(Game, id=game_id)
+        library = request.user.library
+        if library.games.filter(id=game.id).exists():
+            library.games.remove(game)
+            return Response({"message": f"{game.name} removed from your library."}, status=HTTP_200_OK)
+        else:
+            return Response({"error": f"{game.name} is not in your library."}, status=HTTP_400_BAD_REQUEST)

@@ -4,6 +4,9 @@ from datetime import date
 from django.utils.text import slugify
 import base64
 from django.conf import settings
+from ..main.models import CustomUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class GameESRB(models.Model):
@@ -150,3 +153,21 @@ class Game(models.Model):
             num += 1
 
         return slug
+
+
+class UserGamesLibrary(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="library"
+    )
+    games = models.ManyToManyField(Game, related_name="libraries")
+
+    def __str__(self):
+        return f"{self.user.email}'s Library"
+
+
+@receiver(post_save, sender=CustomUser)
+def create_user_library(sender, instance, created, **kwargs):
+    if created:
+        UserGamesLibrary.objects.create(user=instance)

@@ -4,7 +4,6 @@ import { isAuthenticated } from "utils/Authentication";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "components/DefaultButton/DefaultButton";
 import Section from "components/Section/Section";
-import cn from "classnames";
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
 import ImageTextRow from "components/ImageTextRow/ImageTextRow";
@@ -12,10 +11,11 @@ import { Icon } from "components/Icon/Icon";
 import { returnAccessToken } from "utils/Authentication";
 import LoadingSpinner from "components/LoadingSpinner";
 import Score from "components/Score/Score";
+import { useAuth } from "wrappers/AuthContext/AuthContext";
 
 function AddGameReview({ id, platforms }: { id: number; platforms: any[] }) {
   const navigate = useNavigate();
-  const isAuth = isAuthenticated();
+  const { isAuth } = useAuth();
 
   const [description, setDescription] = useState("");
   const [score, setScore] = useState(0);

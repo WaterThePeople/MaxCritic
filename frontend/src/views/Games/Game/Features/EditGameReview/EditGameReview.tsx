@@ -13,10 +13,11 @@ import { returnAccessToken } from "utils/Authentication";
 import LoadingSpinner from "components/LoadingSpinner";
 import OutsideClickHandler from "components/OutsideClickHandler/OutsideClickHandler";
 import Score from "components/Score/Score";
+import { useAuth } from "wrappers/AuthContext/AuthContext";
 
 function EditGameReview({ data, platforms }: { data: any; platforms: any[] }) {
   const navigate = useNavigate();
-  const isAuth = isAuthenticated();
+  const { isAuth } = useAuth();
 
   const [description, setDescription] = useState("");
   const [score, setScore] = useState(0);

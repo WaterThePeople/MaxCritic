@@ -1,14 +1,13 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
-import { isAuthenticated } from "utils/Authentication";
+import { isAuthenticated, returnAccessToken } from "utils/Authentication";
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
-import { returnAccessToken } from "utils/Authentication";
 
 interface AuthContextType {
   isAuth: boolean;
   setIsAuth: (authStatus: boolean) => void;
   userData: any;
-  setUserData: (authStatus: any) => void;
+  setUserData: (userData: any) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,30 +16,38 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
-  const [userData, setUserData] = useState<any>();
+  const [userData, setUserData] = useState<any>(null);
 
   const getUserData = async () => {
-    const { accessToken } = await returnAccessToken();
-    axios
-      .get(`${serverPath}api/user/info/`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((response) => {
+    try {
+      const { accessToken } = await returnAccessToken();
+      if (accessToken) {
+        const response = await axios.get(`${serverPath}api/user/info/`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
         setUserData(response?.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } else {
+        setUserData(null);
+      }
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+      setUserData(null);
+    }
   };
 
   useEffect(() => {
-    const userAuthenticated = isAuthenticated();
-    setIsAuth(userAuthenticated);
+    const checkAuth = async () => {
+      const userAuthenticated = await isAuthenticated();
+      setIsAuth(userAuthenticated);
+    };
+    checkAuth();
   }, []);
 
   useEffect(() => {
     if (isAuth) {
       getUserData();
+    } else {
+      setUserData(null);
     }
   }, [isAuth]);
 

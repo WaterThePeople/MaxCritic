@@ -25,5 +25,10 @@ urlpatterns = [
     path('api/games/age', GameESRBView.as_view()),
     path('api/games/platforms', GamePlatformsView.as_view()),
     path('api/games/budgets', GameBudgetView.as_view()),
+    path('api/games/library', UserGamesLibraryView.as_view()),
+    path('api/games/library/add/<int:game_id>/',
+         AddToGamesLibraryView.as_view()),
+    path('api/games/library/remove/<int:game_id>/',
+         RemoveFromGamesLibraryView.as_view()),
     path('api/recent', RecentlyAddedView.as_view()),
 ]
