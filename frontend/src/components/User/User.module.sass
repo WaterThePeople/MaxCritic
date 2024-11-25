@@ -25,6 +25,8 @@
 
 .user_text
     box-sizing: border-box
+    @include limit-lines(1)
+    word-break: break-all
     flex: 1
     color: $bw
     padding-inline: $value-2

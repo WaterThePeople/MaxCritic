@@ -210,6 +210,8 @@ class GameSerializer(serializers.ModelSerializer):
     publisher = GamePublisherSerializer(many=False)
     developer = GameDeveloperSerializer(many=True)
     reviews = GameReviewSerializer(many=True)
+    in_library = serializers.SerializerMethodField()
+    has_reviewed = serializers.SerializerMethodField()
 
     class Meta:
         model = Game
@@ -217,3 +219,24 @@ class GameSerializer(serializers.ModelSerializer):
 
     def get_score(self, obj):
         return round(obj.score)
+
+    def get_in_library(self, obj):
+        request = self.context.get('request')
+
+        if not request or not request.user.is_authenticated:
+            return False
+
+        user = request.user
+
+        if hasattr(user, 'library'):
+            return user.library.games.filter(id=obj.id).exists()
+
+        return False
+
+    def get_has_reviewed(self, obj):
+        request = self.context.get('request')
+        if not request or not request.user.is_authenticated:
+            return False
+
+        user = request.user
+        return GameReview.objects.filter(game_id=obj.id, author=user).exists()

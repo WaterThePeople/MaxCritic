@@ -4,16 +4,22 @@
     border-radius: $value-3
     height: 80px
     width: 80px
+    min-height: 80px
+    min-width: 80px
     @include element-flex(row, center, center)
     color: $w
     +title-32
     font-weight: 900
     &.scale
         +m
+            min-height: 60px
+            min-width: 60px
             height: 60px
             width: 60px
             +title-24
         +s
+            min-height: 51px
+            min-width: 51px
             height: 51px
             width: 51px
             +title-16

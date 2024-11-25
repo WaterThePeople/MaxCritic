@@ -80,7 +80,7 @@ class GameView(APIView):
     def get(self, request, slug):
         try:
             item = Game.objects.get(slug=slug)
-            serializer = GameSerializer(item)
+            serializer = GameSerializer(item, context={'request': request})
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Game.DoesNotExist:
             return Response({"error": "Game not found"}, status=status.HTTP_404_NOT_FOUND)

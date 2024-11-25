@@ -21,6 +21,7 @@ import EditGameReview from "./Features/EditGameReview/EditGameReview";
 import Score from "components/Score/Score";
 import Date from "components/Date/Date";
 import { useAuth } from "wrappers/AuthContext/AuthContext";
+import { returnAccessToken } from "utils/Authentication";
 
 function Game() {
   const { userData } = useAuth();
@@ -33,9 +34,12 @@ function Game() {
   const [userReviewModal, setUserReviewModal] = useState(false);
 
   const getGameData = async () => {
+    const { accessToken } = await returnAccessToken();
     setLoading(true);
     axios
-      .get(`${serverPath}api/games/${slug}/`, {})
+      .get(`${serverPath}api/games/${slug}/`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
       .then((response) => {
         setGame(response?.data);
         setLoading(false);
@@ -52,11 +56,12 @@ function Game() {
   }, []);
 
   const checkIfUserReview = () => {
-    game?.reviews?.map((item: any) => {
-      if (item?.author?.id === userData?.id) {
-        setUserReview(item);
-      }
-    });
+    game?.has_reviewed &&
+      game?.reviews?.map((item: any) => {
+        if (item?.author?.id === userData?.id) {
+          setUserReview(item);
+        }
+      });
   };
 
   useEffect(() => {
@@ -66,6 +71,8 @@ function Game() {
   const getYoutubeEmbededURL = (link: string) => {
     return link?.split("https://www.youtube.com/watch?v=")[1];
   };
+
+  console.log(userReview);
 
   return (
     <View background={true} backButton={true}>
@@ -161,7 +168,11 @@ function Game() {
           </Section>
           <div className={style.separator} />
           <Section title="Reviews">
-            <GameReviews data={game?.reviews} />
+            <GameReviews
+              data={game?.reviews}
+              userReviewID={userReview?.id}
+              openReviewModal={() => setUserReviewModal(true)}
+            />
           </Section>
         </div>
       )}

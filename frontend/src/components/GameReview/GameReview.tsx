@@ -1,10 +1,18 @@
 import style from "./GameReview.module.sass";
 import User from "components/User/User";
-import cn from "classnames";
+import DefaultButton from "components/DefaultButton/DefaultButton";
 import ImageTextRow from "components/ImageTextRow/ImageTextRow";
 import Score from "components/Score/Score";
 
-function GameReview({ item }: { item: any }) {
+function GameReview({
+  item,
+  userReviewID,
+  openReviewModal,
+}: {
+  item: any;
+  userReviewID?: number;
+  openReviewModal?: Function;
+}) {
   return (
     <div className={style.item}>
       <div className={style.row}>
@@ -12,7 +20,16 @@ function GameReview({ item }: { item: any }) {
           {`${item?.date.split("-")[2]}.${item?.date.split("-")[1]}.${
             item?.date.split("-")[0]
           }`}
-          <User user={item?.author} />
+          <div className={style.user_row}>
+            <User user={item?.author} classname={style.user} />
+            {userReviewID === item?.id && (
+              <DefaultButton
+                text="Your review"
+                onClick={() => openReviewModal && openReviewModal()}
+                classname={style.game_review}
+              />
+            )}
+          </div>
         </div>
         <Score score={item?.rating} scale />
       </div>

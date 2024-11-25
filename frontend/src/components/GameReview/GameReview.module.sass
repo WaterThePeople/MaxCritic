@@ -29,6 +29,24 @@
     +m
         +label-10
 
+.user_row
+    @include element-flex(row)
+    gap: $value-2
+
+.user
+    flex: 1
+
+.game_review
+    height: 100%
+    border-color: $green1
+    padding: 0 $value-4
+    background: none
+    border-radius: $value-2
+    &:hover
+        border-color: $green3
+    +m
+        border-radius: $value-1
+
 .description
     width: 100%
     box-sizing: border-box

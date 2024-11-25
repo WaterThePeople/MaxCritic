@@ -1,10 +1,10 @@
-import React from "react";
 import style from "./User.module.sass";
 import Image from "components/Image/Image";
+import cn from "classnames";
 
-function User({ user }: { user: any }) {
+function User({ user, classname }: { user: any; classname?: any }) {
   return (
-    <div className={style.user}>
+    <div className={cn(style.user, classname)}>
       {user?.image ? (
         <Image image={user?.image} classname={style.user_image} />
       ) : (

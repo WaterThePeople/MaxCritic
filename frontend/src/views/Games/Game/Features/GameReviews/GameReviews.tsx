@@ -3,7 +3,15 @@ import style from "./GameReviews.module.sass";
 import DefaultButton from "components/DefaultButton/DefaultButton";
 import GameReview from "components/GameReview/GameReview";
 
-function GameReviews({ data }: { data: [] }) {
+function GameReviews({
+  data,
+  userReviewID,
+  openReviewModal,
+}: {
+  data: [];
+  userReviewID?: number;
+  openReviewModal?: Function;
+}) {
   const [limit, setLimit] = useState(5);
   const handleMoreReviews = () => {
     setLimit(data?.length);
@@ -24,7 +32,14 @@ function GameReviews({ data }: { data: [] }) {
       {data?.length > 0 ? (
         reverseArray(data)?.map(
           (item: any, index: number) =>
-            index <= limit - 1 && <GameReview key={index} item={item} />
+            index <= limit - 1 && (
+              <GameReview
+                key={index}
+                item={item}
+                userReviewID={userReviewID}
+                openReviewModal={openReviewModal}
+              />
+            )
         )
       ) : (
         <div className={style.no_data}>There aren't any reviews yet!</div>
