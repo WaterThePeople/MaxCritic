@@ -10,22 +10,21 @@ function MediaItemList({
   image,
   date,
   score,
-  slug,
+  url,
+  inLibrary,
 }: {
   name: string;
   description: string;
   image: any;
   date: string;
   score: number;
-  slug?: string;
+  url?: string;
+  inLibrary?: boolean;
 }) {
   const navigate = useNavigate();
 
   return (
-    <div
-      className={style.container}
-      onClick={() => slug && navigate(`/games/${slug}`)}
-    >
+    <div className={style.container} onClick={() => url && navigate(url)}>
       <Image image={image} classname={style.image} />
       <div className={style.content}>
         <div className={style.row}>
@@ -35,7 +34,10 @@ function MediaItemList({
           </div>
           <Score score={score} scale />
         </div>
-        <Date date={date} />
+        <div className={style.bottom_row}>
+          <Date date={date} />
+          {inLibrary && <div className={style.library}>In library</div>}
+        </div>
       </div>
     </div>
   );

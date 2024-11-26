@@ -30,6 +30,11 @@ function Navbar({
     setProfileMenuVisible(false);
   };
 
+  const goToLibrary = () => {
+    navigate(`/library`);
+    setProfileMenuVisible(false);
+  };
+
   const openLogoutModal = () => {
     setProfileMenuVisible(false);
     setLogoutModal(true);
@@ -81,13 +86,24 @@ function Navbar({
                   )}
                 </div>
                 {profileMenuVisible && (
-                  <div className={style.user_menu_item} onClick={goToProfile}>
+                  <div
+                    className={cn(style.user_menu_item, style.first)}
+                    onClick={goToProfile}
+                  >
                     <div className={style.user_text}>Profile</div>
                   </div>
                 )}
                 {profileMenuVisible && (
                   <div
-                    className={style.user_menu_item_2}
+                    className={cn(style.user_menu_item, style.second)}
+                    onClick={goToLibrary}
+                  >
+                    <div className={style.user_text}>Library</div>
+                  </div>
+                )}
+                {profileMenuVisible && (
+                  <div
+                    className={cn(style.user_menu_item, style.third)}
                     onClick={openLogoutModal}
                   >
                     <div className={style.user_text}>Log out</div>

@@ -116,7 +116,6 @@
     width: 100%
     @include element-flex(row, center, center)
     position: absolute
-    top: 48px
     left: 0
     background-color: $b1
     box-sizing: border-box
@@ -124,6 +123,21 @@
     border: 2px solid $bw
     border-top: 0
     border-bottom: 0
+    &.first
+        top: 48px
+        +m
+            top: 32px
+    &.second
+        top: 96px
+        border-top: 2px solid $bw
+        +m
+            top: 64px
+    &.third
+        top: 144px
+        border: 2px solid $bw
+        border-radius: 0 0 $value-3 $value-3
+        +m
+            top: 96px
     &:hover
         cursor: pointer
         border-color: $w
@@ -131,30 +145,6 @@
         .user_text
             color: $w
     +m
-        top: 32px
-        height: 32px
-        .user_text
-            +title-12
-
-.user_menu_item_2
-    width: 100%
-    @include element-flex(row, center, center)
-    position: absolute
-    top: 96px
-    left: 0
-    background-color: $b1
-    border-radius: 0 0 $value-3 $value-3
-    box-sizing: border-box
-    height: 48px
-    border: 2px solid $bw
-    &:hover
-        cursor: pointer
-        border-color: $w
-        background-color: $b2
-        .user_text
-            color: $w
-    +m
-        top: 64px
         height: 32px
         .user_text
             +title-12

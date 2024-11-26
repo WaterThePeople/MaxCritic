@@ -137,6 +137,7 @@
         width: 24px
 
 .library_button
+    position: relative
     border-radius: $value-3
     border: 2px solid $bw
     height: 80px
@@ -145,9 +146,23 @@
     color: $bw
     +label-24
     box-sizing: border-box
+    &.blue
+        border-color: $blue4
+        background-color: $blue2
+        &:hover
+            border-color: $blue3
+    .remove_text
+        position: absolute
+        bottom: 0
+        width: 100%
+        text-align: center
+        color: $b8
+        +label-16
     +m
         height: 60px
         +label-20
+        .remove_text
+            +label-12
     +s
         height: 51px
         +label-16

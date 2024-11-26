@@ -3,18 +3,15 @@ import style from "./GamesList.module.sass";
 import View from "wrappers/View/View";
 import DefaultButton from "components/DefaultButton/DefaultButton";
 import Modal from "components/Modal/Modal";
-
 import GamesFilters from "./Features/GamesFilters/GameFilters";
 import GamesOrders from "./Features/GamesOrders/GamesOrders";
 import GamesListView from "./Features/GamesListView/GamesListView";
-
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
-
 import useWindowDimensions from "utils/useWindowDimensions";
 import Pagination from "components/Pagination/Pagination";
-
 import { useLocation, useNavigate } from "react-router-dom";
+import { returnAccessToken } from "utils/Authentication";
 
 const orders = [
   { name: "Highest score", value: "-average_score" },
@@ -76,6 +73,7 @@ function GamesList() {
   }, [location.search]);
 
   const getGamesData = async () => {
+    const { accessToken } = await returnAccessToken();
     setLoading(true);
     const query = new URLSearchParams();
 
@@ -90,7 +88,10 @@ function GamesList() {
 
     try {
       const response = await axios.get(
-        `${serverPath}/api/games/list?${query.toString()}&page_size=${pageSize}`
+        `${serverPath}/api/games/list?${query.toString()}&page_size=${pageSize}`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
       );
       setData(response.data.results);
       setDataCount(response.data.count);

@@ -32,6 +32,7 @@ function Game() {
   const [addReviewModal, setAddReviewModal] = useState(false);
   const [userReview, setUserReview] = useState<any>();
   const [userReviewModal, setUserReviewModal] = useState(false);
+  const [gameInLibrary, setGameInLibrary] = useState(false);
 
   const getGameData = async () => {
     const { accessToken } = await returnAccessToken();
@@ -42,6 +43,7 @@ function Game() {
       })
       .then((response) => {
         setGame(response?.data);
+        setGameInLibrary(response?.data?.in_library);
         setLoading(false);
       })
       .catch((error) => {
@@ -54,6 +56,42 @@ function Game() {
   useEffect(() => {
     getGameData();
   }, []);
+
+  const addGameToLibrary = async (ID: number) => {
+    const { accessToken } = await returnAccessToken();
+    axios
+      .post(
+        `${serverPath}/api/games/library/add/${ID}/`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      )
+      .then((response) => {
+        setGameInLibrary(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const removeGameFromLibrary = async (ID: number) => {
+    const { accessToken } = await returnAccessToken();
+    axios
+      .post(
+        `${serverPath}/api/games/library/remove/${ID}/`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      )
+      .then((response) => {
+        setGameInLibrary(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const checkIfUserReview = () => {
     game?.has_reviewed &&
@@ -71,8 +109,6 @@ function Game() {
   const getYoutubeEmbededURL = (link: string) => {
     return link?.split("https://www.youtube.com/watch?v=")[1];
   };
-
-  console.log(userReview);
 
   return (
     <View background={true} backButton={true}>
@@ -138,14 +174,27 @@ function Game() {
                 )}
               </div>
               <div className={style.separator} />
-              <div className={cn(style.library_button)}>
-                Add to library
-                <Icon
-                  name={"plus"}
-                  className={style.plus_svg}
-                  viewBox="0 0 24 24"
-                />
-              </div>
+              {gameInLibrary ? (
+                <div
+                  className={cn(style.library_button, style.blue)}
+                  onClick={() => removeGameFromLibrary(game?.id)}
+                >
+                  Already in Library
+                  <div className={style.remove_text}>Click to remove</div>
+                </div>
+              ) : (
+                <div
+                  className={cn(style.library_button)}
+                  onClick={() => addGameToLibrary(game?.id)}
+                >
+                  Add to library
+                  <Icon
+                    name={"plus"}
+                    className={style.plus_svg}
+                    viewBox="0 0 24 24"
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className={style.separator} />

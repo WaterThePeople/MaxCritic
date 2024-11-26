@@ -10,6 +10,7 @@ import Register from "views/Register/Register";
 import Home from "views/Home/Home";
 
 import Profile from "views/Profile/Profile";
+import Library from "views/Library/Library";
 
 import GamesList from "views/Games/GamesList/GamesList";
 import Game from "views/Games/Game/Game";
@@ -32,6 +33,7 @@ function App() {
 
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/library" element={<Library />} />
             <Route path="/games" element={<GamesList />} />
             <Route path="/games/:slug" element={<Game />} />
             <Route path="/movies" />

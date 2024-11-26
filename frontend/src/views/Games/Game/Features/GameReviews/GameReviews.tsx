@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./GameReviews.module.sass";
 import DefaultButton from "components/DefaultButton/DefaultButton";
-import GameReview from "components/GameReview/GameReview";
+import GameReview from "views/Games/Game/Features/GameReview/GameReview";
 
 function GameReviews({
   data,

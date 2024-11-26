@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./DoubleRangeSlider.module.sass";
 import cn from "classnames";
 
@@ -9,6 +9,10 @@ function DoubleRangeSlider({
   min = 0,
   max = 100,
   classname,
+  minVariable,
+  setMinVariable,
+  maxVariable,
+  setMaxVariable,
 }: {
   leftValue: number;
   rightValue: number;
@@ -16,10 +20,11 @@ function DoubleRangeSlider({
   min?: number;
   max?: number;
   classname?: string;
+  minVariable: number;
+  setMinVariable: React.Dispatch<React.SetStateAction<number>>;
+  maxVariable: number;
+  setMaxVariable: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  const [minVariable, setMinVariable] = useState(leftValue);
-  const [maxVariable, setMaxVariable] = useState(rightValue);
-
   const onLeftChange = (event: any) => {
     let value = parseInt(event.target.value);
     if (value <= rightValue) {

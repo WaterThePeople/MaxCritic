@@ -26,8 +26,9 @@ function GamesListView({
             image={item?.image}
             score={item?.score}
             date={item?.release_date}
-            slug={item?.slug}
+            url={`/games/${item?.slug}`}
             description={item?.description}
+            inLibrary={item?.in_library}
           />
         ))
       ) : (

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import style from "./GamesOrders.module.sass";
 import DropdownModal from "components/DropdownModal/DropdownModal";
 import DoubleRangeSlider from "components/DoubleRangeSlider/DoubleRangeSlider";
@@ -21,11 +22,13 @@ function GamesOrders({
   maxYear: number;
   yearChange: Function;
 }) {
+  const [minYearVariable, setMinYearVariable] = useState(minYear);
+  const [maxYearVariable, setMaxYearVariable] = useState(maxYear);
   return (
     <div className={style.container}>
       <div className={style.slider_container}>
         <span>
-          Release year from {minYear} to {maxYear}
+          Release year from {minYearVariable} to {maxYearVariable}
         </span>
         <div className={style.text_row}>
           <span>{oldestYear}</span>
@@ -38,6 +41,10 @@ function GamesOrders({
           classname={style.slider}
           min={oldestYear}
           max={newestYear}
+          minVariable={minYearVariable}
+          setMinVariable={setMinYearVariable}
+          maxVariable={maxYearVariable}
+          setMaxVariable={setMaxYearVariable}
         />
       </div>
       <div className={style.content}>

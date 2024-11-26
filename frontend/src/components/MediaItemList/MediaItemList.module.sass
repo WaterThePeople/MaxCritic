@@ -35,6 +35,8 @@
     padding: $value-4
     @include element-flex(column, space-between)
     gap: $value-2
+    +m
+        padding: $value-2
 
 .row
     width: 100%
@@ -65,3 +67,18 @@
     +m
         +label-12
         @include limit-lines(2)
+
+.bottom_row
+    width: 100%
+    @include element-flex(row, space-between,center)
+    gap: $value-2
+
+.library
+    color: $w
+    @include element-flex(row, center, center)
+    padding: 0 $value-2
+    background: $blue2
+    border-radius: $value-1
+    +label-16
+    +m
+        +label-10

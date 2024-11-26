@@ -186,6 +186,7 @@ class GamesSerializer(serializers.ModelSerializer):
 class GamesListSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     score = serializers.SerializerMethodField()
+    in_library = serializers.SerializerMethodField()
 
     def get_image(self, obj):
         if obj.image:
@@ -195,10 +196,20 @@ class GamesListSerializer(serializers.ModelSerializer):
     def get_score(self, obj):
         return round(obj.score)
 
+    def get_in_library(self, obj):
+        request = self.context.get('request')
+
+        if not request or not request.user.is_authenticated:
+            return False
+
+        user = request.user
+        if hasattr(user, 'library'):
+            return user.library.games.filter(id=obj.id).exists()
+
     class Meta:
         model = Game
         fields = ['id', 'name', 'slug', 'image', 'score',
-                  'release_date', 'description']
+                  'release_date', 'description', 'in_library']
 
 
 class GameSerializer(serializers.ModelSerializer):
