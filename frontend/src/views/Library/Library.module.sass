@@ -26,3 +26,15 @@
     width: 100%
     @include element-flex(row)
     gap: $value-4
+
+.loading_card_container
+    padding-top: $value-2
+    width: 100%
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+    gap: $value-4
+    box-sizing: border-box
+
+.loading_card
+    height: 224px
+    width: 100%

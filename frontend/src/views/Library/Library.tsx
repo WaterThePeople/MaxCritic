@@ -2,11 +2,38 @@ import React, { useState, useEffect } from "react";
 import style from "./Library.module.sass";
 import View from "wrappers/View/View";
 import DropdownModal from "components/DropdownModal/DropdownModal";
+import axios from "axios";
+import { serverPath } from "BackendServerPath";
+import { returnAccessToken } from "utils/Authentication";
+import LoadingCard from "components/LoadingCard/LoadingCard";
+import GamesLibrary from "./Features/GamesLibrary/GamesLibrary";
 
 const libraries = ["Games", "Movies", "TV Shows", "Music"];
 
 function Library() {
   const [currentLibrary, setCurrentLibrary] = useState(libraries[0]);
+  const [library, setLibrary] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const getLibrary = async () => {
+    const { accessToken } = await returnAccessToken();
+    axios
+      .get(`${serverPath}/api/games/library`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((response) => {
+        setLibrary(response?.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    getLibrary();
+  }, []);
 
   return (
     <View background>
@@ -20,7 +47,17 @@ function Library() {
           />
         </div>
         <div className={style.separator} />
-        <div className={style.container}></div>
+        <div className={style.container}>
+          {loading ? (
+            <div className={style.loading_card_container}>
+              {[...Array(16)]?.map((item: any, index: number) => (
+                <LoadingCard classname={style.loading_card} key={index} />
+              ))}
+            </div>
+          ) : (
+            <GamesLibrary data={library} />
+          )}
+        </div>
       </div>
     </View>
   );

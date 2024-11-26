@@ -1,0 +1,27 @@
+@import 'styles'
+
+.container
+    width: 100%
+    border-radius: $value-3
+    background-color: $b1
+    box-sizing: border-box
+    @include element-flex(column,flex-start,flex-start)
+    gap: $value-2
+    padding: $value-2
+    align-self: stretch
+    &:hover
+        cursor: pointer
+        background-color: $b2
+        .name
+            color: $w
+
+.image
+    border-radius: $value-3 $value-3 $value-1 $value-1
+    width: 100%
+    aspect-ratio: 16 / 9
+    object-fit: cover
+
+.name
+    +label-20
+    color: $bw
+    word-break: break-all

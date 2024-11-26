@@ -1,0 +1,19 @@
+@import 'styles'
+
+.container
+    padding-top: $value-2
+    width: 100%
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+    gap: $value-4
+    box-sizing: border-box
+
+.no_data
+    width: 100%
+    box-sizing: border-box
+    padding-inline: $value-4
+    text-align: center
+    color: $bw
+    +label-16
+    +m
+        +label-12

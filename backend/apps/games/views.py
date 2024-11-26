@@ -101,7 +101,7 @@ class GamesListView(ListAPIView):
 
 
 class UserGamesLibraryView(ListAPIView):
-    serializer_class = GamesListSerializer
+    serializer_class = GamesLibrarySerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):

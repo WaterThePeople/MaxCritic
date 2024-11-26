@@ -212,6 +212,19 @@ class GamesListSerializer(serializers.ModelSerializer):
                   'release_date', 'description', 'in_library']
 
 
+class GamesLibrarySerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
+
+    class Meta:
+        model = Game
+        fields = ['id', 'name', 'slug', 'image']
+
+
 class GameSerializer(serializers.ModelSerializer):
     score = serializers.SerializerMethodField()
     categories = GameCategoriesSerializer(many=True)
