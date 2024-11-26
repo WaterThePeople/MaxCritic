@@ -19,7 +19,7 @@ function DropdownModal({
   const [modalWidth, setModalWidth] = useState<number>(0);
   const { width } = useWindowDimensions();
 
-  const onSelect = (item: string) => {
+  const onSelect = (item: any) => {
     onClick(item);
     setVisible(false);
   };
@@ -57,9 +57,11 @@ function DropdownModal({
                   index + 1 === array?.length && style.last
                 )}
                 key={index}
-                onClick={() => onSelect(item?.value)}
+                onClick={() => onSelect(item)}
               >
-                <div className={style.text}>{item?.name}</div>
+                <div className={style.text}>
+                  {item?.name ? item?.name : item}
+                </div>
               </button>
             ))}
           </div>

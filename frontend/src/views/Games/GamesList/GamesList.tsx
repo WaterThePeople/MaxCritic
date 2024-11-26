@@ -215,7 +215,7 @@ function GamesList() {
   }, [width]);
 
   return (
-    <View>
+    <View background>
       <div className={style.content}>
         <div className={style.title}>List of Games</div>
         <div className={style.separator} />
@@ -240,7 +240,7 @@ function GamesList() {
               <GamesOrders
                 array={orders}
                 current={orders.find((x) => x.value === ordering)?.name || ""}
-                changeOrder={(x: any) => changeOrder(x)}
+                changeOrder={(x: any) => changeOrder(x?.value)}
                 oldestYear={oldestYear}
                 newestYear={newestYear}
                 minYear={startingYear}
