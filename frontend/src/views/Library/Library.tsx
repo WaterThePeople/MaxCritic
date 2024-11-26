@@ -7,10 +7,14 @@ import { serverPath } from "BackendServerPath";
 import { returnAccessToken } from "utils/Authentication";
 import LoadingCard from "components/LoadingCard/LoadingCard";
 import GamesLibrary from "./Features/GamesLibrary/GamesLibrary";
+import { useAuth } from "wrappers/AuthContext/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const libraries = ["Games", "Movies", "TV Shows", "Music"];
 
 function Library() {
+  const { isAuth } = useAuth();
+  const navigate = useNavigate();
   const [currentLibrary, setCurrentLibrary] = useState(libraries[0]);
   const [library, setLibrary] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -34,6 +38,12 @@ function Library() {
   useEffect(() => {
     getLibrary();
   }, []);
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate(`/`);
+    }
+  }, [isAuth]);
 
   return (
     <View background>
