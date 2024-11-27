@@ -67,15 +67,6 @@ class UserProfileAdmin(admin.ModelAdmin):
          'is_superuser', 'image_upload', 'image_preview', 'remove_image')})
     ),
 
-    # fieldsets = (
-    #     (None, {
-    #         'fields': ('username', 'email', 'password', 'is_staff', 'is_superuser')
-    #     }),
-    #     ('Image', {
-    #         'fields': ('image_upload',),
-    #     }),
-    # )
-
     def get_fieldsets(self, request, obj=None):
         fieldsets = super().get_fieldsets(request, obj)
 
@@ -96,7 +87,7 @@ class UserProfileAdmin(admin.ModelAdmin):
             image_base64 = base64.b64encode(obj.image).decode('utf-8')
             return mark_safe(
                 f'<img src="data:image/jpeg;base64,{image_base64}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
+                f'style="max-width: 256px; max-height: 256px;" />'
             )
         return "No image available."
 

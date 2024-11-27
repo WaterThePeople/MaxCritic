@@ -38,6 +38,20 @@ class UserInfoView(APIView):
         return Response(serializer.data)
 
 
+class UserImageView(APIView):
+    # user image add image as blob to body to add/change current photo, pass empty body to delete image
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        user = request.user
+        serializer = UserImageSerializer(
+            user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Image updated successfully'}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class RecentlyAddedView(APIView):
 
     def get(self, request, *args, **kwargs):

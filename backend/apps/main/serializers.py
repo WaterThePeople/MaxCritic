@@ -56,3 +56,30 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'image']
+
+
+class UserImageSerializer(serializers.ModelSerializer):
+    image = serializers.CharField(
+        required=False, allow_blank=True, allow_null=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ['image']
+
+    def validate_image(self, value):
+        if value:
+            try:
+                base64.b64decode(value)
+            except Exception:
+                raise serializers.ValidationError(
+                    "Invalid base64 encoded image")
+        return value
+
+    def update(self, instance, validated_data):
+        image_data = validated_data.get('image')
+        if image_data:
+            instance.image = base64.b64decode(image_data)
+        else:
+            instance.image = None
+        instance.save()
+        return instance

@@ -225,16 +225,14 @@ function Game() {
           </Section>
         </div>
       )}
-      {addReviewModal && (
-        <Modal setVisible={setAddReviewModal}>
-          <AddGameReview platforms={game?.platforms} id={game?.id} />
-        </Modal>
-      )}
-      {userReviewModal && (
-        <Modal setVisible={setUserReviewModal}>
-          <EditGameReview platforms={game?.platforms} data={userReview} />
-        </Modal>
-      )}
+
+      <Modal setVisible={setAddReviewModal} visible={addReviewModal}>
+        <AddGameReview platforms={game?.platforms} id={game?.id} />
+      </Modal>
+
+      <Modal setVisible={setUserReviewModal} visible={userReviewModal}>
+        <EditGameReview platforms={game?.platforms} data={userReview} />
+      </Modal>
     </View>
   );
 }

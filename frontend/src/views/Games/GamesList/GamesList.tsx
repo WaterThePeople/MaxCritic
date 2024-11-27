@@ -267,23 +267,21 @@ function GamesList() {
           </div>
         </div>
       </div>
-      {filtersMobileModal && (
-        <Modal setVisible={setFiltersMobileModal}>
-          <div className={style.filters_modal}>
-            <GamesFilters
-              clearFilters={clearFilters}
-              selectedCategories={categories}
-              toggleCategory={toggleCategory}
-              selectedPlatforms={platforms}
-              togglePlatforms={togglePlatforms}
-              selectedBudget={budget}
-              toggleBudget={toggleBudget}
-              selectedAgeRating={age}
-              toggleAge={toggleAge}
-            />
-          </div>
-        </Modal>
-      )}
+      <Modal setVisible={setFiltersMobileModal} visible={filtersMobileModal}>
+        <div className={style.filters_modal}>
+          <GamesFilters
+            clearFilters={clearFilters}
+            selectedCategories={categories}
+            toggleCategory={toggleCategory}
+            selectedPlatforms={platforms}
+            togglePlatforms={togglePlatforms}
+            selectedBudget={budget}
+            toggleBudget={toggleBudget}
+            selectedAgeRating={age}
+            toggleAge={toggleAge}
+          />
+        </div>
+      </Modal>
     </View>
   );
 }

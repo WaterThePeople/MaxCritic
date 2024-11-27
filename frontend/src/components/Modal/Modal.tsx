@@ -9,34 +9,38 @@ function Modal({
   setVisible,
 }: {
   children: React.ReactNode;
-  visible?: boolean;
+  visible: boolean;
   setVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+    if (visible === true) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "auto";
+      };
+    }
+  }, [visible]);
 
   return (
-    <div className={style.modal}>
-      {setVisible ? (
-        <div className={style.container}>
-          <OutsideClickHandler
-            onClickOutside={() => setVisible(false)}
-            classname={style.content}
-          >
-            <div className={style.close_button}>
-              <CloseButton onClick={() => setVisible(false)} />
-            </div>
-            {children}
-          </OutsideClickHandler>
-        </div>
-      ) : (
-        <div className={style.container}>{children}</div>
-      )}
-    </div>
+    visible && (
+      <div className={style.modal}>
+        {setVisible ? (
+          <div className={style.container}>
+            <OutsideClickHandler
+              onClickOutside={() => setVisible(false)}
+              classname={style.content}
+            >
+              <div className={style.close_button}>
+                <CloseButton onClick={() => setVisible(false)} />
+              </div>
+              {children}
+            </OutsideClickHandler>
+          </div>
+        ) : (
+          <div className={style.container}>{children}</div>
+        )}
+      </div>
+    )
   );
 }
 

@@ -143,14 +143,12 @@ function Register() {
           </div>
         </div>
       </div>
-      {success && (
-        <Modal>
-          <div className={style.success}>
-            {success}
-            <DefaultButton text="Go to login" onClick={onSuccess} />
-          </div>
-        </Modal>
-      )}
+      <Modal visible={success.length > 0}>
+        <div className={style.success}>
+          {success}
+          <DefaultButton text="Go to login" onClick={onSuccess} />
+        </div>
+      </Modal>
     </div>
   );
 }

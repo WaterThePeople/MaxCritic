@@ -25,6 +25,11 @@ function Navbar({
     localStorage.removeItem("refreshToken");
   };
 
+  const goToAccount = () => {
+    navigate(`/account`);
+    setProfileMenuVisible(false);
+  };
+
   const goToProfile = () => {
     navigate(`/profile`);
     setProfileMenuVisible(false);
@@ -88,6 +93,14 @@ function Navbar({
                 {profileMenuVisible && (
                   <div
                     className={cn(style.user_menu_item, style.first)}
+                    onClick={goToAccount}
+                  >
+                    <div className={style.user_text}>Account</div>
+                  </div>
+                )}
+                {profileMenuVisible && (
+                  <div
+                    className={cn(style.user_menu_item, style.second)}
                     onClick={goToProfile}
                   >
                     <div className={style.user_text}>Profile</div>
@@ -95,7 +108,7 @@ function Navbar({
                 )}
                 {profileMenuVisible && (
                   <div
-                    className={cn(style.user_menu_item, style.second)}
+                    className={cn(style.user_menu_item, style.third)}
                     onClick={goToLibrary}
                   >
                     <div className={style.user_text}>Library</div>
@@ -103,7 +116,7 @@ function Navbar({
                 )}
                 {profileMenuVisible && (
                   <div
-                    className={cn(style.user_menu_item, style.third)}
+                    className={cn(style.user_menu_item, style.last)}
                     onClick={openLogoutModal}
                   >
                     <div className={style.user_text}>Log out</div>
@@ -118,27 +131,25 @@ function Navbar({
           )}
         </div>
       </div>
-      {logoutModal && (
-        <Modal setVisible={setLogoutModal}>
-          <div className={style.logout_modal_container}>
-            <div className={style.confirm_logout_text}>
-              Are you sure you want to logout?
-            </div>
-            <div className={style.logout_modal_row}>
-              <DefaultButton
-                text="Cancel"
-                onClick={() => setLogoutModal(false)}
-              />
-              <DefaultButton
-                text="Confirm"
-                onClick={() => logout()}
-                classname={style.logout}
-                classnameText={style.logout_text}
-              />
-            </div>
+      <Modal setVisible={setLogoutModal} visible={logoutModal}>
+        <div className={style.logout_modal_container}>
+          <div className={style.confirm_logout_text}>
+            Are you sure you want to logout?
           </div>
-        </Modal>
-      )}
+          <div className={style.logout_modal_row}>
+            <DefaultButton
+              text="Cancel"
+              onClick={() => setLogoutModal(false)}
+            />
+            <DefaultButton
+              text="Confirm"
+              onClick={() => logout()}
+              classname={style.logout}
+              classnameText={style.logout_text}
+            />
+          </div>
+        </div>
+      </Modal>
     </>
   );
 }

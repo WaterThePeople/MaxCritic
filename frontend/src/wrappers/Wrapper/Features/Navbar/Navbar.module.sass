@@ -124,20 +124,25 @@
     border-top: 0
     border-bottom: 0
     &.first
-        top: 48px
+        top: calc(48px * 1)
         +m
-            top: 32px
+            top: calc(32px * 1)
     &.second
-        top: 96px
+        top: calc(48px * 2)
         border-top: 2px solid $bw
         +m
-            top: 64px
+            top: calc(32px * 2)
     &.third
-        top: 144px
+        top: calc(48px * 3)
+        border-top: 2px solid $bw
+        +m
+            top: calc(32px * 3)
+    &.last
+        top: calc(48px * 4)
         border: 2px solid $bw
         border-radius: 0 0 $value-3 $value-3
         +m
-            top: 96px
+            top: calc(32px * 4)
     &:hover
         cursor: pointer
         border-color: $w
