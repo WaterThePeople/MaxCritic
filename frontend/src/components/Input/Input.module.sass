@@ -2,16 +2,23 @@
 
 .container
     width: 100%
+    @include element-flex(column)
+    gap: $value-1
 
 .text
     +label-16
-    color: $w2
+    color: $bw
 
 .input
     width: calc(100% - 28px)
     height: 40px
-    border: 2px solid $b3
     border-radius: $value-3
     padding: 0 12px
     +label-20
     outline: 0
+    background: $b2
+    border: 2px solid $b3
+    color: $bw
+    &:focus
+        border-color: $b4
+        color: $w

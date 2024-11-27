@@ -29,10 +29,27 @@ function ApiTestView() {
       });
   };
 
+  const changeUsername = async () => {
+    const { accessToken } = await returnAccessToken();
+    axios
+      .put(
+        `${serverPath}/api/user/username/`,
+        { new_username: "admin" },
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className={style.container}>
       <div className={style.title}>THIS VIEW IS FOR TESTING API CALLS ONLY</div>
-      <ImageCropper setCroppedImage={setImage} />
       <button onClick={changePhoto}>change photo</button>
 
       {image && (

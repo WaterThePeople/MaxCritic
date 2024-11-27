@@ -1,0 +1,46 @@
+@import 'styles'
+
+.container
+    width: 100%
+    height: calc(100% / 3 - $value-4*2)
+    border-radius: $value-4
+    background: $b1
+    box-sizing: border-box
+    @include element-flex(column,space-between,flex-start)
+    gap: $value-4
+    padding: $value-4
+    +m
+        height: fit-content
+
+.loading
+    width: 100%
+    height: calc(100% / 3 - $value-4*2)
+    +m
+        height: 159px
+
+.row
+    width: 100%
+    @include element-flex(row, flex-start, center)
+    gap: $value-2
+
+.error_container
+    width: 100%
+    @include element-flex(row)
+    gap: $value-2
+
+.error_icon
+    background-color: $red4
+    @include element-flex(column, center, center)
+    border-radius: 50%
+    padding: $value-1
+    +m
+        padding: 0
+
+.svg
+    fill: $w3
+
+.error
+    color: $red4
+    +label-16
+    +m
+        +label-12

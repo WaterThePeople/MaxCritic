@@ -52,6 +52,20 @@ class UserImageView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class ChangeUsernameView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, *args, **kwargs):
+        serializer = ChangeUsernameSerializer(data=request.data)
+        if serializer.is_valid():
+            new_username = serializer.validated_data['new_username']
+            user = request.user
+            user.username = new_username
+            user.save()
+            return Response({"message": "Username updated successfully."}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class RecentlyAddedView(APIView):
 
     def get(self, request, *args, **kwargs):

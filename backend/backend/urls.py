@@ -17,6 +17,7 @@ urlpatterns = [
     path('api/register/', RegisterView.as_view()),
     path('api/user/info/', UserInfoView.as_view()),
     path('api/user/image/', UserImageView.as_view()),
+    path('api/user/username/', ChangeUsernameView.as_view()),
     path('api/games/list', GamesListView.as_view()),
     path('api/games/<slug:slug>/', GameView.as_view()),
     path('api/games/reviews/create/', GameReviewCreateView.as_view()),

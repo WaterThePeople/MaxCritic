@@ -4,7 +4,7 @@ import axios from "axios";
 import { serverPath } from "BackendServerPath";
 
 interface AuthContextType {
-  isAuth: boolean;
+  isAuth: boolean | null;
   setIsAuth: (authStatus: boolean) => void;
   userData: any;
   setUserData: (userData: any) => void;
@@ -15,7 +15,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [isAuth, setIsAuth] = useState<boolean | null>(null);
   const [userData, setUserData] = useState<any>(null);
 
   const getUserData = async () => {

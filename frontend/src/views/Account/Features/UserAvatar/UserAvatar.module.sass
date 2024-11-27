@@ -1,0 +1,61 @@
+@import 'styles'
+
+.container
+    width: 512px
+    border-radius: $value-4
+    background: $b1
+    box-sizing: border-box
+    @include element-flex(column,flex-start,flex-start)
+    gap: $value-2
+    padding: $value-4
+    span
+        +label-16
+        color: $bw
+    +m
+        width: 384px
+    +s
+        width: 100%
+
+.loading
+    width: 512px
+    height: 512px
+    +m
+        width: 384px
+        height: 384px
+    +s
+        width: 100%
+        height: 320px
+
+.row
+    width: 100%
+    @include element-flex(row,space-between,flex-start)
+    gap: $value-4
+
+.image
+    border: 2px solid $b2
+    box-sizing: border-box
+    border-radius: $value-3
+    width: 100%
+    aspect-ratio: 1 / 1
+    object-fit: cover
+    margin-bottom: $value-2
+
+.delete_button
+    border: 2px solid $red6
+    &:hover
+        border-color: $red4
+        .delete_button_text
+            color: $red4
+
+.delete_button_text
+    color: $red6
+
+.delete_button_confirm
+    border: 2px solid $red4
+    &:hover
+        border-color: $red2
+        .delete_button_text_confirm
+            color: $red2
+
+.delete_button_text_confirm
+    color: $red4

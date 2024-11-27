@@ -6,8 +6,10 @@ import Cropper from "react-easy-crop";
 
 function ImageCropper({
   setCroppedImage,
+  onSuccess,
 }: {
   setCroppedImage: React.Dispatch<React.SetStateAction<string | null>>;
+  onSuccess: Function;
 }) {
   const [visible, setVisible] = useState(false);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -63,6 +65,7 @@ function ImageCropper({
     setCroppedImage(croppedBase64);
     setImageSrc("");
     setVisible(false);
+    onSuccess(croppedBase64);
   };
 
   const loadImage = (src: string): Promise<HTMLImageElement> => {
@@ -76,7 +79,7 @@ function ImageCropper({
 
   return (
     <>
-      <DefaultButton text="Change Image" onClick={triggerFileInput} />
+      <DefaultButton text="Change Profile Image" onClick={triggerFileInput} />
       <input
         type="file"
         value={""}
@@ -88,7 +91,7 @@ function ImageCropper({
         <div className={style.container}>
           {imageSrc && (
             <div className={style.content}>
-              <DefaultButton text="Crop image" onClick={getCroppedImage} />
+              <DefaultButton text="Upload Image" onClick={getCroppedImage} />
               <Cropper
                 image={imageSrc}
                 crop={crop}

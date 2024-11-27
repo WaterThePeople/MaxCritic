@@ -6,7 +6,7 @@ import base64
 
 
 class CustomUser(AbstractUser):
-    username = models.CharField(max_length=150, unique=True, null=True)
+    username = models.CharField(max_length=50, unique=True, null=True)
     email = models.EmailField(_("email address"), unique=True)
 
     USERNAME_FIELD = 'username'

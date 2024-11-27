@@ -83,3 +83,13 @@ class UserImageSerializer(serializers.ModelSerializer):
             instance.image = None
         instance.save()
         return instance
+
+
+class ChangeUsernameSerializer(serializers.Serializer):
+    new_username = serializers.CharField(max_length=150)
+
+    def validate_new_username(self, value):
+        if CustomUser.objects.filter(username=value).exists():
+            raise serializers.ValidationError(
+                "This username is already taken.")
+        return value
