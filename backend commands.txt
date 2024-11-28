@@ -10,7 +10,7 @@ pip install -r req.txt
 Admin user:
 Username: admin
 Email: admin@gmail.com
-Password: admin
+Password: zaq1@WSX
 
 Migrations:
 python manage.py makemigrations

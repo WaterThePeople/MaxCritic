@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import style from "./Username.module.sass";
 import DefaultButton from "components/DefaultButton/DefaultButton";
-import LoadingCard from "components/LoadingCard/LoadingCard";
 import Input from "components/Input/Input";
 import { Icon } from "components/Icon/Icon";
+import LoadingSpinner from "components/LoadingSpinner";
 
 function Username({
   loading,
@@ -18,9 +18,7 @@ function Username({
   onSaveUsername: Function;
   error: string;
 }) {
-  return loading ? (
-    <LoadingCard classname={style.loading} />
-  ) : (
+  return (
     <div className={style.container}>
       <Input
         value={username ? username : ""}
@@ -28,22 +26,26 @@ function Username({
         label="Your Username"
         maxLength={50}
       />
-      <div className={style.row}>
-        <DefaultButton text="Save" onClick={onSaveUsername} />
-        {error && (
-          <div className={style.error_container}>
-            <div className={style.error_icon}>
-              <Icon
-                name={"info"}
-                size={18}
-                className={style.svg}
-                viewBox="-8 -5 18 18"
-              />
-            </div>
-            <div className={style.error}>{error}</div>
+      {error && (
+        <div className={style.error_container}>
+          <div className={style.error_icon}>
+            <Icon
+              name={"info"}
+              size={18}
+              className={style.svg}
+              viewBox="-8 -5 18 18"
+            />
           </div>
-        )}
-      </div>
+          <div className={style.error}>{error}</div>
+        </div>
+      )}
+      {loading ? (
+        <div className={style.loading}>
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <DefaultButton text="Change Username" onClick={onSaveUsername} />
+      )}
     </div>
   );
 }

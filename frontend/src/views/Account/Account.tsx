@@ -10,25 +10,34 @@ import { useNavigate } from "react-router-dom";
 import UserAvatar from "./Features/UserAvatar/UserAvatar";
 import Username from "./Features/Username/Username";
 import Email from "./Features/Email/Email";
+import ChangePassword from "./Features/ChangePassword/ChangePassword";
 
 function Account() {
   const { isAuth, userData, setUserData } = useAuth();
   const [image, setImage] = useState<string | null>(null);
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordChangeSuccess, setPasswordChangeSuccess] = useState("");
   const [email, setEmail] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+
+  const [avatarLoading, setAvatarLoading] = useState(true);
+  const [usernameLoading, setUsernameLoading] = useState(true);
+  const [emailLoading, setEmailLoading] = useState(true);
+  const [passwordLoading, setPasswordLoading] = useState(true);
 
   useEffect(() => {
     if (isAuth !== null && !isAuth) {
-      navigate(`/`);
+      navigate(`/login`);
     }
   }, [isAuth]);
 
   const changePhoto = async (imageFile: string) => {
     const { accessToken } = await returnAccessToken();
-    setLoading(true);
+    setAvatarLoading(true);
     axios
       .put(
         `${serverPath}api/user/image/`,
@@ -44,17 +53,17 @@ function Account() {
           email: userData?.email,
           image: imageFile,
         });
-        setLoading(false);
+        setAvatarLoading(false);
       })
       .catch((error) => {
         console.log(error);
-        setLoading(false);
+        setAvatarLoading(false);
       });
   };
 
   const removePhoto = async () => {
     const { accessToken } = await returnAccessToken();
-    setLoading(true);
+    setAvatarLoading(true);
     axios
       .put(
         `${serverPath}/api/user/image/`,
@@ -70,17 +79,17 @@ function Account() {
           email: userData?.email,
           image: "",
         });
-        setLoading(false);
+        setAvatarLoading(false);
       })
       .catch((error) => {
         console.log(error);
-        setLoading(false);
+        setAvatarLoading(false);
       });
   };
 
   const changeUsername = async () => {
     const { accessToken } = await returnAccessToken();
-    setLoading(true);
+    setUsernameLoading(true);
     axios
       .put(
         `${serverPath}/api/user/username/`,
@@ -96,24 +105,64 @@ function Account() {
           email: userData?.email,
           image: userData?.image,
         });
-        setLoading(false);
+        setUsernameLoading(false);
       })
       .catch((error) => {
         setUsernameError(error?.response?.data?.new_username[0]);
-        setLoading(false);
+        setUsernameLoading(false);
       });
+  };
+
+  const changePassword = async () => {
+    const { accessToken } = await returnAccessToken();
+    setPasswordLoading(true);
+    axios
+      .post(
+        `${serverPath}/api/user/password/change/`,
+        {
+          new_password: newPassword,
+          old_password: password,
+        },
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      )
+      .then((response) => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        setPasswordChangeSuccess(
+          "You have successfully changed your password!"
+        );
+        setPasswordLoading(false);
+      })
+      .catch((error) => {
+        setPasswordError(error?.response?.data?.error);
+        setPasswordLoading(false);
+      });
+  };
+
+  const onPasswordChangeSuccess = () => {
+    window.location.reload();
+    navigate(`/login`);
   };
 
   useEffect(() => {
     setImage(userData?.image);
     setUsername(userData?.username);
-    setLoading(false);
     setEmail(userData?.email);
+    setAvatarLoading(false);
+    setUsernameLoading(false);
+    setEmailLoading(false);
+    setPasswordLoading(false);
   }, [userData]);
 
   useEffect(() => {
     setUsernameError("");
   }, [username]);
+
+  useEffect(() => {
+    setPasswordError("");
+  }, [password, newPassword]);
 
   return (
     <View background>
@@ -122,7 +171,7 @@ function Account() {
         <div className={style.separator} />
         <div className={style.content}>
           <UserAvatar
-            loading={loading}
+            loading={avatarLoading}
             image={image ? image : ""}
             setImage={setImage}
             changePhoto={changePhoto}
@@ -130,13 +179,24 @@ function Account() {
           />
           <div className={style.column}>
             <Username
-              loading={loading}
+              loading={usernameLoading}
               username={username}
               setUsername={setUsername}
               onSaveUsername={changeUsername}
               error={usernameError}
             />
-            <Email loading={loading} email={email} setEmail={setEmail} />
+            <Email loading={emailLoading} email={email} setEmail={setEmail} />
+            <ChangePassword
+              loading={passwordLoading}
+              setPassword={setPassword}
+              password={password}
+              newPassword={newPassword}
+              setNewPassword={setNewPassword}
+              error={passwordError}
+              onSave={changePassword}
+              success={passwordChangeSuccess}
+              onSuccess={onPasswordChangeSuccess}
+            />
           </div>
         </div>
       </div>

@@ -6,10 +6,12 @@ function InputPassword({
   label,
   password,
   setPassword,
+  maxLength = 50,
 }: {
   label: string;
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
+  maxLength?: number;
 }) {
   const [visible, setVisible] = useState(false);
 
@@ -47,6 +49,7 @@ function InputPassword({
         type={visible ? "" : "password"}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        maxLength={maxLength}
       />
     </div>
   );
