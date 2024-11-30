@@ -1,14 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import CustomAuthTokenSerializer
+from .serializers.login import *
+from .serializers.register import *
+from .serializers.user import *
+from .serializers.profile import *
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import generics
-from .serializers import *
 from rest_framework.permissions import IsAuthenticated
 from ..pagination import Pagination
 from ..games.models import Game
-from ..games.serializers import GamesSerializer
+from ..games.serializers.serializers import GamesSerializer
+from rest_framework.exceptions import NotFound
 
 
 class CustomAuthToken(APIView):
@@ -76,6 +79,18 @@ class ChangePasswordView(APIView):
             serializer.save()
             return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
         return Response({"error": serializer.errors.get("error", "Invalid data provided.")}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileView(APIView):
+    def get(self, request, username):
+        try:
+            user = CustomUser.objects.prefetch_related(
+                'game_reviews').get(username=username)
+        except CustomUser.DoesNotExist:
+            raise NotFound("User not found")
+
+        serializer = UserProfileSerializer(user)
+        return Response(serializer.data)
 
 
 class RecentlyAddedView(APIView):

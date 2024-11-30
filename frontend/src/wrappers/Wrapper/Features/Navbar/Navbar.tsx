@@ -31,7 +31,7 @@ function Navbar({
   };
 
   const goToProfile = () => {
-    navigate(`/profile`);
+    navigate(`/profile/${userData?.username}`);
     setProfileMenuVisible(false);
   };
 

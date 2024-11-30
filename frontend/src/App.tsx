@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { AuthProvider } from "wrappers/AuthContext/AuthContext";
 
 import ApiTestView from "views/ApiTestView/ApiTestView";
@@ -32,7 +37,8 @@ function App() {
             <Route path="/test" element={<ApiTestView />} />
 
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/profile/:username" element={<Profile />} />
             <Route path="/library" element={<Library />} />
             <Route path="/account" element={<Account />} />
             <Route path="/games" element={<GamesList />} />
