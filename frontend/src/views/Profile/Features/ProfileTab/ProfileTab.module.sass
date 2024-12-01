@@ -1,0 +1,17 @@
+@import 'styles'
+
+.label
+    color: $bw
+    padding: $value-2 $value-4
+    border-radius: $value-2
+    border: 2px solid $b1
+    +label-16
+    +m
+        +label-12
+    &.selected
+        color: $w
+        background-color: $b2
+        border-color: $b2
+    &:hover
+        cursor: pointer
+        text-decoration: underline

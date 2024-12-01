@@ -1,0 +1,127 @@
+@import 'styles'
+
+.container
+    width: 100%
+    @include element-flex(column)
+    gap: $value-4
+
+.title
+    width: 100%
+    color: $w
+    word-break: break-all
+    @include limit-lines(1)
+    +label-24
+    +m
+        +label-18
+
+.separator
+    width: 100%
+    height: 2px
+    background-color: $bw
+
+.content
+    width: 100%
+    @include element-flex(row)
+    background-color: $b1
+    border-radius: $value-3
+
+.empty
+    width: 100%
+    height: 200px
+    @include element-flex(row,center,center)
+    background-color: $b1
+    border-radius: $value-3
+    color: $bw
+    +label-24
+    +m
+        +label-18
+
+.loading
+    width: 100%
+    height: 200px
+
+.left
+    width: 25%
+    min-width: 200px
+    height: 100%
+    background-color: $b2
+    border-radius: $value-3 0 0 $value-3
+    @include element-flex(column,center,center)
+    +label-16
+    color: $bw
+    span
+        +title-64
+        color: $w
+
+.right
+    padding-top: $value-4
+    padding-bottom: $value-4
+    flex: 1
+    @include element-flex(column)
+    gap: $value-4
+
+.distribution_container
+    padding-inline: $value-4
+    width: calc(100% - $value-4*2)
+    @include element-flex(column)
+    gap: $value-4
+    span
+        +label-16
+        color: $bw
+
+.distribution_row
+    width: 100%
+    @include element-flex(row,flex-start,center)
+    gap: $value-4
+
+.distribution_text
+    width: 50px
+    +label-10
+    color: $bw
+
+.distribution
+    position: relative
+    height: $value-3
+    flex: 1
+    background-color: $b2
+    border-radius: $value-3
+
+.color
+    position: absolute
+    height: $value-3
+    border-radius: $value-3
+    left: 0
+    top: 0
+    &.green
+        background-color: $green4
+    &.red
+        background-color: $red4
+    &.yellow
+        background-color: $yellow4
+
+.best_reviews
+    padding-inline: $value-4
+    width: calc(100% - $value-4*2)
+    @include element-flex(row)
+    gap: $value-4
+
+.best_reviews_item
+    width: calc(50% - $value-4 / 2)
+    @include element-flex(column)
+    gap: $value-2
+    span
+        +label-16
+        color: $bw
+
+.best_reviews_item_score
+    flex: 1
+    @include element-flex(row, center,center)
+    gap: $value-2
+    word-break: break-all
+    span
+        +label-16
+        color: $bw
+    &:hover
+        cursor: pointer
+        span
+            text-decoration: underline

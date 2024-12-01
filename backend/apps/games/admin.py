@@ -11,7 +11,7 @@ class GameAdmin(admin.ModelAdmin):
     GameForm = get_image_display_form(Game, forms.ModelForm)
     form = GameForm
     list_display = ('name',)
-    readonly_fields = ('image_preview', 'reviews',)
+    readonly_fields = ('image_preview', 'reviews_list',)
 
     def score(self, obj):
         return obj.score
@@ -27,6 +27,24 @@ class GameAdmin(admin.ModelAdmin):
         return "No image available."
 
     image_preview.short_description = "Current Image"
+
+    def reviews_list(self, obj):
+        reviews = obj.game_reviews.all()
+        if reviews.exists():
+            review_html = "<ul>"
+            for review in reviews:
+                review_html += (
+                    f"<li>"
+                    f"<strong>Rating:</strong> {review.rating}, "
+                    f"<strong>Author:</strong> {review.author if review.author else 'Unknown'}, "
+                    f"<strong>Description:</strong> {review.description[:50]}..."
+                    f"</li>"
+                )
+            review_html += "</ul>"
+            return mark_safe(review_html)
+        return "No reviews available."
+
+    reviews_list.short_description = "Reviews"
 
 # Game reviews
 

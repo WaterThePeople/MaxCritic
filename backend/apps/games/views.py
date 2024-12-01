@@ -51,7 +51,8 @@ class GameReviewCreateView(APIView):
 
     def post(self, request, *args, **kwargs):
         serializer = GameCreateReviewSerializer(
-            data=request.data, context={'request': request})
+            data=request.data, context={'request': request}
+        )
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -64,7 +65,7 @@ class GameReviewDeleteView(APIView):
             review = GameReview.objects.get(id=id)
             review.delete()
             return Response({'message': 'Review deleted successfully'}, status=status.HTTP_200_OK)
-        except review.DoesNotExist:
+        except GameReview.DoesNotExist:
             return Response({'error': 'Review not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
@@ -73,14 +74,16 @@ class GameReviewEditView(APIView):
         try:
             review = GameReview.objects.get(id=id)
         except GameReview.DoesNotExist:
-            return Response({"error": "Review not found."}, status=404)
-
+            return Response({"error": "Review not found."}, status=status.HTTP_404_NOT_FOUND)
+        if review.author != request.user and not request.user.is_staff:
+            return Response({"error": "You are not authorized to edit this review."}, status=status.HTTP_403_FORBIDDEN)
         serializer = GameEditReviewSerializer(
-            review, data=request.data, context={'request': request})
+            review, data=request.data, context={'request': request}
+        )
         if serializer.is_valid():
             updated_review = serializer.save()
-            return Response(serializer.data, status=200)
-        return Response(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GameView(APIView):
@@ -103,7 +106,7 @@ class GamesListView(ListAPIView):
 
     def get_queryset(self):
         return Game.objects.annotate(
-            average_score=Avg('reviews__rating')
+            average_score=Avg('game_reviews__rating')
         )
 
 
@@ -116,7 +119,7 @@ class UserGamesLibraryView(ListAPIView):
             user_library = UserGamesLibrary.objects.get(user=self.request.user)
             print(user_library)
             return user_library.games.annotate(
-                average_score=Avg('reviews__rating')
+                average_score=Avg('game_reviews__rating')
             )
         except UserGamesLibrary.DoesNotExist:
             return Game.objects.none()

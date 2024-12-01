@@ -5,9 +5,14 @@ import { useParams } from "react-router-dom";
 import Image from "components/Image/Image";
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
+import ProfileTab from "./Features/ProfileTab/ProfileTab";
+import ProfileSummary from "./Features/ProfileSummary/ProfileSummary";
+
+const sections = ["Games", "Movies", "TV Shows", "Music"];
 
 function Profile() {
   const { username } = useParams();
+  const [currentTab, setCurrentTab] = useState(sections[0]);
   const [data, setData] = useState<any>();
   const [loading, setLoading] = useState(true);
 
@@ -30,7 +35,7 @@ function Profile() {
 
   return (
     <View background>
-      <div className={style.content}>
+      <div className={style.container}>
         <div className={style.top_row}>
           {data?.image ? (
             <Image image={data?.image} classname={style.user_image} />
@@ -44,7 +49,25 @@ function Profile() {
           <div className={style.title}>{username}</div>
         </div>
         <div className={style.separator} />
-        <div className={style.container}></div>
+        <div className={style.content}>
+          <div className={style.tabs}>
+            {sections?.map((item: any, index: number) => (
+              <ProfileTab
+                label={item}
+                key={index}
+                selected={currentTab === item}
+                onClick={() => setCurrentTab(item)}
+              />
+            ))}
+          </div>
+          {currentTab === "Games" && (
+            <ProfileSummary
+              section="Games"
+              data={data?.game_reviews}
+              loading={loading}
+            />
+          )}
+        </div>
       </div>
     </View>
   );

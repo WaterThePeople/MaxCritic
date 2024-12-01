@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import style from "./AddGameReview.module.sass";
-import { isAuthenticated } from "utils/Authentication";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "components/DefaultButton/DefaultButton";
 import Section from "components/Section/Section";
@@ -56,7 +55,7 @@ function AddGameReview({ id, platforms }: { id: number; platforms: any[] }) {
       .post(
         `${serverPath}/api/games/reviews/create/`,
         {
-          game_id: id,
+          game: id,
           rating: score,
           description: description,
           platform: selectedPlatforms,

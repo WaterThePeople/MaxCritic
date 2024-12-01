@@ -83,9 +83,9 @@ class GameSerializer(serializers.ModelSerializer):
     budget = GameBudgetSerializer(many=False)
     publisher = GamePublisherSerializer(many=False)
     developer = GameDeveloperSerializer(many=True)
-    reviews = GameReviewSerializer(many=True)
     in_library = serializers.SerializerMethodField()
     has_reviewed = serializers.SerializerMethodField()
+    reviews = GameReviewSerializer(many=True, source='game_reviews')
 
     class Meta:
         model = Game

@@ -40,7 +40,7 @@ function Library() {
   }, []);
 
   useEffect(() => {
-    if (!isAuth) {
+    if (isAuth != null && !isAuth) {
       navigate(`/`);
     }
   }, [isAuth]);

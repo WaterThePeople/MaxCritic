@@ -5,68 +5,69 @@ from ...main.serializers.user import UserProfileSerializer
 
 
 class GameReviewSerializer(serializers.ModelSerializer):
-    game_id = serializers.IntegerField(write_only=True)
+    game = serializers.PrimaryKeyRelatedField(
+        queryset=Game.objects.all(), write_only=True)
     platform = GamePlatformsSerializer(many=True)
     author = UserProfileSerializer()
 
     class Meta:
         model = GameReview
-        fields = ['game_id', 'rating', 'description',
+        fields = ['game', 'rating', 'description',
                   'platform', 'author', 'date', 'id']
         read_only_fields = ['author']
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['game_name'] = instance.game.name
+        representation['game_slug'] = instance.game.slug
+        return representation
+
 
 class ProfileGameReviewSerializer(serializers.ModelSerializer):
-    game_id = serializers.IntegerField(write_only=True)
     platform = GamePlatformsSerializer(many=True)
 
     class Meta:
         model = GameReview
-        fields = ['game_id', 'rating', 'description',
-                  'platform', 'date', 'id']
+        fields = ['game', 'rating', 'description', 'platform', 'date', 'id']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['game_name'] = instance.game.name
+        representation['game_slug'] = instance.game.slug
+        return representation
 
 
 class GameCreateReviewSerializer(serializers.ModelSerializer):
-    game_id = serializers.IntegerField(write_only=True)
+    game = serializers.PrimaryKeyRelatedField(
+        queryset=Game.objects.all(), write_only=True)
     author = UserProfileSerializer(read_only=True)
 
     class Meta:
         model = GameReview
-        fields = ['game_id', 'rating', 'description',
+        fields = ['game', 'rating', 'description',
                   'platform', 'author', 'date']
         read_only_fields = ['author']
 
     def create(self, validated_data):
-        game_id = validated_data.pop('game_id')
+        game = validated_data.pop('game')
         platform_data = validated_data.pop('platform', [])
-
-        try:
-            game = Game.objects.get(id=game_id)
-        except Game.DoesNotExist:
-            raise serializers.ValidationError(
-                "Game with the provided ID does not exist.")
 
         user = self.context['request'].user
 
         review = GameReview.objects.create(
-            game_name=game.name,
-            game_id=game_id,
+            game=game,
             author=user,
             date=date.today(),
             **validated_data
         )
 
         review.platform.set(platform_data)
-
-        game.reviews.add(review)
-        game.save()
-
         return review
 
 
 class GameEditReviewSerializer(serializers.ModelSerializer):
-    game_id = serializers.IntegerField(write_only=True, required=False)
-    author = UserProfileSerializer(read_only=True)
+    platform = serializers.PrimaryKeyRelatedField(queryset=GamePlatform.objects.all(
+    ), many=True)
 
     class Meta:
         model = GameReview
@@ -76,15 +77,12 @@ class GameEditReviewSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         platform_data = validated_data.pop('platform', None)
-
         user = self.context['request'].user
         if instance.author != user and not user.is_staff:
             raise serializers.ValidationError(
                 "You can only edit your own reviews.")
-
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
-
         if platform_data is not None:
             instance.platform.set(platform_data)
 

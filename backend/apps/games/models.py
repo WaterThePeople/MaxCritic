@@ -88,17 +88,29 @@ class GamePublisher(models.Model):
 
 
 class GameReview(models.Model):
-    game_name = models.CharField(max_length=100)
-    game_id = models.IntegerField()
     rating = models.IntegerField()
     description = models.CharField(max_length=500)
     date = models.DateField(_("Date"), default=date.today)
     platform = models.ManyToManyField(GamePlatform)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="game_reviews")
+    game = models.ForeignKey(
+        'Game', on_delete=models.CASCADE, related_name="game_reviews", null=True, blank=True)
 
     def __str__(self):
         return str(self.id)
+
+    @property
+    def game_name(self):
+        return self.game.name if self.game else None
+
+    @property
+    def game_id(self):
+        return self.game.id if self.game else None
+
+    @property
+    def game_slug(self):
+        return self.game.slug if self.game else None
 
 
 class Game(models.Model):
@@ -112,7 +124,7 @@ class Game(models.Model):
     ESRB = models.ForeignKey(
         GameESRB, on_delete=models.CASCADE, null=True)
     score = models.IntegerField(blank=True, default=0)
-    reviews = models.ManyToManyField(GameReview, blank=True)
+    # reviews = models.ManyToManyField(GameReview, blank=True)
     recently_added = models.BooleanField(default=False)
     release_date = models.DateField(_("Date"), default=date.today)
     categories = models.ManyToManyField(GameCategory)
@@ -127,7 +139,7 @@ class Game(models.Model):
 
     @property
     def score(self):
-        reviews = self.reviews.all()
+        reviews = self.game_reviews.all()
         if reviews.exists():
             total_score = sum(review.rating for review in reviews)
             return total_score / reviews.count()

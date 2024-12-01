@@ -1,6 +1,6 @@
 @import 'styles'
 
-.content
+.container
     width: 100%
     @include element-flex(column)
     gap: $value-4
@@ -35,7 +35,12 @@
     height: 2px
     background-color: $bw
 
-.container
+.content
+    width: 100%
+    @include element-flex(column)
+    gap: $value-8
+
+.tabs
     width: 100%
     @include element-flex(row)
     gap: $value-4
