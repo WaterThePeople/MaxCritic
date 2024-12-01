@@ -1,10 +1,19 @@
 import style from "./User.module.sass";
 import Image from "components/Image/Image";
 import cn from "classnames";
+import DefaultLink from "components/DefaultLink/DefaultLink";
 
-function User({ user, classname }: { user: any; classname?: any }) {
+function User({
+  user,
+  classname,
+  href,
+}: {
+  user: any;
+  classname?: any;
+  href?: string;
+}) {
   return (
-    <div className={cn(style.user, classname)}>
+    <DefaultLink className={cn(style.user, classname)} to={href ? href : ""}>
       {user?.image ? (
         <Image image={user?.image} classname={style.user_image} />
       ) : (
@@ -16,7 +25,7 @@ function User({ user, classname }: { user: any; classname?: any }) {
       )}
 
       <div className={style.user_text}>{user?.username}</div>
-    </div>
+    </DefaultLink>
   );
 }
 

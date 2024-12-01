@@ -1,0 +1,99 @@
+@import 'styles'
+
+.item
+    width: 100%
+    min-width: 640px
+    border-radius: $value-3
+    background-color: $b2
+    box-sizing: border-box
+    padding-top: $value-4
+    padding-bottom: $value-4
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-4
+    +m
+        min-width: 0px
+
+.row
+    width: 100%
+    box-sizing: border-box
+    @include element-flex(row, space-between, flex-start)
+    gap: $value-2
+    padding-inline: $value-4
+
+.column
+    align-self: stretch
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-2
+    color: $b9
+    +label-12
+    +m
+        +label-10
+
+.game_name
+    flex: 1
+    @include element-flex(row, center,center)
+    gap: $value-2
+    word-break: break-all
+    color: $bw
+    +label-24
+    +m
+        +label-18
+    &:hover
+        cursor: pointer
+        color: $w
+        text-decoration: underline
+
+.game_review
+    height: 100%
+    min-height: 48px
+    border-color: $green1
+    padding: $value-2 $value-4
+    background: none
+    border-radius: $value-2
+    &:hover
+        border-color: $green3
+    +m
+        min-height: 0
+
+.description
+    width: 100%
+    box-sizing: border-box
+    word-break: break-all
+    color: $bw
+    padding-inline: $value-4
+    +label-16
+    +m
+        +label-12
+
+.separator
+    width: 100%
+    height: 2px
+    background: $bw
+
+.content
+    width: 100%
+    box-sizing: border-box
+    padding-inline: $value-4
+    @include element-flex(column, center, flex-start)
+    gap: $value-2
+    color: $bw
+    +label-16
+    +m
+        +label-12
+    span
+        color: $w
+        +label-14
+        +m
+            +label-10
+
+.platforms
+    @include element-flex(row, flex-start, center)
+    flex-wrap: wrap
+    gap: $value-4
+    color: $bw
+    +label-16
+    +m
+        +label-12
+
+.platform
+    background-color: $b3 !important

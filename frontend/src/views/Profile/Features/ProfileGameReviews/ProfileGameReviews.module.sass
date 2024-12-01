@@ -1,0 +1,39 @@
+@import 'styles'
+
+.container
+    width: 100%
+    @include element-flex(column)
+    gap: $value-4
+
+.title
+    width: 100%
+    color: $w
+    word-break: break-all
+    @include limit-lines(1)
+    +label-24
+    +m
+        +label-18
+
+.separator
+    width: 100%
+    height: 2px
+    background-color: $bw
+
+.content
+    width: 100%
+    @include element-flex(column,center,center)
+    gap: $value-4
+
+.loading
+    width: 100%
+    height: calc((268px + 16px))
+
+.no_data
+    width: 100%
+    box-sizing: border-box
+    padding-inline: $value-4
+    text-align: center
+    color: $bw
+    +label-16
+    +m
+        +label-12

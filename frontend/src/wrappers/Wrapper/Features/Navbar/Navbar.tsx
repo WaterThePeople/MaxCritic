@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./Navbar.module.sass";
 import Logo from "components/Logo/Logo";
-import { useNavigate } from "react-router-dom";
 import DefaultButton from "components/DefaultButton/DefaultButton";
 import Image from "components/Image/Image";
 import cn from "classnames";
 import OutsideClickHandler from "components/OutsideClickHandler/OutsideClickHandler";
 import Modal from "components/Modal/Modal";
 import { useAuth } from "wrappers/AuthContext/AuthContext";
+import DefaultLink from "components/DefaultLink/DefaultLink";
+import { useLocation } from "react-router-dom";
 
 function Navbar({
   setMenuVisible,
@@ -15,7 +16,7 @@ function Navbar({
   setMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { isAuth, userData } = useAuth();
-  const navigate = useNavigate();
+  const location = useLocation();
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
 
@@ -25,20 +26,9 @@ function Navbar({
     localStorage.removeItem("refreshToken");
   };
 
-  const goToAccount = () => {
-    navigate(`/account`);
+  useEffect(() => {
     setProfileMenuVisible(false);
-  };
-
-  const goToProfile = () => {
-    navigate(`/profile/${userData?.username}`);
-    setProfileMenuVisible(false);
-  };
-
-  const goToLibrary = () => {
-    navigate(`/library`);
-    setProfileMenuVisible(false);
-  };
+  }, [location]);
 
   const openLogoutModal = () => {
     setProfileMenuVisible(false);
@@ -91,28 +81,28 @@ function Navbar({
                   )}
                 </div>
                 {profileMenuVisible && (
-                  <div
+                  <DefaultLink
                     className={cn(style.user_menu_item, style.first)}
-                    onClick={goToAccount}
+                    to={`/account`}
                   >
                     <div className={style.user_text}>Account</div>
-                  </div>
+                  </DefaultLink>
                 )}
                 {profileMenuVisible && (
-                  <div
+                  <DefaultLink
                     className={cn(style.user_menu_item, style.second)}
-                    onClick={goToProfile}
+                    to={`/profile/${userData?.username}`}
                   >
                     <div className={style.user_text}>Profile</div>
-                  </div>
+                  </DefaultLink>
                 )}
                 {profileMenuVisible && (
-                  <div
+                  <DefaultLink
+                    to={`/library`}
                     className={cn(style.user_menu_item, style.third)}
-                    onClick={goToLibrary}
                   >
                     <div className={style.user_text}>Library</div>
-                  </div>
+                  </DefaultLink>
                 )}
                 {profileMenuVisible && (
                   <div
@@ -125,9 +115,9 @@ function Navbar({
               </div>
             </OutsideClickHandler>
           ) : (
-            <button onClick={() => navigate(`/login`)} className={style.login}>
+            <DefaultLink to={"/login"} className={style.login}>
               Login
-            </button>
+            </DefaultLink>
           )}
         </div>
       </div>

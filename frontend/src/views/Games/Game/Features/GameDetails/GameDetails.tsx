@@ -22,7 +22,7 @@ function GameDetails({
         <span>Developed by</span>
         <div className={style.developers}>
           {developers?.map((item: any, index: number) => (
-            <ImageTextRow image={item?.image} text={item?.name} />
+            <ImageTextRow image={item?.image} text={item?.name} key={index} />
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import style from "./LibraryItem.module.sass";
 import Image from "components/Image/Image";
-import { useNavigate } from "react-router-dom";
+import DefaultLink from "components/DefaultLink/DefaultLink";
 
 function LibraryItem({
   name,
@@ -11,16 +11,11 @@ function LibraryItem({
   image: any;
   slug?: string;
 }) {
-  const navigate = useNavigate();
-
   return (
-    <div
-      className={style.container}
-      onClick={() => slug && navigate(`/games/${slug}`)}
-    >
+    <DefaultLink className={style.container} to={`/games/${slug}`}>
       <Image image={image} classname={style.image} />
       <div className={style.name}>{name}</div>
-    </div>
+    </DefaultLink>
   );
 }
 

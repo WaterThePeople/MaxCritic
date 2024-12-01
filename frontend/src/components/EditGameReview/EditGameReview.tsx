@@ -160,6 +160,7 @@ function EditGameReview({ data, platforms }: { data: any; platforms: any[] }) {
                   text={item?.platform_name}
                   selected={selectedPlatforms.includes(item?.id)}
                   onClick={() => handlePlatformSelect(item?.id)}
+                  key={index}
                 />
               ))}
             </div>

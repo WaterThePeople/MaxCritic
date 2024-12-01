@@ -3,7 +3,7 @@ import style from "./ProfileSummary.module.sass";
 import cn from "classnames";
 import LoadingCard from "components/LoadingCard/LoadingCard";
 import Score from "components/Score/Score";
-import { useNavigate } from "react-router-dom";
+import DefaultLink from "components/DefaultLink/DefaultLink";
 
 function ProfileSummary({
   section,
@@ -14,7 +14,6 @@ function ProfileSummary({
   data: any[];
   loading: boolean;
 }) {
-  const navigate = useNavigate();
   const averageScore =
     (data?.reduce((sum, review) => sum + review.rating, 0) / data?.length) | 0;
 
@@ -41,7 +40,10 @@ function ProfileSummary({
           <div className={style.content}>
             <div className={style.left}>
               <span>{Math.floor(averageScore)}</span>
-              Average Rating
+              <div className={style.text1}>Average Rating</div>
+              <div className={style.text2}>
+                Based on ({data?.length} reviews)
+              </div>
             </div>
             <div className={style.right}>
               <div className={style.distribution_container}>
@@ -104,27 +106,23 @@ function ProfileSummary({
               <div className={style.best_reviews}>
                 <div className={style.best_reviews_item}>
                   <span>Highest Rating</span>
-                  <div
+                  <DefaultLink
                     className={style.best_reviews_item_score}
-                    onClick={() =>
-                      navigate(`/games/${highestRatedReview?.game_slug}`)
-                    }
+                    to={`/games/${highestRatedReview?.game_slug}`}
                   >
                     <Score score={highestRatedReview?.rating} />
                     <span>{highestRatedReview?.game_name}</span>
-                  </div>
+                  </DefaultLink>
                 </div>
                 <div className={style.best_reviews_item}>
                   <span>Lowest Rating</span>
-                  <div
+                  <DefaultLink
                     className={style.best_reviews_item_score}
-                    onClick={() =>
-                      navigate(`/games/${lowestRatedReview?.game_slug}`)
-                    }
+                    to={`/games/${lowestRatedReview?.game_slug}`}
                   >
                     <Score score={lowestRatedReview?.rating} />
                     <span>{lowestRatedReview?.game_name}</span>
-                  </div>
+                  </DefaultLink>
                 </div>
               </div>
             </div>

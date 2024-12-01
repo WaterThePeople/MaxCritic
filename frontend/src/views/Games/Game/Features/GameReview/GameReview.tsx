@@ -21,7 +21,11 @@ function GameReview({
             item?.date.split("-")[0]
           }`}
           <div className={style.user_row}>
-            <User user={item?.author} classname={style.user} />
+            <User
+              user={item?.author}
+              classname={style.user}
+              href={`/profile/${item?.author?.username}`}
+            />
             {userReviewID === item?.id && (
               <DefaultButton
                 text="Your review"

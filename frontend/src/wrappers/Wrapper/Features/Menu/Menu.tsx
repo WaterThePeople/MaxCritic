@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import style from "./Menu.module.sass";
 import useWindowDimensions from "utils/useWindowDimensions";
-import { useNavigate } from "react-router-dom";
 import cn from "classnames";
 import NavbarButton from "components/NavbarButton/NavbarButton";
 import { useLocation } from "react-router-dom";
 
 function Menu({ menuVisible }: { menuVisible: boolean }) {
-  const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const location = useLocation();
 
@@ -20,7 +18,7 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
       }
     >
       <NavbarButton
-        onClick={() => navigate(`/games`)}
+        href={`/games`}
         iconName="gamepad"
         size={width <= 1000 ? 24 : 40}
         viewBox="-4 -3 32 32"
@@ -29,7 +27,7 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
       />
       <div className={style.separator} />
       <NavbarButton
-        onClick={() => navigate(`/movies`)}
+        href={`/movies`}
         iconName="movie"
         size={width <= 1000 ? 24 : 40}
         viewBox="-13 -12 72 72"
@@ -38,7 +36,7 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
       />
       <div className={style.separator} />
       <NavbarButton
-        onClick={() => navigate(`/shows`)}
+        href={`/shows`}
         iconName="tv"
         size={width <= 1000 ? 24 : 40}
         viewBox="-6 -6 28 28"
@@ -47,7 +45,7 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
       />
       <div className={style.separator} />
       <NavbarButton
-        onClick={() => navigate(`/music`)}
+        href={`/music`}
         iconName="music"
         size={width <= 1000 ? 24 : 40}
         viewBox="-5 -6 36 36"

@@ -56,6 +56,8 @@ class GamesListSerializer(serializers.ModelSerializer):
         if hasattr(user, 'library'):
             return user.library.games.filter(id=obj.id).exists()
 
+        return False
+
     class Meta:
         model = Game
         fields = ['id', 'name', 'slug', 'image', 'score',

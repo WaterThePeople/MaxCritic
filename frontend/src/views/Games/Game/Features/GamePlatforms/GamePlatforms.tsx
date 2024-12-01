@@ -6,7 +6,11 @@ function GamePlatforms({ data }: { data: any[] }) {
   return (
     <div className={style.container}>
       {data?.map((item: any, index: number) => (
-        <ImageTextRow image={item?.image} text={item?.platform_name} />
+        <ImageTextRow
+          image={item?.image}
+          text={item?.platform_name}
+          key={index}
+        />
       ))}
     </div>
   );

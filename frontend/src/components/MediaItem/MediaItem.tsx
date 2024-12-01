@@ -1,8 +1,8 @@
 import style from "./MediaItem.module.sass";
 import Image from "components/Image/Image";
-import { useNavigate } from "react-router-dom";
 import { Icon } from "components/Icon/Icon";
 import Score from "components/Score/Score";
+import DefaultLink from "components/DefaultLink/DefaultLink";
 
 function MediaItem({
   name,
@@ -17,26 +17,18 @@ function MediaItem({
   score: number;
   slug?: string;
 }) {
-  const navigate = useNavigate();
-
   return (
     <div className={style.container}>
       <Image image={image} classname={style.image} />
-      <div
-        className={style.name}
-        onClick={() => slug && navigate(`/games/${slug}`)}
-      >
+      <DefaultLink className={style.name} to={`/games/${slug}`}>
         {name}
-      </div>
+      </DefaultLink>
       <div className={style.separator} />
       <div className={style.row}>
         <div className={style.col}>
           <div className={style.type}>{type}</div>
           {slug && (
-            <div
-              className={style.expand}
-              onClick={() => navigate(`/games/${slug}`)}
-            >
+            <DefaultLink className={style.expand} to={`/games/${slug}`}>
               <div className={style.expand_text}>Expand</div>
               <Icon
                 name={"basic_arrow"}
@@ -45,7 +37,7 @@ function MediaItem({
                 viewBox="4 4 24 24"
                 rotate="270deg"
               />
-            </div>
+            </DefaultLink>
           )}
         </div>
 

@@ -1,26 +1,27 @@
 import style from "./NavbarButton.module.sass";
 import { Icon } from "components/Icon/Icon";
 import cn from "classnames";
+import { Link } from "react-router-dom";
 
 function NavbarButton({
   iconName,
   size = 48,
   viewBox = "0 0 48 48",
-  onClick,
+  href,
   title = "",
   isFocused = false,
 }: {
   iconName: string;
   size?: number;
   viewBox?: string;
-  onClick: () => void;
+  href: string;
   title?: string;
   isFocused?: boolean;
 }) {
   return (
-    <button
+    <Link
+      to={href}
       className={cn(style.container, isFocused && style.container_focused)}
-      onClick={onClick}
     >
       <div className={style.row}>
         <div className={style.icon_container}>
@@ -41,7 +42,7 @@ function NavbarButton({
         className={style.arrow}
         viewBox="0 -6 32 32"
       />
-    </button>
+    </Link>
   );
 }
 

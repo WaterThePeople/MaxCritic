@@ -25,15 +25,21 @@ class GameReviewSerializer(serializers.ModelSerializer):
 
 class ProfileGameReviewSerializer(serializers.ModelSerializer):
     platform = GamePlatformsSerializer(many=True)
+    author = UserProfileSerializer()
 
     class Meta:
         model = GameReview
-        fields = ['game', 'rating', 'description', 'platform', 'date', 'id']
+        fields = ['game', 'rating', 'description',
+                  'platform', 'date', 'id', 'author']
+        read_only_fields = ['author']
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['game_name'] = instance.game.name
         representation['game_slug'] = instance.game.slug
+        game_platforms = instance.game.platforms.all()
+        representation['game_platforms'] = GamePlatformsSerializer(
+            game_platforms, many=True).data
         return representation
 
 

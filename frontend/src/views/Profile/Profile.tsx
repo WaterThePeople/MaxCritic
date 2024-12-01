@@ -7,10 +7,16 @@ import axios from "axios";
 import { serverPath } from "BackendServerPath";
 import ProfileTab from "./Features/ProfileTab/ProfileTab";
 import ProfileSummary from "./Features/ProfileSummary/ProfileSummary";
+import ProfileGameReviews from "./Features/ProfileGameReviews/ProfileGameReviews";
+import useWindowDimensions from "utils/useWindowDimensions";
+import DropdownModal from "components/DropdownModal/DropdownModal";
+import { useAuth } from "wrappers/AuthContext/AuthContext";
 
 const sections = ["Games", "Movies", "TV Shows", "Music"];
 
 function Profile() {
+  const { userData } = useAuth();
+  const { width } = useWindowDimensions();
   const { username } = useParams();
   const [currentTab, setCurrentTab] = useState(sections[0]);
   const [data, setData] = useState<any>();
@@ -50,22 +56,38 @@ function Profile() {
         </div>
         <div className={style.separator} />
         <div className={style.content}>
-          <div className={style.tabs}>
-            {sections?.map((item: any, index: number) => (
-              <ProfileTab
-                label={item}
-                key={index}
-                selected={currentTab === item}
-                onClick={() => setCurrentTab(item)}
-              />
-            ))}
-          </div>
-          {currentTab === "Games" && (
-            <ProfileSummary
-              section="Games"
-              data={data?.game_reviews}
-              loading={loading}
+          {width > 1000 ? (
+            <div className={style.tabs}>
+              {sections?.map((item: any, index: number) => (
+                <ProfileTab
+                  label={item}
+                  key={index}
+                  selected={currentTab === item}
+                  onClick={() => setCurrentTab(item)}
+                />
+              ))}
+            </div>
+          ) : (
+            <DropdownModal
+              array={sections}
+              value={currentTab}
+              onClick={(x: any) => setCurrentTab(x)}
             />
+          )}
+          {currentTab === "Games" && (
+            <>
+              <ProfileSummary
+                section="Games"
+                data={data?.game_reviews}
+                loading={loading}
+              />
+              <ProfileGameReviews
+                section="Games"
+                data={data?.game_reviews}
+                loading={loading}
+                authorID={userData?.id}
+              />
+            </>
           )}
         </div>
       </div>
