@@ -24,7 +24,7 @@ import { useAuth } from "wrappers/AuthContext/AuthContext";
 import { returnAccessToken } from "utils/Authentication";
 
 function Game() {
-  const { userData } = useAuth();
+  const { isAuth, userData } = useAuth();
   const { slug } = useParams();
   const navigate = useNavigate();
   const [game, setGame] = useState<any>();
@@ -39,7 +39,7 @@ function Game() {
     setLoading(true);
     axios
       .get(`${serverPath}api/games/${slug}/`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
       })
       .then((response) => {
         setGame(response?.data);
@@ -64,7 +64,9 @@ function Game() {
         `${serverPath}/api/games/library/add/${ID}/`,
         {},
         {
-          headers: { Authorization: `Bearer ${accessToken}` },
+          headers: accessToken
+            ? { Authorization: `Bearer ${accessToken}` }
+            : {},
         }
       )
       .then((response) => {
@@ -77,12 +79,15 @@ function Game() {
 
   const removeGameFromLibrary = async (ID: number) => {
     const { accessToken } = await returnAccessToken();
+    console.log(accessToken);
     axios
       .post(
         `${serverPath}/api/games/library/remove/${ID}/`,
         {},
         {
-          headers: { Authorization: `Bearer ${accessToken}` },
+          headers: accessToken
+            ? { Authorization: `Bearer ${accessToken}` }
+            : {},
         }
       )
       .then((response) => {
@@ -174,25 +179,34 @@ function Game() {
                 )}
               </div>
               <div className={style.separator} />
-              {gameInLibrary ? (
-                <div
-                  className={cn(style.library_button, style.blue)}
-                  onClick={() => removeGameFromLibrary(game?.id)}
-                >
-                  Already in Library
-                  <div className={style.remove_text}>Click to remove</div>
-                </div>
+              {isAuth ? (
+                gameInLibrary ? (
+                  <div
+                    className={cn(style.library_button, style.blue)}
+                    onClick={() => removeGameFromLibrary(game?.id)}
+                  >
+                    Already in Library
+                    <div className={style.remove_text}>Click to remove</div>
+                  </div>
+                ) : (
+                  <div
+                    className={cn(style.library_button)}
+                    onClick={() => addGameToLibrary(game?.id)}
+                  >
+                    Add to library
+                    <Icon
+                      name={"plus"}
+                      className={style.plus_svg}
+                      viewBox="0 0 24 24"
+                    />
+                  </div>
+                )
               ) : (
                 <div
-                  className={cn(style.library_button)}
-                  onClick={() => addGameToLibrary(game?.id)}
+                  className={cn(style.library_button, style.unauthorized)}
+                  onClick={() => navigate("/login")}
                 >
-                  Add to library
-                  <Icon
-                    name={"plus"}
-                    className={style.plus_svg}
-                    viewBox="0 0 24 24"
-                  />
+                  Log in To access Library!
                 </div>
               )}
             </div>

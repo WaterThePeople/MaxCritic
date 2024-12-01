@@ -49,12 +49,10 @@ class GamesListSerializer(serializers.ModelSerializer):
     def get_in_library(self, obj):
         request = self.context.get('request')
 
-        if not request or not request.user.is_authenticated:
-            return False
-
-        user = request.user
-        if hasattr(user, 'library'):
-            return user.library.games.filter(id=obj.id).exists()
+        if request and request.user.is_authenticated:
+            user = request.user
+            if hasattr(user, 'library'):
+                return user.library.games.filter(id=obj.id).exists()
 
         return False
 
@@ -98,21 +96,16 @@ class GameSerializer(serializers.ModelSerializer):
 
     def get_in_library(self, obj):
         request = self.context.get('request')
-
-        if not request or not request.user.is_authenticated:
-            return False
-
-        user = request.user
-
-        if hasattr(user, 'library'):
-            return user.library.games.filter(id=obj.id).exists()
+        if request and request.user.is_authenticated:
+            user = request.user
+            if hasattr(user, 'library'):
+                return user.library.games.filter(id=obj.id).exists()
 
         return False
 
     def get_has_reviewed(self, obj):
         request = self.context.get('request')
-        if not request or not request.user.is_authenticated:
-            return False
-
-        user = request.user
-        return GameReview.objects.filter(game_id=obj.id, author=user).exists()
+        if request and request.user.is_authenticated:
+            user = request.user
+            return GameReview.objects.filter(game_id=obj.id, author=user).exists()
+        return False

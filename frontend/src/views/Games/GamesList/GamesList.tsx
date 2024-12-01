@@ -90,7 +90,9 @@ function GamesList() {
       const response = await axios.get(
         `${serverPath}/api/games/list?${query.toString()}&page_size=${pageSize}`,
         {
-          headers: { Authorization: `Bearer ${accessToken}` },
+          headers: accessToken
+            ? { Authorization: `Bearer ${accessToken}` }
+            : {},
         }
       );
       setData(response.data.results);

@@ -7,7 +7,7 @@ from .serializers.user import *
 from .serializers.profile import *
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from ..pagination import Pagination
 from ..games.models import Game
 from ..games.serializers.serializers import GamesSerializer
@@ -15,6 +15,7 @@ from rest_framework.exceptions import NotFound
 
 
 class CustomAuthToken(APIView):
+    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         serializer = CustomAuthTokenSerializer(
@@ -29,6 +30,7 @@ class CustomAuthToken(APIView):
 
 
 class RegisterView(generics.CreateAPIView):
+    permission_classes = [AllowAny]
     serializer_class = RegisterSerializer
 
 
@@ -82,6 +84,8 @@ class ChangePasswordView(APIView):
 
 
 class UserProfileView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request, username):
         try:
             user = CustomUser.objects.prefetch_related(
@@ -94,6 +98,7 @@ class UserProfileView(APIView):
 
 
 class RecentlyAddedView(APIView):
+    permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
         paginator = Pagination()

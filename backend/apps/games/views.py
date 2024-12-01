@@ -10,7 +10,7 @@ from .serializers.reviews import *
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .filters import GameFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
@@ -22,26 +22,31 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 
 
 class GameCategoriesView(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
     serializer_class = GameCategoriesSerializer
     queryset = GameCategory.objects.all()
 
 
 class GamePlatformsView(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
     serializer_class = GamePlatformsSerializer
     queryset = GamePlatform.objects.all()
 
 
 class GameESRBView(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
     serializer_class = GameESRBSerializer
     queryset = GameESRB.objects.all()
 
 
 class GameBudgetView(generics.ListCreateAPIView):
+    permission_classes = [AllowAny]
     serializer_class = GameBudgetSerializer
     queryset = GameBudget.objects.all()
 
 
 class GamesView(generics.ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = GamesSerializer
     queryset = Game.objects.all()
 
@@ -87,6 +92,8 @@ class GameReviewEditView(APIView):
 
 
 class GameView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request, slug):
         try:
             item = Game.objects.get(slug=slug)
@@ -97,6 +104,7 @@ class GameView(APIView):
 
 
 class GamesListView(ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = GamesListSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = GameFilter
