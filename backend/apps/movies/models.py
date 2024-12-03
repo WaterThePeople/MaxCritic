@@ -118,6 +118,7 @@ class Movie(models.Model):
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True)
     youtube_video = models.CharField(max_length=1000, default='')
     description = models.TextField(max_length=500, default='')
+    duration = models.TextField(max_length=100, default='')
     actors = models.ManyToManyField(MovieActors)
     categories = models.ManyToManyField(MovieCategory)
     director = models.ManyToManyField(MovieDirectors)
@@ -171,7 +172,7 @@ class UserMoviesLibrary(models.Model):
         on_delete=models.CASCADE,
         related_name="movies_library"
     )
-    games = models.ManyToManyField(Movie, related_name="movies_libraries")
+    movies = models.ManyToManyField(Movie, related_name="movies_libraries")
 
     def __str__(self):
         return f"{self.user.email}'s Library"

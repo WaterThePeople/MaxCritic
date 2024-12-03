@@ -1,10 +1,11 @@
 import { useState } from "react";
-import style from "./ProfileGameReviews.module.sass";
+import style from "./ProfileReviews.module.sass";
 import LoadingCard from "components/LoadingCard/LoadingCard";
 import ProfileGameReview from "./Features/ProfileGameReview/ProfileGameReview";
+import ProfileMovieReview from "./Features/ProfileMovieReview/ProfileMovieReview";
 import DefaultButton from "components/DefaultButton/DefaultButton";
 
-function ProfileGameReviews({
+function ProfileReviews({
   section,
   data,
   loading,
@@ -30,6 +31,20 @@ function ProfileGameReviews({
     return temp;
   };
 
+  const Review = ({ item, index }: { item: any; index: number }) => {
+    if (section === "Games") {
+      return (
+        <ProfileGameReview key={index} item={item} userReviewID={authorID} />
+      );
+    }
+    if (section === "Movies") {
+      return (
+        <ProfileMovieReview key={index} item={item} userReviewID={authorID} />
+      );
+    }
+    return null;
+  };
+
   return (
     <div className={style.container}>
       <div className={style.title}>All Reviews of {section}</div>
@@ -37,15 +52,10 @@ function ProfileGameReviews({
       {!loading ? (
         <div className={style.content}>
           {data?.length > 0 ? (
-            reverseArray(data)?.map(
-              (item: any, index: number) =>
-                index <= limit - 1 && (
-                  <ProfileGameReview
-                    key={index}
-                    item={item}
-                    userReviewID={authorID}
-                  />
-                )
+            reverseArray(data)?.map((item: any, index: number) =>
+              index <= limit - 1 ? (
+                <Review key={index} item={item} index={index} />
+              ) : null
             )
           ) : (
             <div className={style.no_data}>There aren't any reviews yet!</div>
@@ -64,4 +74,4 @@ function ProfileGameReviews({
   );
 }
 
-export default ProfileGameReviews;
+export default ProfileReviews;

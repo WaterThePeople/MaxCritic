@@ -17,7 +17,7 @@
     gap: $value-3
 
 .corner_container
-    @include element-flex(row, center, center)
+    @include element-flex(row, flex-start, center)
 
 .button_container
     width: 64px
@@ -43,6 +43,10 @@
     width: 100%
     height: 2px
     background-color: $w3
+
+.right_container
+    @include element-flex(row, flex-end, center)
+    gap: $value-4
 
 .login
     color: $bw
@@ -76,6 +80,10 @@
     box-sizing: border-box
     height: 48px
     border: 2px solid $bw
+    +m
+        gap: $value-2
+    +s
+        gap: $value-1
     &:hover
         cursor: pointer
         border-color: $w
@@ -103,6 +111,10 @@
     +title-16
     word-break: break-all
     @include limit-lines(1)
+    +m
+        padding-left: $value-2
+    +s
+        padding-left: $value-1
 
 .user_image
     box-sizing: border-box

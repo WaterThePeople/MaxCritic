@@ -6,7 +6,7 @@ import axios from "axios";
 import { serverPath } from "BackendServerPath";
 import { returnAccessToken } from "utils/Authentication";
 import LoadingCard from "components/LoadingCard/LoadingCard";
-import GamesLibrary from "./Features/GamesLibrary/GamesLibrary";
+import LibraryList from "./Features/LibraryList/LibraryList";
 import { useAuth } from "wrappers/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -19,10 +19,25 @@ function Library() {
   const [library, setLibrary] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const returnCurrentType = () => {
+    if (currentLibrary === "Games") {
+      return "games";
+    } else if (currentLibrary === "Movies") {
+      return "movies";
+    } else if (currentLibrary === "TV Shows") {
+      return "shows";
+    } else if (currentLibrary === "Music") {
+      return "music";
+    } else {
+      return "/";
+    }
+  };
+
   const getLibrary = async () => {
     const { accessToken } = await returnAccessToken();
+    setLoading(true);
     axios
-      .get(`${serverPath}/api/games/library`, {
+      .get(`${serverPath}/api/${returnCurrentType()}/library`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((response) => {
@@ -30,6 +45,7 @@ function Library() {
         setLoading(false);
       })
       .catch((error) => {
+        setLibrary([]);
         console.log(error);
         setLoading(false);
       });
@@ -38,6 +54,10 @@ function Library() {
   useEffect(() => {
     getLibrary();
   }, []);
+
+  useEffect(() => {
+    getLibrary();
+  }, [currentLibrary]);
 
   useEffect(() => {
     if (isAuth != null && !isAuth) {
@@ -65,7 +85,7 @@ function Library() {
               ))}
             </div>
           ) : (
-            <GamesLibrary data={library} />
+            <LibraryList data={library} returnCurrentType={returnCurrentType} />
           )}
         </div>
       </div>

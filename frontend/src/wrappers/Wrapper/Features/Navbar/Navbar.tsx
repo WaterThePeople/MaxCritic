@@ -9,6 +9,7 @@ import Modal from "components/Modal/Modal";
 import { useAuth } from "wrappers/AuthContext/AuthContext";
 import DefaultLink from "components/DefaultLink/DefaultLink";
 import { useLocation } from "react-router-dom";
+import NavbarSearch from "../NavbarSearch/NavbarSearch";
 
 function Navbar({
   setMenuVisible,
@@ -52,73 +53,77 @@ function Navbar({
             </div>
             <Logo />
           </div>
-          {isAuth ? (
-            <OutsideClickHandler
-              onClickOutside={() => setProfileMenuVisible(false)}
-            >
-              <div className={style.user_menu}>
-                <div
-                  className={cn(
-                    style.user,
-                    profileMenuVisible && style.visible
+          <div className={style.right_container}>
+            <NavbarSearch />
+            {isAuth ? (
+              <OutsideClickHandler
+                onClickOutside={() => setProfileMenuVisible(false)}
+              >
+                <div className={style.user_menu}>
+                  <div
+                    className={cn(
+                      style.user,
+                      profileMenuVisible && style.visible
+                    )}
+                    onClick={() => setProfileMenuVisible(!profileMenuVisible)}
+                  >
+                    <div className={style.user_text}>{userData?.username}</div>
+                    {userData?.image ? (
+                      <Image
+                        image={userData?.image}
+                        classname={style.user_image}
+                      />
+                    ) : (
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          "../assets/default_avatar.png"
+                        }
+                        alt="Avatar"
+                        className={style.user_image}
+                      />
+                    )}
+                  </div>
+                  {profileMenuVisible && (
+                    <DefaultLink
+                      className={cn(style.user_menu_item, style.first)}
+                      to={`/account`}
+                    >
+                      <div className={style.user_text}>Account</div>
+                    </DefaultLink>
                   )}
-                  onClick={() => setProfileMenuVisible(!profileMenuVisible)}
-                >
-                  <div className={style.user_text}>{userData?.username}</div>
-                  {userData?.image ? (
-                    <Image
-                      image={userData?.image}
-                      classname={style.user_image}
-                    />
-                  ) : (
-                    <img
-                      src={
-                        process.env.PUBLIC_URL + "../assets/default_avatar.png"
-                      }
-                      alt="Avatar"
-                      className={style.user_image}
-                    />
+                  {profileMenuVisible && (
+                    <DefaultLink
+                      className={cn(style.user_menu_item, style.second)}
+                      to={`/profile/${userData?.username}`}
+                    >
+                      <div className={style.user_text}>Profile</div>
+                    </DefaultLink>
+                  )}
+                  {profileMenuVisible && (
+                    <DefaultLink
+                      to={`/library`}
+                      className={cn(style.user_menu_item, style.third)}
+                    >
+                      <div className={style.user_text}>Library</div>
+                    </DefaultLink>
+                  )}
+                  {profileMenuVisible && (
+                    <div
+                      className={cn(style.user_menu_item, style.last)}
+                      onClick={openLogoutModal}
+                    >
+                      <div className={style.user_text}>Log out</div>
+                    </div>
                   )}
                 </div>
-                {profileMenuVisible && (
-                  <DefaultLink
-                    className={cn(style.user_menu_item, style.first)}
-                    to={`/account`}
-                  >
-                    <div className={style.user_text}>Account</div>
-                  </DefaultLink>
-                )}
-                {profileMenuVisible && (
-                  <DefaultLink
-                    className={cn(style.user_menu_item, style.second)}
-                    to={`/profile/${userData?.username}`}
-                  >
-                    <div className={style.user_text}>Profile</div>
-                  </DefaultLink>
-                )}
-                {profileMenuVisible && (
-                  <DefaultLink
-                    to={`/library`}
-                    className={cn(style.user_menu_item, style.third)}
-                  >
-                    <div className={style.user_text}>Library</div>
-                  </DefaultLink>
-                )}
-                {profileMenuVisible && (
-                  <div
-                    className={cn(style.user_menu_item, style.last)}
-                    onClick={openLogoutModal}
-                  >
-                    <div className={style.user_text}>Log out</div>
-                  </div>
-                )}
-              </div>
-            </OutsideClickHandler>
-          ) : (
-            <DefaultLink to={"/login"} className={style.login}>
-              Login
-            </DefaultLink>
-          )}
+              </OutsideClickHandler>
+            ) : (
+              <DefaultLink to={"/login"} className={style.login}>
+                Login
+              </DefaultLink>
+            )}
+          </div>
         </div>
       </div>
       <Modal setVisible={setLogoutModal} visible={logoutModal}>

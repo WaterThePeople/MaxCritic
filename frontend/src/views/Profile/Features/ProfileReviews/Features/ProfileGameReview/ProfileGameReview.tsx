@@ -15,7 +15,6 @@ function ProfileGameReview({
   userReviewID?: number;
 }) {
   const [editReviewModal, setEditReviewModal] = useState(false);
-  console.log(item);
 
   return (
     <div className={style.item}>

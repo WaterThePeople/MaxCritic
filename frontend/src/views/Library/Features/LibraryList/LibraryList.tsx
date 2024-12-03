@@ -1,8 +1,14 @@
-import style from "./GamesLibrary.module.sass";
+import style from "./LibraryList.module.sass";
 import LibraryItem from "components/LibraryItem/LibraryItem";
 import cn from "classnames";
 
-function GamesLibrary({ data }: { data: any[] }) {
+function LibraryList({
+  data,
+  returnCurrentType,
+}: {
+  data: any[];
+  returnCurrentType: Function;
+}) {
   const size = (x: number) => {
     if (x == 1) {
       return style.size_1;
@@ -26,7 +32,7 @@ function GamesLibrary({ data }: { data: any[] }) {
             key={index}
             name={item?.name}
             image={item?.image}
-            slug={item?.slug}
+            slug={`/${returnCurrentType()}/${item?.slug}`}
           />
         ))
       ) : (
@@ -36,4 +42,4 @@ function GamesLibrary({ data }: { data: any[] }) {
   );
 }
 
-export default GamesLibrary;
+export default LibraryList;

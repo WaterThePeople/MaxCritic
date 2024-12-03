@@ -1,0 +1,177 @@
+@import 'styles'
+
+.container
+    width: 100%
+    +title-24
+    color: $w
+    background: $b1
+    border-radius: $value-6
+    @include element-flex(column, flex-start, center)
+    box-sizing: border-box
+    gap: $value-4
+    padding-bottom: $value-8
+
+.row
+    width: 100%
+    @include element-flex(row, space-between, flex-start)
+    +m
+        @include element-flex(column-reverse, center, center)
+
+.video_and_description
+    width: calc(200% / 3)
+    @include element-flex(column, flex-start, center)
+    gap: $value-4
+    +m
+        width: 100%
+
+.video
+    width: 100%
+    aspect-ratio: 16 / 9
+    background: $b2
+    border-radius: $value-6 0 $value-6 0
+    border: none
+    box-sizing: border-box
+    +m
+        width: 100%
+        background: $b1
+        padding: $value-4
+        padding-bottom: 0
+        border-radius: $value-6
+
+.info
+    width: calc(100% / 3)
+    min-width: 260px
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-4
+    padding: $value-4
+    box-sizing: border-box
+    +m
+        width: 100%
+
+.name
+    width: 100%
+    box-sizing: border-box
+    color: $w
+    text-wrap: wrap
+    overflow-wrap: break-word
+    +title-32
+    +m
+        +title-16
+
+.image
+    border: 2px solid $b2
+    border-radius: $value-3
+    width: 100%
+    aspect-ratio: 16 / 9
+    object-fit: cover
+    +m
+        width: 50%
+    +s
+        width: 100%
+
+.separator
+    width: 100%
+    height: 2px
+    background: $bw
+
+.score_row
+    width: 100%
+    @include element-flex(row, space-between, center)
+    gap: $value-2
+
+.score_text_container
+    @include element-flex(column, space-between, flex-start)
+    gap: $value-2
+    align-self: stretch
+
+.score_title
+    color: $red4
+    +label-24
+    +m
+        +label-20
+    +s
+        +label-16
+
+.score_text
+    color: $w
+    +label-20
+    +m
+        +label-16
+    +s
+        +label-12
+
+.add_score
+    border-radius: $value-3
+    border: 2px solid $bw
+    height: 80px
+    width: 80px
+    @include element-flex(row, center, center)
+    color: $bw
+    +title-32
+    font-weight: 900
+    box-sizing: border-box
+    +m
+        height: 60px
+        width: 60px
+        +title-24
+    +s
+        height: 51px
+        width: 51px
+        +title-16
+    &:hover
+        cursor: pointer
+        border-color: $w
+        color: $w
+        .plus_svg
+            fill: $w
+
+.plus_svg
+    fill: $bw
+    height: 48px
+    width: 48px
+    +m
+        height: 32px
+        width: 32px
+    +s
+        height: 24px
+        width: 24px
+
+.library_button
+    position: relative
+    border-radius: $value-3
+    border: 2px solid $bw
+    height: 80px
+    width: 100%
+    @include element-flex(row, center, center)
+    color: $bw
+    +label-24
+    box-sizing: border-box
+    &.blue
+        border-color: $blue4
+        background-color: $blue2
+        &:hover
+            border-color: $blue3
+    &.unauthorized
+        color: $bw
+        +label-18
+    .remove_text
+        position: absolute
+        bottom: 0
+        width: 100%
+        text-align: center
+        color: $b8
+        +label-16
+    +m
+        height: 60px
+        +label-20
+        .remove_text
+            +label-12
+    +s
+        height: 51px
+        +label-16
+    &:hover
+        cursor: pointer
+        border-color: $w
+        color: $w
+        .plus_svg
+            fill: $w

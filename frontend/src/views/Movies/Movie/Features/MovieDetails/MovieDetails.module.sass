@@ -1,0 +1,29 @@
+@import 'styles'
+
+.container
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-4
+    +m
+        gap: $value-2
+
+.content
+    @include element-flex(column, center, flex-start)
+    gap: $value-2
+    color: $bw
+    +label-16
+    +m
+        +label-12
+    span
+        color: $w
+        +label-14
+        +m
+            +label-10
+
+.developers
+    @include element-flex(row, flex-start, center)
+    flex-wrap: wrap
+    gap: $value-4
+    color: $bw
+    +label-16
+    +m
+        +label-12

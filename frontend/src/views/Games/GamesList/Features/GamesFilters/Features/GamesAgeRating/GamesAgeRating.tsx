@@ -35,7 +35,7 @@ function GamesAgeRating({
 
   return (
     <div className={style.container}>
-      <span>AgeRating</span>
+      <span>Age Rating</span>
       <div className={style.content}>
         {loading ? (
           <LoadingCard classname={style.loading_card} />

@@ -124,7 +124,6 @@ class Game(models.Model):
     ESRB = models.ForeignKey(
         GameESRB, on_delete=models.CASCADE, null=True)
     score = models.IntegerField(blank=True, default=0)
-    # reviews = models.ManyToManyField(GameReview, blank=True)
     recently_added = models.BooleanField(default=False)
     release_date = models.DateField(_("Date"), default=date.today)
     categories = models.ManyToManyField(GameCategory)

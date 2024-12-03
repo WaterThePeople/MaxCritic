@@ -12,7 +12,7 @@ function LibraryItem({
   slug?: string;
 }) {
   return (
-    <DefaultLink className={style.container} to={`/games/${slug}`}>
+    <DefaultLink className={style.container} to={slug ? slug : ""}>
       <Image image={image} classname={style.image} />
       <div className={style.name}>{name}</div>
     </DefaultLink>

@@ -7,7 +7,7 @@ import axios from "axios";
 import { serverPath } from "BackendServerPath";
 import ProfileTab from "./Features/ProfileTab/ProfileTab";
 import ProfileSummary from "./Features/ProfileSummary/ProfileSummary";
-import ProfileGameReviews from "./Features/ProfileGameReviews/ProfileGameReviews";
+import ProfileReviews from "./Features/ProfileReviews/ProfileReviews";
 import useWindowDimensions from "utils/useWindowDimensions";
 import DropdownModal from "components/DropdownModal/DropdownModal";
 import { useAuth } from "wrappers/AuthContext/AuthContext";
@@ -38,6 +38,16 @@ function Profile() {
   useEffect(() => {
     getLibrary();
   }, [username]);
+
+  const returnCurrentType = () => {
+    if (currentTab === "Games") {
+      return data?.game_reviews;
+    } else if (currentTab === "Movies") {
+      return data?.movie_reviews;
+    } else {
+      return [];
+    }
+  };
 
   return (
     <View background>
@@ -74,21 +84,17 @@ function Profile() {
               onClick={(x: any) => setCurrentTab(x)}
             />
           )}
-          {currentTab === "Games" && (
-            <>
-              <ProfileSummary
-                section="Games"
-                data={data?.game_reviews}
-                loading={loading}
-              />
-              <ProfileGameReviews
-                section="Games"
-                data={data?.game_reviews}
-                loading={loading}
-                authorID={userData?.id}
-              />
-            </>
-          )}
+          <ProfileSummary
+            section={currentTab}
+            data={returnCurrentType()}
+            loading={loading}
+          />
+          <ProfileReviews
+            section={currentTab}
+            data={returnCurrentType()}
+            loading={loading}
+            authorID={userData?.id}
+          />
         </div>
       </div>
     </View>

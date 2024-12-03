@@ -1,0 +1,116 @@
+@import 'styles'
+
+.container
+    background: $b1
+    color: $w1
+    padding: $value-6
+    border-radius: $value-3
+    @include element-flex(column, center, center)
+    gap: $value-4
+    border: 2px solid $b2
+    box-sizing: border-box
+    width: 640px
+    +m
+        width: 320px
+
+.content
+    width: 100%
+    @include element-flex(column, center, center)
+    gap: $value-4
+
+.section
+    width: 100%
+    @include element-flex(column, flex-start, flex-start)
+    gap: $value-2
+
+.description_limit
+    color: $b8
+    +label-12
+    padding-bottom: $value-2
+
+.description
+    width: 100%
+    outline: none !important
+    line-height: 20px
+    height: calc(20px * 9)
+    box-sizing: border-box
+    border-radius: $value-3
+    padding: $value-2
+    background: transparent
+    resize: none
+    color: $w
+    border: 2px solid $b8
+    +label-16
+    overflow: hidden
+    &:focus
+        border: 2px solid $bw
+    +m
+        overflow: auto
+        width: 100%
+        +label-14
+        line-height: 18px
+        height: calc(18px * 9)
+
+.score_container
+    padding-top: $value-2
+    width: 100%
+    @include element-flex(row, flex-start, center)
+    gap: $value-2
+
+.slider
+    -webkit-appearance: none
+    width: calc(100% - 80px)
+    +m
+        width: calc(100% - 60px)
+    +s
+        width: calc(100% - 51px)
+    background-color: $b2
+    border-radius: $value-3
+    height: $value-4
+    &::-webkit-slider-thumb
+        -webkit-appearance: none
+        appearance: none
+        width: $value-2
+        height: $value-6
+        background: $bw
+        border-radius: $value-3
+        cursor: pointer
+        transition: background 0.3s
+
+.platform_container
+    padding-top: $value-2
+    width: 100%
+    @include element-flex(row, flex-start, center)
+    gap: $value-4
+    flex-wrap: wrap
+
+.error_container
+    width: 100%
+    @include element-flex(row, center, center)
+    gap: $value-2
+
+.error_icon
+    background-color: $red4
+    @include element-flex(column, center, center)
+    border-radius: 50%
+    padding: $value-1
+    +m
+        padding: 0
+
+.svg
+    fill: $w3
+
+.error
+    color: $red4
+    +label-16
+    +m
+        +label-12
+
+.unauthorized
+    @include element-flex(column, center, center)
+    gap: $value-4
+
+.unauthorized_text
+    color: $w
+    +label-18
+    text-align: center

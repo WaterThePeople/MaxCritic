@@ -1,10 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView
+from django.db.models import Q
 from rest_framework import status
 from .serializers.login import *
 from .serializers.register import *
 from .serializers.user import *
 from .serializers.profile import *
+from .serializers.search import *
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -89,12 +92,38 @@ class UserProfileView(APIView):
     def get(self, request, username):
         try:
             user = CustomUser.objects.prefetch_related(
-                'game_reviews').get(username=username)
+                'game_reviews', 'movie_reviews').get(username=username)
         except CustomUser.DoesNotExist:
             raise NotFound("User not found")
 
         serializer = UserProfileSerializer(user)
         return Response(serializer.data)
+
+
+class SearchView(APIView):
+    pagination_class = Pagination
+
+    def get(self, request, *args, **kwargs):
+        query = self.request.query_params.get('q', '')
+
+        games = Game.objects.filter(name__icontains=query)
+        movies = Movie.objects.filter(name__icontains=query)
+
+        combined_results = list(games) + list(movies)
+
+        paginator = self.pagination_class()
+        paginated_results = paginator.paginate_queryset(
+            combined_results, request)
+
+        serialized_data = []
+        for result in paginated_results:
+            if isinstance(result, Game):
+                serializer = GameSerializer(result)
+            else:
+                serializer = MovieSerializer(result)
+            serialized_data.append(serializer.data)
+
+        return paginator.get_paginated_response(serialized_data)
 
 
 class RecentlyAddedView(APIView):

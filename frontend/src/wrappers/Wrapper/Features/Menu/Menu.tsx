@@ -52,6 +52,14 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
         title="Music"
         isFocused={location.pathname === "/music"}
       />
+      <NavbarButton
+        href={`/search`}
+        iconName="search"
+        size={width <= 1000 ? 24 : 40}
+        viewBox="-8 -8 40 40"
+        title="Search"
+        isFocused={location.pathname === "/search"}
+      />
       <div className={style.separator} />
     </div>
   );

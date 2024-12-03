@@ -55,7 +55,7 @@ function Game() {
 
   useEffect(() => {
     getGameData();
-  }, []);
+  }, [slug]);
 
   const addGameToLibrary = async (ID: number) => {
     const { accessToken } = await returnAccessToken();

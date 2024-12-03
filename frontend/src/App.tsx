@@ -17,8 +17,13 @@ import Profile from "views/Profile/Profile";
 import Account from "views/Account/Account";
 import Library from "views/Library/Library";
 
+import Search from "views/Search/Search";
+
 import GamesList from "views/Games/GamesList/GamesList";
 import Game from "views/Games/Game/Game";
+
+import MoviesList from "views/Movies/MoviesList/MoviesList";
+import Movie from "views/Movies/Movie/Movie";
 
 import useScrollManager from "./utils/useScrollManager";
 
@@ -41,9 +46,11 @@ function App() {
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/library" element={<Library />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/games" element={<GamesList />} />
             <Route path="/games/:slug" element={<Game />} />
-            <Route path="/movies" />
+            <Route path="/movies" element={<MoviesList />} />
+            <Route path="/movies/:slug" element={<Movie />} />
             <Route path="/shows" />
             <Route path="/music" />
             <Route path="/login" element={<Login />} />
