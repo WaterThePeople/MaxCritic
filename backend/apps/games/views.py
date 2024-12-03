@@ -124,9 +124,9 @@ class UserGamesLibraryView(ListAPIView):
 
     def get_queryset(self):
         try:
-            user_library = UserGamesLibrary.objects.get(user=self.request.user)
-            print(user_library)
-            return user_library.games.annotate(
+            user_games_library = UserGamesLibrary.objects.get(
+                user=self.request.user)
+            return user_games_library.games.annotate(
                 average_score=Avg('game_reviews__rating')
             )
         except UserGamesLibrary.DoesNotExist:
@@ -138,8 +138,8 @@ class AddToGamesLibraryView(APIView):
 
     def post(self, request, game_id):
         game = get_object_or_404(Game, id=game_id)
-        library = request.user.library
-        library.games.add(game)
+        games_library = request.user.games_library
+        games_library.games.add(game)
         return Response({"message": f"{game.name} added to your library."})
 
 
@@ -148,9 +148,9 @@ class RemoveFromGamesLibraryView(APIView):
 
     def post(self, request, game_id):
         game = get_object_or_404(Game, id=game_id)
-        library = request.user.library
-        if library.games.filter(id=game.id).exists():
-            library.games.remove(game)
+        games_library = request.user.games_library
+        if games_library.games.filter(id=game.id).exists():
+            games_library.games.remove(game)
             return Response({"message": f"{game.name} removed from your library."}, status=HTTP_200_OK)
         else:
             return Response({"error": f"{game.name} is not in your library."}, status=HTTP_400_BAD_REQUEST)

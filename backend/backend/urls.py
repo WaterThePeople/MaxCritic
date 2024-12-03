@@ -6,10 +6,12 @@ from rest_framework_simplejwt.views import (
 )
 from apps.main.views import *
 from apps.games.views import *
+from apps.movies.views import *
 
 router = routers.DefaultRouter()
 
 urlpatterns = [
+    # Admin and authentication endpoints
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/token/', CustomAuthToken.as_view()),
@@ -20,6 +22,8 @@ urlpatterns = [
     path('api/user/username/', ChangeUsernameView.as_view()),
     path('api/user/password/change/', ChangePasswordView.as_view()),
     path('api/user/profile/<str:username>/', UserProfileView.as_view()),
+
+    # Game-related endpoints
     path('api/games/list', GamesListView.as_view()),
     path('api/games/<slug:slug>/', GameView.as_view()),
     path('api/games/reviews/create/', GameReviewCreateView.as_view()),
@@ -34,5 +38,7 @@ urlpatterns = [
          AddToGamesLibraryView.as_view()),
     path('api/games/library/remove/<int:game_id>/',
          RemoveFromGamesLibraryView.as_view()),
+
+    # Miscellaneous endpoints
     path('api/recent', RecentlyAddedView.as_view()),
 ]

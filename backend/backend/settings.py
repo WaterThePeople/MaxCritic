@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.main',
     'apps.games',
+    'apps.movies',
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',

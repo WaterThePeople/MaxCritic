@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         users_without_libraries = CustomUser.objects.filter(
-            library__isnull=True)
+            games_library__isnull=True)
         for user in users_without_libraries:
             UserGamesLibrary.objects.create(user=user)
             self.stdout.write(self.style.SUCCESS(

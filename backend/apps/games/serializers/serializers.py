@@ -51,8 +51,8 @@ class GamesListSerializer(serializers.ModelSerializer):
 
         if request and request.user.is_authenticated:
             user = request.user
-            if hasattr(user, 'library'):
-                return user.library.games.filter(id=obj.id).exists()
+            if hasattr(user, 'games_library'):
+                return user.games_library.games.filter(id=obj.id).exists()
 
         return False
 
@@ -98,8 +98,8 @@ class GameSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request and request.user.is_authenticated:
             user = request.user
-            if hasattr(user, 'library'):
-                return user.library.games.filter(id=obj.id).exists()
+            if hasattr(user, 'games_library'):
+                return user.games_library.games.filter(id=obj.id).exists()
 
         return False
 

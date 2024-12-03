@@ -9,7 +9,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class GameESRB(models.Model):
+class MovieESRB(models.Model):
     rating_name = models.CharField(max_length=50)
     image = models.BinaryField(blank=True, null=True)
 
@@ -22,7 +22,7 @@ class GameESRB(models.Model):
         return self.rating_name
 
 
-class GameCategory(models.Model):
+class MovieCategory(models.Model):
     category_name = models.CharField(max_length=50)
     image = models.BinaryField(blank=True, null=True)
 
@@ -35,8 +35,9 @@ class GameCategory(models.Model):
         return self.category_name
 
 
-class GameBudget(models.Model):
-    budget_name = models.CharField(max_length=50)
+class MovieActors(models.Model):
+    name = models.CharField(max_length=100)
+    character = models.CharField(max_length=100)
     image = models.BinaryField(blank=True, null=True)
 
     def image_as_base64(self):
@@ -45,23 +46,10 @@ class GameBudget(models.Model):
         return None
 
     def __str__(self):
-        return self.budget_name
+        return self.name
 
 
-class GamePlatform(models.Model):
-    platform_name = models.CharField(max_length=50)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
-
-    def __str__(self):
-        return self.platform_name
-
-
-class GameDeveloper(models.Model):
+class MovieDirectors(models.Model):
     name = models.CharField(max_length=120, unique=True)
     image = models.BinaryField(blank=True, null=True)
 
@@ -74,7 +62,7 @@ class GameDeveloper(models.Model):
         return self.name
 
 
-class GamePublisher(models.Model):
+class MovieWriters(models.Model):
     name = models.CharField(max_length=120, unique=True)
     image = models.BinaryField(blank=True, null=True)
 
@@ -87,50 +75,60 @@ class GamePublisher(models.Model):
         return self.name
 
 
-class GameReview(models.Model):
+class MovieProduction(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+    image = models.BinaryField(blank=True, null=True)
+
+    def image_as_base64(self):
+        if self.image:
+            return base64.b64encode(self.image).decode('utf-8')
+        return None
+
+    def __str__(self):
+        return self.name
+
+
+class MovieReview(models.Model):
     rating = models.IntegerField()
     description = models.CharField(max_length=500)
     date = models.DateField(_("Date"), default=date.today)
-    platform = models.ManyToManyField(GamePlatform)
     author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="game_reviews")
-    game = models.ForeignKey(
-        'Game', on_delete=models.CASCADE, related_name="game_reviews", null=True, blank=True)
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="movie_reviews")
+    movie = models.ForeignKey(
+        'Movie', on_delete=models.CASCADE, related_name="movie_reviews", null=True, blank=True)
 
     def __str__(self):
         return str(self.id)
 
     @property
-    def game_name(self):
-        return self.game.name if self.game else None
+    def movie_name(self):
+        return self.movie.name if self.movie else None
 
     @property
-    def game_id(self):
-        return self.game.id if self.game else None
+    def movie_id(self):
+        return self.movie.id if self.movie else None
 
     @property
-    def game_slug(self):
-        return self.game.slug if self.game else None
+    def movie_slug(self):
+        return self.movie.slug if self.movie else None
 
 
-class Game(models.Model):
+class Movie(models.Model):
     name = models.CharField(max_length=120)
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True)
     youtube_video = models.CharField(max_length=1000, default='')
     description = models.TextField(max_length=500, default='')
-    developer = models.ManyToManyField(GameDeveloper)
-    publisher = models.ForeignKey(
-        GamePublisher, on_delete=models.CASCADE, null=True)
+    actors = models.ManyToManyField(MovieActors)
+    categories = models.ManyToManyField(MovieCategory)
+    director = models.ManyToManyField(MovieDirectors)
+    writers = models.ManyToManyField(MovieWriters)
+    production = models.ForeignKey(
+        MovieProduction, on_delete=models.CASCADE, null=True)
     ESRB = models.ForeignKey(
-        GameESRB, on_delete=models.CASCADE, null=True)
+        MovieESRB, on_delete=models.CASCADE, null=True)
     score = models.IntegerField(blank=True, default=0)
-    # reviews = models.ManyToManyField(GameReview, blank=True)
     recently_added = models.BooleanField(default=False)
     release_date = models.DateField(_("Date"), default=date.today)
-    categories = models.ManyToManyField(GameCategory)
-    budget = models.ForeignKey(
-        GameBudget, on_delete=models.CASCADE, null=True)
-    platforms = models.ManyToManyField(GamePlatform)
     image = models.BinaryField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
@@ -139,7 +137,7 @@ class Game(models.Model):
 
     @property
     def score(self):
-        reviews = self.game_reviews.all()
+        reviews = self.movie_reviews.all()
         if reviews.exists():
             total_score = sum(review.rating for review in reviews)
             return total_score / reviews.count()
@@ -160,20 +158,20 @@ class Game(models.Model):
         slug = base_slug
         num = 1
 
-        while Game.objects.filter(slug=slug).exists():
+        while Movie.objects.filter(slug=slug).exists():
             slug = f"{base_slug}-{num}"
             num += 1
 
         return slug
 
 
-class UserGamesLibrary(models.Model):
+class UserMoviesLibrary(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="games_library"
+        related_name="movies_library"
     )
-    games = models.ManyToManyField(Game, related_name="games_libraries")
+    games = models.ManyToManyField(Movie, related_name="movies_libraries")
 
     def __str__(self):
         return f"{self.user.email}'s Library"
@@ -182,4 +180,4 @@ class UserGamesLibrary(models.Model):
 @receiver(post_save, sender=CustomUser)
 def create_user_library(sender, instance, created, **kwargs):
     if created:
-        UserGamesLibrary.objects.create(user=instance)
+        UserMoviesLibrary.objects.create(user=instance)
