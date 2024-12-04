@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from ...games.models import Game
 from ...movies.models import Movie
+from ...shows.models import Show
 import base64
 
 
@@ -31,6 +32,23 @@ class MovieSerializer(serializers.ModelSerializer):
 
     def get_type(self, obj):
         return 'Movie'
+
+    def get_image(self, obj):
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None
+
+
+class ShowSerializer(serializers.ModelSerializer):
+    type = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Show
+        fields = ['id', 'name', 'slug', 'image', 'type', 'release_date']
+
+    def get_type(self, obj):
+        return 'TV Show'
 
     def get_image(self, obj):
         if obj.image:

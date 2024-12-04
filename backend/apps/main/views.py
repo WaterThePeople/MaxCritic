@@ -108,8 +108,9 @@ class SearchView(APIView):
 
         games = Game.objects.filter(name__icontains=query)
         movies = Movie.objects.filter(name__icontains=query)
+        shows = Show.objects.filter(name__icontains=query)
 
-        combined_results = list(games) + list(movies)
+        combined_results = list(games) + list(movies) + list(shows)
 
         paginator = self.pagination_class()
         paginated_results = paginator.paginate_queryset(
@@ -119,8 +120,11 @@ class SearchView(APIView):
         for result in paginated_results:
             if isinstance(result, Game):
                 serializer = GameSerializer(result)
-            else:
+            elif isinstance(result, Movie):
                 serializer = MovieSerializer(result)
+            elif isinstance(result, Show):
+                serializer = ShowSerializer(result)
+
             serialized_data.append(serializer.data)
 
         return paginator.get_paginated_response(serialized_data)

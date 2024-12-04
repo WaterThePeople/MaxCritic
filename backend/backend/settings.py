@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.main',
     'apps.games',
     'apps.movies',
+    'apps.shows',
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',

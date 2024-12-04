@@ -123,6 +123,9 @@ function Search() {
                 </div>
               ))}
         </div>
+        {!(data?.length > 0) && (
+          <div className={style.empty}>We couldn't find anything!</div>
+        )}
         {!loading && (
           <Pagination
             amount={dataCount}

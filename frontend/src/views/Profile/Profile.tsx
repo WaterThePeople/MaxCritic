@@ -44,6 +44,8 @@ function Profile() {
       return data?.game_reviews;
     } else if (currentTab === "Movies") {
       return data?.movie_reviews;
+    } else if (currentTab === "TV Shows") {
+      return data?.show_reviews;
     } else {
       return [];
     }

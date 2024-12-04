@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import (
 from apps.main.views import *
 from apps.games.views import *
 from apps.movies.views import *
+from apps.shows.views import *
 
 router = routers.DefaultRouter()
 
@@ -53,6 +54,20 @@ urlpatterns = [
          AddToMoviesLibraryView.as_view()),
     path('api/movies/library/remove/<int:movie_id>/',
          RemoveFromMoviesLibraryView.as_view()),
+
+    # Show-related endpoints
+    path('api/shows/list', ShowsListView.as_view()),
+    path('api/shows/<slug:slug>/', ShowView.as_view()),
+    path('api/shows/reviews/create/', ShowReviewCreateView.as_view()),
+    path('api/shows/review/delete/<int:id>/', ShowReviewDeleteView.as_view()),
+    path('api/shows/review/edit/<int:id>/', ShowReviewEditView.as_view()),
+    path('api/shows/categories', ShowCategoriesView.as_view()),
+    path('api/shows/age', ShowESRBView.as_view()),
+    path('api/shows/library', UserShowsLibraryView.as_view()),
+    path('api/shows/library/add/<int:show_id>/',
+         AddToShowsLibraryView.as_view()),
+    path('api/shows/library/remove/<int:show_id>/',
+         RemoveFromShowsLibraryView.as_view()),
 
     # Miscellaneous endpoints
     path('api/recent', RecentlyAddedView.as_view()),
