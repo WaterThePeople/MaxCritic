@@ -1,0 +1,31 @@
+@import 'styles'
+
+.column
+    @include element-flex(column)
+    gap: $value-2
+    background: $b2
+    border-radius: $value-3
+
+.image
+    width: 160px
+    aspect-ratio: 144 / 205
+    border-radius: $value-3 $value-3 0 0
+    +m
+        width: 136px
+
+.content
+    @include element-flex(column)
+    padding: $value-2
+    gap: $value-2
+
+.name
+    color: $w
+    +label-18
+    +m
+        +label-14
+
+.character
+    color: $b9
+    +label-16
+    +m
+        +label-12

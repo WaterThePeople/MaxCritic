@@ -1,0 +1,57 @@
+@import 'styles'
+
+.container
+    width: 100%
+    box-sizing: border-box
+    @include element-flex(row)
+    border-radius: $value-2
+    background: $b1
+    &:hover
+        cursor: pointer
+        background: $b2
+        .name
+            color: $w
+        .type
+            color: $w
+
+.image
+    box-sizing: border-box
+    border-radius: $value-2
+    width: calc(100%/4)
+    min-width: calc(100%/4)
+    height: 100%
+    aspect-ratio: 16 / 9
+    object-fit: cover
+    +m
+        width: calc(100%/3)
+        min-width: calc(100%/3)
+
+.content
+    width: 100%
+    height: 100%
+    box-sizing: border-box
+    padding: $value-4
+    @include element-flex(column,space-between)
+    gap: $value-4
+
+.name
+    width: 100%
+    color: $bw
+    @include limit-lines(2)
+    word-break: break-all
+    +label-20
+    +m
+        +label-16
+    +s
+        +label-14
+
+.type
+    color: $bw
+    border-radius: $value-2
+    padding: $value-1 $value-2
+    border: 2px solid $b5
+    +label-16
+    +m
+        +label-12
+    +s
+        +label-10

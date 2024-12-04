@@ -22,7 +22,20 @@
     height: 2px
     background-color: $bw
 
+.loading_card
+    width: 100%
+    height: 200px
+    border-radius: $value-4
+    background: $b1
+    +m
+        height: 150px
+
 .container
     width: 100%
-    @include element-flex(row)
+    @include element-flex(column)
+    gap: $value-4
+
+.column
+    width: 100%
+    @include element-flex(column,center,center)
     gap: $value-4

@@ -17,7 +17,7 @@ function SearchBar({
   return (
     <div className={style.container}>
       <input
-        className={cn(style.input, open && style.open)}
+        className={cn(style.input, open ? style.open : style.open_not_given)}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setOpen && setOpen(true)}

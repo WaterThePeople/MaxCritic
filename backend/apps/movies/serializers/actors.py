@@ -13,4 +13,4 @@ class MovieActorsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MovieActors
-        fields = ['id', 'name', 'image']
+        fields = ['id', 'name', 'character', 'image']

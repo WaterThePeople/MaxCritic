@@ -19,6 +19,19 @@
         +m
             +label-10
 
+.content_row
+    @include element-flex(row,flex-start,center)
+    gap: $value-2
+    color: $bw
+    +label-16
+    +m
+        +label-12
+    span
+        color: $w
+        +label-14
+        +m
+            +label-10
+
 .developers
     @include element-flex(row, flex-start, center)
     flex-wrap: wrap

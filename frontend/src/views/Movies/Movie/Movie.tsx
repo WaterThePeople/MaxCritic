@@ -13,6 +13,7 @@ import Section from "components/Section/Section";
 import MovieCategories from "./Features/MovieCategories/MovieCategories";
 import MovieDetails from "./Features/MovieDetails/MovieDetails";
 import MovieReviews from "./Features/MovieReviews/MovieReviews";
+import MovieActors from "./Features/MovieActors/MovieActors";
 import Modal from "components/Modal/Modal";
 import AddReview from "components/AddReview/AddReview";
 import EditReview from "components/EditReview/EditReview";
@@ -215,10 +216,18 @@ function Movie() {
             <MovieCategories data={movie?.categories} />
           </Section>
           <div className={style.separator} />
+          <Section title="Actors" sectionColor="green">
+            <MovieActors data={movie?.actors} />
+          </Section>
+          <div className={style.separator} />
           <Section title="Details" sectionColor="red">
             <MovieDetails
               esrb={movie?.ESRB}
               release_date={movie?.release_date}
+              duration={movie?.duration}
+              director={movie?.director}
+              writers={movie?.writers}
+              production={movie?.production}
             />
           </Section>
           <div className={style.separator} />
