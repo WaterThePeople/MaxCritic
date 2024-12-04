@@ -45,12 +45,12 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
       />
       <div className={style.separator} />
       <NavbarButton
-        href={`/music`}
+        href={`/songs`}
         iconName="music"
         size={width <= 1000 ? 24 : 40}
         viewBox="-5 -6 36 36"
         title="Music"
-        isFocused={location.pathname === "/music"}
+        isFocused={location.pathname === "/songs"}
       />
       <NavbarButton
         href={`/search`}

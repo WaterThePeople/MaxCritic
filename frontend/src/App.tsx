@@ -28,6 +28,9 @@ import Movie from "views/Movies/Movie/Movie";
 import ShowsList from "views/Shows/ShowsList/ShowsList";
 import Show from "views/Shows/Show/Show";
 
+import SongsList from "views/Music/SongsList/SongsList";
+import Song from "views/Music/Show/Song";
+
 import useScrollManager from "./utils/useScrollManager";
 
 const ScrollManager: React.FC = () => {
@@ -56,8 +59,8 @@ function App() {
             <Route path="/movies/:slug" element={<Movie />} />
             <Route path="/shows" element={<ShowsList />} />
             <Route path="/shows/:slug" element={<Show />} />
-            <Route path="/shows" />
-            <Route path="/music" />
+            <Route path="/songs" element={<SongsList />} />
+            <Route path="/songs/:slug" element={<Song />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>

@@ -4,6 +4,7 @@ import LoadingCard from "components/LoadingCard/LoadingCard";
 import ProfileGameReview from "./Features/ProfileGameReview/ProfileGameReview";
 import ProfileMovieReview from "./Features/ProfileMovieReview/ProfileMovieReview";
 import ProfileShowReview from "./Features/ProfileShowReview/ProfileShowReview";
+import ProfileSongReview from "./Features/ProfileSongReview/ProfileSongReview";
 import DefaultButton from "components/DefaultButton/DefaultButton";
 
 function ProfileReviews({
@@ -46,6 +47,11 @@ function ProfileReviews({
     if (section === "TV Shows") {
       return (
         <ProfileShowReview key={index} item={item} userReviewID={authorID} />
+      );
+    }
+    if (section === "Music") {
+      return (
+        <ProfileSongReview key={index} item={item} userReviewID={authorID} />
       );
     }
     return null;

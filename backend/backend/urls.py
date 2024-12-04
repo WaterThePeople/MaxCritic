@@ -8,6 +8,7 @@ from apps.main.views import *
 from apps.games.views import *
 from apps.movies.views import *
 from apps.shows.views import *
+from apps.music.views import *
 
 router = routers.DefaultRouter()
 
@@ -68,6 +69,20 @@ urlpatterns = [
          AddToShowsLibraryView.as_view()),
     path('api/shows/library/remove/<int:show_id>/',
          RemoveFromShowsLibraryView.as_view()),
+
+    # Music-related endpoints
+    path('api/songs/list', SongsListView.as_view()),
+    path('api/songs/<slug:slug>/', SongView.as_view()),
+    path('api/songs/reviews/create/', SongReviewCreateView.as_view()),
+    path('api/songs/review/delete/<int:id>/', SongReviewDeleteView.as_view()),
+    path('api/songs/review/edit/<int:id>/', SongReviewEditView.as_view()),
+    path('api/songs/categories', SongCategoriesView.as_view()),
+    path('api/songs/age', SongESRBView.as_view()),
+    path('api/songs/library', UserSongsLibraryView.as_view()),
+    path('api/songs/library/add/<int:song_id>/',
+         AddToSongsLibraryView.as_view()),
+    path('api/songs/library/remove/<int:song_id>/',
+         RemoveFromSongsLibraryView.as_view()),
 
     # Miscellaneous endpoints
     path('api/recent', RecentlyAddedView.as_view()),

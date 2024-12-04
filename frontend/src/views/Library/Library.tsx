@@ -27,7 +27,7 @@ function Library() {
     } else if (currentLibrary === "TV Shows") {
       return "shows";
     } else if (currentLibrary === "Music") {
-      return "music";
+      return "songs";
     } else {
       return "/";
     }

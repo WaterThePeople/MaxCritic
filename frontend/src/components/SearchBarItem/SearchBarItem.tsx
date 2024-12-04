@@ -27,7 +27,7 @@ function SearchBarItem({
     } else if (type === "TV Show") {
       return `/shows/${slug}`;
     } else if (type === "Music") {
-      return `/music/${slug}`;
+      return `/songs/${slug}`;
     } else {
       return "/";
     }
