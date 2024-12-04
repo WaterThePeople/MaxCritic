@@ -224,10 +224,11 @@ function Show() {
             <ShowDetails
               esrb={show?.ESRB}
               release_date={show?.release_date}
-              duration={show?.duration}
+              duration={show?.episode_duration}
               director={show?.director}
               writers={show?.writers}
               production={show?.production}
+              episodes={show?.episodes}
             />
           </Section>
           <div className={style.separator} />

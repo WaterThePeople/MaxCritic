@@ -7,6 +7,7 @@ function ShowDetails({
   esrb,
   release_date,
   duration,
+  episodes,
   director,
   writers,
   production,
@@ -14,6 +15,7 @@ function ShowDetails({
   esrb: any;
   release_date: any;
   duration: string;
+  episodes: number;
   director: any;
   writers: any;
   production: any;
@@ -21,8 +23,12 @@ function ShowDetails({
   return (
     <div className={style.container}>
       <div className={style.content_row}>
-        <span>Duration:</span>
+        <span>Episode duration:</span>
         {duration}
+      </div>
+      <div className={style.content_row}>
+        <span>Episodes:</span>
+        {episodes}
       </div>
       <div className={style.content}>
         <span>Directed by</span>
