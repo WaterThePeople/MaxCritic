@@ -7,44 +7,18 @@ function SongDetails({
   esrb,
   release_date,
   duration,
-  episodes,
-  director,
-  writers,
   production,
 }: {
   esrb: any;
   release_date: any;
   duration: string;
-  episodes: number;
-  director: any;
-  writers: any;
   production: any;
 }) {
   return (
     <div className={style.container}>
       <div className={style.content_row}>
-        <span>Episode duration:</span>
+        <span>Song Length:</span>
         {duration}
-      </div>
-      <div className={style.content_row}>
-        <span>Episodes:</span>
-        {episodes}
-      </div>
-      <div className={style.content}>
-        <span>Directed by</span>
-        <div className={style.developers}>
-          {director?.map((item: any, index: number) => (
-            <ImageTextRow image={item?.image} text={item?.name} key={index} />
-          ))}
-        </div>
-      </div>
-      <div className={style.content}>
-        <span>Written by</span>
-        <div className={style.developers}>
-          {writers?.map((item: any, index: number) => (
-            <ImageTextRow image={item?.image} text={item?.name} key={index} />
-          ))}
-        </div>
       </div>
       <div className={style.content}>
         <span>Production:</span>

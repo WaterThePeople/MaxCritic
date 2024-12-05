@@ -1,7 +1,7 @@
 import style from "./NavbarButton.module.sass";
 import { Icon } from "components/Icon/Icon";
 import cn from "classnames";
-import { Link } from "react-router-dom";
+import DefaultLink from "components/DefaultLink/DefaultLink";
 
 function NavbarButton({
   iconName,
@@ -19,7 +19,7 @@ function NavbarButton({
   isFocused?: boolean;
 }) {
   return (
-    <Link
+    <DefaultLink
       to={href}
       className={cn(style.container, isFocused && style.container_focused)}
     >
@@ -42,7 +42,7 @@ function NavbarButton({
         className={style.arrow}
         viewBox="0 -6 32 32"
       />
-    </Link>
+    </DefaultLink>
   );
 }
 

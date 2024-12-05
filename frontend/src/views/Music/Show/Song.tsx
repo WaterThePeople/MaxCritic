@@ -13,7 +13,7 @@ import Section from "components/Section/Section";
 import SongCategories from "./Features/SongsCategories/SongsCategories";
 import SongDetails from "./Features/SongDetails/SongDetails";
 import SongReviews from "./Features/SongReviews/SongReviews";
-import SongActors from "./Features/SongAuthors/SongAuthors";
+import SongAuthors from "./Features/SongAuthors/SongAuthors";
 import Modal from "components/Modal/Modal";
 import AddReview from "components/AddReview/AddReview";
 import EditReview from "components/EditReview/EditReview";
@@ -216,19 +216,16 @@ function Song() {
             <SongCategories data={song?.categories} />
           </Section>
           <div className={style.separator} />
-          <Section title="Actors" sectionColor="green">
-            <SongActors data={song?.actors} />
+          <Section title="Author" sectionColor="green">
+            <SongAuthors data={song?.authors} />
           </Section>
           <div className={style.separator} />
           <Section title="Details" sectionColor="red">
             <SongDetails
               esrb={song?.ESRB}
               release_date={song?.release_date}
-              duration={song?.episode_duration}
-              director={song?.director}
-              writers={song?.writers}
+              duration={song?.duration}
               production={song?.production}
-              episodes={song?.episodes}
             />
           </Section>
           <div className={style.separator} />
