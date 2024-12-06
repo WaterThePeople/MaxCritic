@@ -57,19 +57,7 @@ class GameReviewAdmin(admin.ModelAdmin):
 
 class GameESRBAdmin(admin.ModelAdmin):
     list_display = ('rating_name',)
-    GameESRBForm = get_image_display_form(GameESRB, forms.ModelForm)
-    form = GameESRBForm
-    readonly_fields = ('image_preview',)
 
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
 
 # Game Category
 
@@ -94,20 +82,8 @@ class GameCategoryAdmin(admin.ModelAdmin):
 
 
 class GameBudgetAdmin(admin.ModelAdmin):
-    GameBudgetForm = get_image_display_form(GameBudget, forms.ModelForm)
-    form = GameBudgetForm
     list_display = ('budget_name',)
-    readonly_fields = ('image_preview',)
 
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
 
 # Game platform
 

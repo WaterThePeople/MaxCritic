@@ -11,7 +11,7 @@ function ImageTextRow({
   onClick,
   small,
 }: {
-  image: any;
+  image?: any;
   text: string;
   classname?: string;
   selected?: boolean;
@@ -29,7 +29,12 @@ function ImageTextRow({
       )}
       onClick={() => onClick()}
     >
-      <Image image={image} classname={cn(style.image, small && style.small)} />
+      {image && (
+        <Image
+          image={image}
+          classname={cn(style.image, small && style.small)}
+        />
+      )}
       {text}
     </div>
   ) : (
@@ -41,7 +46,12 @@ function ImageTextRow({
         small && style.small
       )}
     >
-      <Image image={image} classname={cn(style.image, small && style.small)} />
+      {image && (
+        <Image
+          image={image}
+          classname={cn(style.image, small && style.small)}
+        />
+      )}
       {text}
     </div>
   );

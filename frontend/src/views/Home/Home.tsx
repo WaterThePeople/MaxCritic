@@ -35,7 +35,7 @@ function Home() {
     <View>
       <div className={style.container}>
         <Welcome />
-        <RecentlyAdded items={recentlyAdded} loading={recentlyAddedLoading} />
+        {/* <RecentlyAdded items={recentlyAdded} loading={recentlyAddedLoading} /> */}
         <Discover />
       </div>
     </View>

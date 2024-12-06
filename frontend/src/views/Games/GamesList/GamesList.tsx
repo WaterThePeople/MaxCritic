@@ -20,8 +20,8 @@ const orders = [
   { name: "Newest", value: "-release_date" },
 ];
 
-const oldestYear = 1990;
-const newestYear = 2030;
+const oldestYear = 1995;
+const newestYear = 2025;
 
 const pageSize = 10;
 

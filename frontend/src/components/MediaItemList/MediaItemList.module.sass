@@ -1,18 +1,13 @@
 @import 'styles'
 
 .container
-    width: calc(50% - $value-2)
-    height: 192px
+    min-width: 0
+    width: 100%
     border-radius: $value-4
     background: $b1
     box-sizing: border-box
     @include element-flex(row)
     align-self: stretch
-    +b
-        min-width: 0
-        width: 100%
-    +m
-        height: 168px
     &:hover
         cursor: pointer
         background: $b2
@@ -23,10 +18,11 @@
     width: calc(100% / 4)
     min-width: calc(100% / 4)
     height: 100%
-    object-fit: cover
+    object-fit: contain
     +m
         width: calc(100% / 3)
         min-width: calc(100% / 3)
+        object-fit: cover
 
 .content
     width: 100%

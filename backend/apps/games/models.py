@@ -11,12 +11,6 @@ from django.dispatch import receiver
 
 class GameESRB(models.Model):
     rating_name = models.CharField(max_length=50)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
 
     def __str__(self):
         return self.rating_name
@@ -37,12 +31,6 @@ class GameCategory(models.Model):
 
 class GameBudget(models.Model):
     budget_name = models.CharField(max_length=50)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
 
     def __str__(self):
         return self.budget_name
