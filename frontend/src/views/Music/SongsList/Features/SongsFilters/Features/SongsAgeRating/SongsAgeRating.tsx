@@ -18,7 +18,7 @@ function SongsAgeRating({
   const getAgeRating = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/songs/age`, {})
+      .get(`${serverPath}api/songs/age`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

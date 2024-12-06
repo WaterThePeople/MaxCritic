@@ -15,7 +15,7 @@ function ApiTestView() {
     const { accessToken } = await returnAccessToken();
     axios
       .put(
-        `${serverPath}/api/user/image/`,
+        `${serverPath}api/user/image/`,
         { image: image },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -33,7 +33,7 @@ function ApiTestView() {
     const { accessToken } = await returnAccessToken();
     axios
       .put(
-        `${serverPath}/api/user/username/`,
+        `${serverPath}api/user/username/`,
         { new_username: "admin" },
         {
           headers: { Authorization: `Bearer ${accessToken}` },

@@ -61,7 +61,7 @@ function Show() {
     const { accessToken } = await returnAccessToken();
     axios
       .post(
-        `${serverPath}/api/shows/library/add/${ID}/`,
+        `${serverPath}api/shows/library/add/${ID}/`,
         {},
         {
           headers: accessToken
@@ -82,7 +82,7 @@ function Show() {
     console.log(accessToken);
     axios
       .post(
-        `${serverPath}/api/shows/library/remove/${ID}/`,
+        `${serverPath}api/shows/library/remove/${ID}/`,
         {},
         {
           headers: accessToken
@@ -243,7 +243,7 @@ function Show() {
       )}
 
       <Modal setVisible={setAddReviewModal} visible={addReviewModal}>
-        <AddReview id={show?.id} url="/api/shows/reviews/create/" />
+        <AddReview id={show?.id} url="api/shows/reviews/create/" />
       </Modal>
 
       <Modal setVisible={setUserReviewModal} visible={userReviewModal}>

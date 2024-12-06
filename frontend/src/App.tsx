@@ -45,7 +45,7 @@ function App() {
         <ScrollManager />
         <Wrapper>
           <Routes>
-            <Route path="/test" element={<ApiTestView />} />
+            {/* <Route path="/test" element={<ApiTestView />} /> */}
 
             <Route path="/" element={<Home />} />
             <Route path="*" element={<Navigate to="/" replace />} />

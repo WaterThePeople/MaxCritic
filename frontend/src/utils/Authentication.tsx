@@ -43,7 +43,7 @@ const refreshAccessToken = async (
   refreshToken: string
 ): Promise<string | null> => {
   try {
-    const response = await axios.post(`${serverPath}/api/token/refresh/`, {
+    const response = await axios.post(`${serverPath}api/token/refresh/`, {
       refresh: refreshToken,
     });
     return response.data.access;

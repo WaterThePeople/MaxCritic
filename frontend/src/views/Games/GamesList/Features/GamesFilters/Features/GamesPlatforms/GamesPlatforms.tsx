@@ -18,7 +18,7 @@ function GamesPlatforms({
   const getPlatforms = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/games/platforms`, {})
+      .get(`${serverPath}api/games/platforms`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

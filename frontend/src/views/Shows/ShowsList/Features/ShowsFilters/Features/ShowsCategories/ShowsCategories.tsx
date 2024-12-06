@@ -18,7 +18,7 @@ function ShowsCategories({
   const getCategories = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/shows/categories`, {})
+      .get(`${serverPath}api/shows/categories`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

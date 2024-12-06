@@ -44,7 +44,7 @@ function Search() {
     if (search) query.set("q", search.toString());
     axios
       .get(
-        `${serverPath}/api/search/?${query.toString()}&page_size=${pageSize}`,
+        `${serverPath}api/search/?${query.toString()}&page_size=${pageSize}`,
         {}
       )
       .then((response) => {

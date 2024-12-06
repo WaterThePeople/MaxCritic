@@ -61,7 +61,7 @@ function Movie() {
     const { accessToken } = await returnAccessToken();
     axios
       .post(
-        `${serverPath}/api/movies/library/add/${ID}/`,
+        `${serverPath}api/movies/library/add/${ID}/`,
         {},
         {
           headers: accessToken
@@ -82,7 +82,7 @@ function Movie() {
     console.log(accessToken);
     axios
       .post(
-        `${serverPath}/api/movies/library/remove/${ID}/`,
+        `${serverPath}api/movies/library/remove/${ID}/`,
         {},
         {
           headers: accessToken
@@ -242,7 +242,7 @@ function Movie() {
       )}
 
       <Modal setVisible={setAddReviewModal} visible={addReviewModal}>
-        <AddReview id={movie?.id} url="/api/movies/reviews/create/" />
+        <AddReview id={movie?.id} url="api/movies/reviews/create/" />
       </Modal>
 
       <Modal setVisible={setUserReviewModal} visible={userReviewModal}>

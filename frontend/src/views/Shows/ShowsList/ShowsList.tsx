@@ -80,7 +80,7 @@ function ShowsList() {
 
     try {
       const response = await axios.get(
-        `${serverPath}/api/shows/list?${query.toString()}&page_size=${pageSize}`,
+        `${serverPath}api/shows/list?${query.toString()}&page_size=${pageSize}`,
         {
           headers: accessToken
             ? { Authorization: `Bearer ${accessToken}` }

@@ -80,7 +80,7 @@ function MoviesList() {
 
     try {
       const response = await axios.get(
-        `${serverPath}/api/movies/list?${query.toString()}&page_size=${pageSize}`,
+        `${serverPath}api/movies/list?${query.toString()}&page_size=${pageSize}`,
         {
           headers: accessToken
             ? { Authorization: `Bearer ${accessToken}` }

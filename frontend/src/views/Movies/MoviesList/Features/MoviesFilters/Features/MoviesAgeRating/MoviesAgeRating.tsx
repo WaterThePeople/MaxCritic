@@ -18,7 +18,7 @@ function MoviesAgeRating({
   const getAgeRating = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/movies/age`, {})
+      .get(`${serverPath}api/movies/age`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

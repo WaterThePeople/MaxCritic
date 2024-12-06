@@ -18,7 +18,7 @@ function GamesBudget({
   const getBudget = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/games/budgets`, {})
+      .get(`${serverPath}api/games/budgets`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

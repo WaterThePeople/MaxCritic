@@ -24,7 +24,7 @@ function Profile() {
 
   const getLibrary = async () => {
     axios
-      .get(`${serverPath}/api/user/profile/${username}/`, {})
+      .get(`${serverPath}api/user/profile/${username}/`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

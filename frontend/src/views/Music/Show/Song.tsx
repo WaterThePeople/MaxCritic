@@ -61,7 +61,7 @@ function Song() {
     const { accessToken } = await returnAccessToken();
     axios
       .post(
-        `${serverPath}/api/songs/library/add/${ID}/`,
+        `${serverPath}api/songs/library/add/${ID}/`,
         {},
         {
           headers: accessToken
@@ -82,7 +82,7 @@ function Song() {
     console.log(accessToken);
     axios
       .post(
-        `${serverPath}/api/songs/library/remove/${ID}/`,
+        `${serverPath}api/songs/library/remove/${ID}/`,
         {},
         {
           headers: accessToken

@@ -18,7 +18,7 @@ function SongsCategories({
   const getCategories = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/songs/categories`, {})
+      .get(`${serverPath}api/songs/categories`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

@@ -18,7 +18,7 @@ function GamesAgeRating({
   const getAgeRating = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/games/age`, {})
+      .get(`${serverPath}api/games/age`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

@@ -18,7 +18,7 @@ function GamesCategories({
   const getCategories = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/games/categories`, {})
+      .get(`${serverPath}api/games/categories`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

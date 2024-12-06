@@ -53,7 +53,7 @@ function AddGameReview({ id, platforms }: { id: number; platforms: any[] }) {
     const { accessToken } = await returnAccessToken();
     axios
       .post(
-        `${serverPath}/api/games/reviews/create/`,
+        `${serverPath}api/games/reviews/create/`,
         {
           game: id,
           rating: score,

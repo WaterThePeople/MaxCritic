@@ -61,7 +61,7 @@ function Game() {
     const { accessToken } = await returnAccessToken();
     axios
       .post(
-        `${serverPath}/api/games/library/add/${ID}/`,
+        `${serverPath}api/games/library/add/${ID}/`,
         {},
         {
           headers: accessToken
@@ -82,7 +82,7 @@ function Game() {
     console.log(accessToken);
     axios
       .post(
-        `${serverPath}/api/games/library/remove/${ID}/`,
+        `${serverPath}api/games/library/remove/${ID}/`,
         {},
         {
           headers: accessToken

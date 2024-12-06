@@ -66,7 +66,7 @@ function Account() {
     setAvatarLoading(true);
     axios
       .put(
-        `${serverPath}/api/user/image/`,
+        `${serverPath}api/user/image/`,
         {},
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -92,7 +92,7 @@ function Account() {
     setUsernameLoading(true);
     axios
       .put(
-        `${serverPath}/api/user/username/`,
+        `${serverPath}api/user/username/`,
         { new_username: username },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -118,7 +118,7 @@ function Account() {
     setPasswordLoading(true);
     axios
       .post(
-        `${serverPath}/api/user/password/change/`,
+        `${serverPath}api/user/password/change/`,
         {
           new_password: newPassword,
           old_password: password,

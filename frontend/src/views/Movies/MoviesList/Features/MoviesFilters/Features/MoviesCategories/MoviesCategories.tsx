@@ -18,7 +18,7 @@ function MoviesCategories({
   const getCategories = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/movies/categories`, {})
+      .get(`${serverPath}api/movies/categories`, {})
       .then((response) => {
         setData(response?.data);
         setLoading(false);

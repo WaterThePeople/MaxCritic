@@ -37,7 +37,7 @@ function Library() {
     const { accessToken } = await returnAccessToken();
     setLoading(true);
     axios
-      .get(`${serverPath}/api/${returnCurrentType()}/library`, {
+      .get(`${serverPath}api/${returnCurrentType()}/library`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((response) => {

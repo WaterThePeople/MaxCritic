@@ -27,7 +27,7 @@ function NavbarSearch({}: {}) {
   const getData = async () => {
     setLoading(true);
     axios
-      .get(`${serverPath}/api/search/?q=${searchBar}&page=1&page_size=3`, {})
+      .get(`${serverPath}api/search/?q=${searchBar}&page=1&page_size=3`, {})
       .then((response) => {
         setData(response?.data?.results);
         setLoading(false);
