@@ -142,11 +142,13 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://max-critic.vercel.app/'
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    'https://max-critic.vercel.app/'
 ]
 
 CORS_ALLOW_METHODS = [
