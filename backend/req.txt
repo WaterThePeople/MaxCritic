@@ -8,4 +8,6 @@ djangorestframework-simplejwt==5.3.1
 django-filter==24.2
 requests==2.32.3
 whitenoise==6.8.2
+gunicorn==23.0.0
+deta==1.2.0
 
