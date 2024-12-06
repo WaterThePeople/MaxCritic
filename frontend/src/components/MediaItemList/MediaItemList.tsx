@@ -23,7 +23,9 @@ function MediaItemList({
 }) {
   return (
     <DefaultLink className={style.container} to={url ? url : "/"}>
-      <Image image={image} classname={style.image} />
+      <div className={style.image_container}>
+        <Image image={image} classname={style.image} />
+      </div>
       <div className={style.content}>
         <div className={style.row}>
           <div className={style.text_container}>

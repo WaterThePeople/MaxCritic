@@ -12,17 +12,22 @@
         cursor: pointer
         background: $b2
 
-.image
-    box-sizing: border-box
-    border-radius: $value-3 0 0 $value-3
+.image_container
+    display: flex
+    align-self: stretch
     width: calc(100% / 4)
     min-width: calc(100% / 4)
-    height: 100%
-    object-fit: contain
     +m
         width: calc(100% / 3)
         min-width: calc(100% / 3)
-        object-fit: cover
+
+.image
+    box-sizing: border-box
+    border-radius: $value-3 0 0 $value-3
+    width: 100%
+    object-fit: cover
+    height: 100%
+    aspect-ratio: 16 / 9
 
 .content
     width: 100%
