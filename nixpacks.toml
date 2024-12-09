@@ -1,9 +1,12 @@
 [phases.build]
-commands = ["pip install -r backend/req.txt"]
+commands = [
+  "pip install -r backend/req.txt"
+]
 
 [phases.start]
-commands = ["python backend/manage.py runserver 0.0.0.0:$PORT"]
+commands = [
+  "python backend/manage.py runserver 0.0.0.0:$PORT"
+]
 
 [variables]
-# Explicitly set the Python version (adjust to your needs)
 PYTHON_VERSION = "3.11.1"
