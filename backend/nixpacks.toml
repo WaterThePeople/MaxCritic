@@ -1,11 +1,11 @@
 [phases.build]
 commands = [
-  "pip install -r req.txt"
+  "pip backend/install -r req.txt"
 ]
 
 [phases.start]
 commands = [
-  "python manage.py runserver 0.0.0.0:$PORT"
+  "python backend/manage.py runserver 0.0.0.0:$PORT"
 ]
 
 [variables]
