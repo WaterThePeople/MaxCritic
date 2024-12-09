@@ -1,9 +1,18 @@
-[phases.build]
-commands = [
-  "pip backend/install -r req.txt"
-]
+app_name = "backend"  
+app_directory = "."
 
-[phases.start]
-commands = [
-  "python backend/manage.py runserver 0.0.0.0:$PORT"
-]
+[build]
+  buildpack = "heroku/python"
+
+  build_commands = [
+    "pip install -r req.txt"
+  ]
+
+[env]
+  DJANGO_SETTINGS_MODULE = "backend.settings" 
+  DATABASE_URL = "sqlite:///./data/db.sqlite3"
+  SECRET_KEY = "dummykey1234567890dummykey1234567890dummykey1234567890"
+  DEBUG = "False"
+
+[run]
+  command = "gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT"
