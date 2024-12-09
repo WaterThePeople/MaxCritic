@@ -2,6 +2,7 @@
 
 .container
     flex: 0 0 260px
+    max-width: 260px
     border-radius: $value-4
     background: $b1
     box-sizing: border-box
@@ -18,9 +19,11 @@
     object-fit: cover
 
 .name
+    width: 100%
     +label-20
     color: $w
     word-break: break-all
+    @include limit-lines(1)
     &:hover
         text-decoration: underline
         cursor: pointer
