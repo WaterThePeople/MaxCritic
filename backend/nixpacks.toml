@@ -7,6 +7,3 @@ commands = [
 commands = [
   "python backend/manage.py runserver 0.0.0.0:$PORT"
 ]
-
-[variables]
-PYTHON_VERSION = "3.11.1"
