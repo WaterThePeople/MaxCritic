@@ -11,12 +11,6 @@ from django.dispatch import receiver
 
 class MovieESRB(models.Model):
     rating_name = models.CharField(max_length=50)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
 
     def __str__(self):
         return self.rating_name
@@ -37,7 +31,6 @@ class MovieCategory(models.Model):
 
 class MovieActors(models.Model):
     name = models.CharField(max_length=100)
-    character = models.CharField(max_length=100)
     image = models.BinaryField(blank=True, null=True)
 
     def image_as_base64(self):
@@ -51,12 +44,6 @@ class MovieActors(models.Model):
 
 class MovieDirectors(models.Model):
     name = models.CharField(max_length=120, unique=True)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
 
     def __str__(self):
         return self.name
@@ -64,25 +51,6 @@ class MovieDirectors(models.Model):
 
 class MovieWriters(models.Model):
     name = models.CharField(max_length=120, unique=True)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
-
-    def __str__(self):
-        return self.name
-
-
-class MovieProduction(models.Model):
-    name = models.CharField(max_length=120, unique=True)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
 
     def __str__(self):
         return self.name
@@ -123,8 +91,6 @@ class Movie(models.Model):
     categories = models.ManyToManyField(MovieCategory)
     director = models.ManyToManyField(MovieDirectors)
     writers = models.ManyToManyField(MovieWriters)
-    production = models.ForeignKey(
-        MovieProduction, on_delete=models.CASCADE, null=True)
     ESRB = models.ForeignKey(
         MovieESRB, on_delete=models.CASCADE, null=True)
     score = models.IntegerField(blank=True, default=0)

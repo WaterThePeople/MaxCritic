@@ -9,14 +9,12 @@ function MovieDetails({
   duration,
   director,
   writers,
-  production,
 }: {
   esrb: any;
   release_date: any;
   duration: string;
   director: any;
   writers: any;
-  production: any;
 }) {
   return (
     <div className={style.container}>
@@ -39,10 +37,6 @@ function MovieDetails({
             <ImageTextRow image={item?.image} text={item?.name} key={index} />
           ))}
         </div>
-      </div>
-      <div className={style.content}>
-        <span>Production:</span>
-        <ImageTextRow image={production?.image} text={production?.name} />
       </div>
       <div className={style.content}>
         <span>Age rating</span>

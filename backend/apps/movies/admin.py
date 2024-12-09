@@ -114,46 +114,11 @@ class MovieActorsAdmin(admin.ModelAdmin):
     image_preview.short_description = "Current Image"
 
 
-# Movie Production
-
-
-class MovieProductionAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    MovieProductionForm = get_image_display_form(
-        MovieProduction, forms.ModelForm)
-    form = MovieProductionForm
-    readonly_fields = ('image_preview',)
-
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
-
-
 # Movie Directors
 
 
 class MovieDirectorsAdmin(admin.ModelAdmin):
     list_display = ('name',)
-    MovieDirectorsForm = get_image_display_form(
-        MovieDirectors, forms.ModelForm)
-    form = MovieDirectorsForm
-    readonly_fields = ('image_preview',)
-
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
 
 
 # Movie Writers
@@ -161,20 +126,6 @@ class MovieDirectorsAdmin(admin.ModelAdmin):
 
 class MovieWritersAdmin(admin.ModelAdmin):
     list_display = ('name',)
-    MovieWritersForm = get_image_display_form(
-        MovieWriters, forms.ModelForm)
-    form = MovieWritersForm
-    readonly_fields = ('image_preview',)
-
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
 
 
 # Movie Library
@@ -187,7 +138,6 @@ class UserMoviesLibraryAdmin(admin.ModelAdmin):
 admin.site.register(Movie, MovieAdmin)
 admin.site.register(MovieReview, MovieReviewAdmin)
 admin.site.register(MovieCategory, MovieCategoryAdmin)
-admin.site.register(MovieProduction, MovieProductionAdmin)
 admin.site.register(MovieWriters, MovieWritersAdmin)
 admin.site.register(MovieDirectors, MovieDirectorsAdmin)
 admin.site.register(MovieActors, MovieActorsAdmin)

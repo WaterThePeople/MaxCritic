@@ -7,7 +7,6 @@ from .categories import *
 from .writers import *
 from .esrb import *
 from .directors import *
-from .production import *
 from .reviews import *
 
 
@@ -86,7 +85,6 @@ class MovieSerializer(serializers.ModelSerializer):
     ESRB = MovieESRBSerializer(many=False)
     writers = MovieWritersSerializer(many=True)
     actors = MovieActorsSerializer(many=True)
-    production = MovieProductionSerializer(many=False)
     in_library = serializers.SerializerMethodField()
     has_reviewed = serializers.SerializerMethodField()
     reviews = MovieReviewSerializer(many=True, source='movie_reviews')

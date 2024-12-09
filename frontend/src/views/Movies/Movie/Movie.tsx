@@ -227,7 +227,6 @@ function Movie() {
               duration={movie?.duration}
               director={movie?.director}
               writers={movie?.writers}
-              production={movie?.production}
             />
           </Section>
           <div className={style.separator} />

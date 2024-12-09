@@ -3,16 +3,16 @@
 .column
     @include element-flex(column)
     gap: $value-2
-    background: $b2
+    background: $b1
     border-radius: $value-3
+    box-sizing: border-box
+    width: 160px
 
 .image
-    width: 160px
+    width: 100%
     aspect-ratio: 144 / 205
     border-radius: $value-3 $value-3 0 0
-    object-fit: cover
-    +m
-        width: 136px
+    object-fit: fill
 
 .content
     @include element-flex(column)
@@ -20,13 +20,15 @@
     gap: $value-2
 
 .name
+    width: 100%
+    word-break: break-word
+    @include limit-lines(2)
     color: $w
-    +label-18
-    +m
-        +label-14
+    +label-14
 
 .character
+    width: 100%
     color: $b9
-    +label-16
-    +m
-        +label-12
+    word-break: break-word
+    @include limit-lines(2)
+    +label-12

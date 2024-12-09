@@ -10,6 +10,7 @@ function GamePlatforms({ data }: { data: any[] }) {
           image={item?.image}
           text={item?.platform_name}
           key={index}
+          small
         />
       ))}
     </div>
