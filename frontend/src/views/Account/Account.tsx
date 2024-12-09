@@ -165,7 +165,7 @@ function Account() {
   }, [password, newPassword]);
 
   return (
-    <View background>
+    <View background="default">
       <div className={style.container}>
         <div className={style.title}>Your Account</div>
         <div className={style.separator} />

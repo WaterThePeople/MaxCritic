@@ -140,6 +140,7 @@ function SongsList() {
   const clearFilters = () => {
     setCategories([]);
     setAge([]);
+    navigate(``, { replace: true });
   };
 
   const toggleCategory = (category: string) => {
@@ -173,7 +174,7 @@ function SongsList() {
   }, [width]);
 
   return (
-    <View background>
+    <View background="purple">
       <div className={style.content}>
         <div className={style.title}>List of Songs</div>
         <div className={style.separator} />

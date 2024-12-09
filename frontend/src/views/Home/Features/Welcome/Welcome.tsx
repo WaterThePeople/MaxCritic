@@ -1,6 +1,11 @@
 import style from "./Welcome.module.sass";
+import DefaultButton from "components/DefaultButton/DefaultButton";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "wrappers/AuthContext/AuthContext";
 
 function Welcome() {
+  const { isAuth } = useAuth();
+  const navigate = useNavigate();
   return (
     <div className={style.container}>
       <div className={style.text_container}>
@@ -25,6 +30,12 @@ function Welcome() {
             don't). Join today and start shaping the conversation around the
             entertainment you love!
           </div>
+          {!isAuth && (
+            <DefaultButton
+              onClick={() => navigate("/register")}
+              text=" Join Us!"
+            />
+          )}
         </div>
         <img
           src={process.env.PUBLIC_URL + "assets/reviews.svg"}

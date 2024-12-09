@@ -13,24 +13,26 @@
         height: 48px
     &:hover
         cursor: pointer
-        background-color: $b2
+        background-color: $red
         .title
             color: $w
+        .arrow
+            fill: $w
         .icon
             border-color: $w
             .svg
                 fill: $w
 
 .container_focused
-    background-color: $b2
+    background-color: $red
     .title
         color: $w
-        .icon
-            border-color: $w
-            .svg
-                fill: $w
-        .arrow
-            fill: $w3
+    .arrow
+        fill: $w
+    .icon
+        border-color: $w
+        .svg
+            fill: $w
 
 .row
     @include element-flex(row, flex-start, center)
@@ -45,19 +47,19 @@
         min-width: 48px
 
 .icon
-    border: 1px solid $w3
+    border: 1px solid $b9
     border-radius: 50%
     height: 40px
     width: 40px
     .svg
-        fill: $w3
+        fill: $b9
     +m
         height: 24px
         width: 24px
 
 .title
     +label-16
-    color: $w3
+    color: $b9
     white-space: nowrap
     text-align: left
     +m
@@ -65,7 +67,7 @@
 
 .arrow
     transform: rotate(180deg)
-    fill: $w3
+    fill: $b9
     +m
         height: 16px
         width: 16px

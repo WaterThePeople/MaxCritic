@@ -140,6 +140,7 @@ function MoviesList() {
   const clearFilters = () => {
     setCategories([]);
     setAge([]);
+    navigate(``, { replace: true });
   };
 
   const toggleCategory = (category: string) => {
@@ -173,7 +174,7 @@ function MoviesList() {
   }, [width]);
 
   return (
-    <View background>
+    <View background="yellow">
       <div className={style.content}>
         <div className={style.title}>List of Movies</div>
         <div className={style.separator} />

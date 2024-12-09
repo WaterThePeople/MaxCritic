@@ -66,7 +66,7 @@ function Library() {
   }, [isAuth]);
 
   return (
-    <View background>
+    <View background="default">
       <div className={style.content}>
         <div className={style.top_row}>
           <div className={style.title}>Your Library</div>

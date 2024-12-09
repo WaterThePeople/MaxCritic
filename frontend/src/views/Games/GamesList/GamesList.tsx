@@ -160,6 +160,7 @@ function GamesList() {
     setPlatforms([]);
     setBudget([]);
     setAge([]);
+    navigate(``, { replace: true });
   };
 
   const toggleCategory = (category: string) => {
@@ -217,7 +218,7 @@ function GamesList() {
   }, [width]);
 
   return (
-    <View background>
+    <View background="blue">
       <div className={style.content}>
         <div className={style.title}>List of Games</div>
         <div className={style.separator} />

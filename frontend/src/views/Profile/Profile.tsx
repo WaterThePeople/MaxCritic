@@ -54,7 +54,7 @@ function Profile() {
   };
 
   return (
-    <View background>
+    <View background="default">
       <div className={style.container}>
         <div className={style.top_row}>
           {data?.image ? (

@@ -15,6 +15,10 @@ class ShowsSerializer(serializers.ModelSerializer):
     released = serializers.SerializerMethodField('get_released')
     image = serializers.SerializerMethodField()
     score = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
+
+    def get_type(self, obj):
+        return 'TV Show'
 
     def get_released(self, obj):
         return obj.release_date <= date.today()
@@ -30,7 +34,7 @@ class ShowsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Show
         fields = ['id', 'name', 'slug', 'image', 'score',
-                  'release_date', 'recently_added', 'released']
+                  'release_date', 'recently_added', 'released', 'type']
 
 
 class ShowsListSerializer(serializers.ModelSerializer):

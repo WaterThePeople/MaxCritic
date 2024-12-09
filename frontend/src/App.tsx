@@ -29,7 +29,7 @@ import ShowsList from "views/Shows/ShowsList/ShowsList";
 import Show from "views/Shows/Show/Show";
 
 import SongsList from "views/Music/SongsList/SongsList";
-import Song from "views/Music/Show/Song";
+import Song from "views/Music/Song/Song";
 
 import useScrollManager from "./utils/useScrollManager";
 

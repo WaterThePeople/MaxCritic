@@ -9,11 +9,19 @@ function View({
   backButton,
 }: {
   children: React.ReactNode;
-  background?: boolean;
+  background?: "default" | "green" | "purple" | "yellow" | "blue";
   backButton?: boolean;
 }) {
+  const classes = cn(style.square, {
+    [style.default]: background === "default",
+    [style.blue]: background === "blue",
+    [style.green]: background === "green",
+    [style.yellow]: background === "yellow",
+    [style.purple]: background === "purple",
+  });
+
   return (
-    <div className={cn(style.container, background && style.background)}>
+    <div className={cn(style.container, background && classes)}>
       <div className={cn(style.content, backButton && style.content_button)}>
         {children}
         {backButton && (

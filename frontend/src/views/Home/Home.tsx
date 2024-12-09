@@ -18,7 +18,7 @@ function Home() {
     axios
       .get(`${serverPath}api/recent?page_size=8`, {})
       .then((response) => {
-        setRecentlyAdded(response?.data?.results);
+        setRecentlyAdded(response?.data);
         setRecentlyAddedLoading(false);
       })
       .catch((error) => {
@@ -35,7 +35,7 @@ function Home() {
     <View>
       <div className={style.container}>
         <Welcome />
-        {/* <RecentlyAdded items={recentlyAdded} loading={recentlyAddedLoading} /> */}
+        <RecentlyAdded items={recentlyAdded} loading={recentlyAddedLoading} />
         <Discover />
       </div>
     </View>

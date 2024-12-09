@@ -8,6 +8,8 @@ interface AuthContextType {
   setIsAuth: (authStatus: boolean) => void;
   userData: any;
   setUserData: (userData: any) => void;
+  isLoading: boolean | null;
+  setIsLoading: (isLoading: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,8 +19,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [isAuth, setIsAuth] = useState<boolean | null>(null);
   const [userData, setUserData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState<boolean | null>(true);
 
   const getUserData = async () => {
+    setIsLoading(true);
     try {
       const { accessToken } = await returnAccessToken();
       if (accessToken) {
@@ -26,12 +30,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         setUserData(response?.data);
+        setIsLoading(false);
       } else {
         setUserData(null);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error("Failed to fetch user data:", error);
       setUserData(null);
+      setIsLoading(false);
     }
   };
 
@@ -48,11 +55,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       getUserData();
     } else {
       setUserData(null);
+      setIsLoading(false);
     }
   }, [isAuth]);
 
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth, userData, setUserData }}>
+    <AuthContext.Provider
+      value={{
+        isAuth,
+        setIsAuth,
+        userData,
+        setUserData,
+        isLoading,
+        setIsLoading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

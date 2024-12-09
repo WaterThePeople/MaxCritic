@@ -10,13 +10,14 @@ import { useAuth } from "wrappers/AuthContext/AuthContext";
 import DefaultLink from "components/DefaultLink/DefaultLink";
 import { useLocation } from "react-router-dom";
 import NavbarSearch from "../NavbarSearch/NavbarSearch";
+import LoadingCard from "components/LoadingCard/LoadingCard";
 
 function Navbar({
   setMenuVisible,
 }: {
   setMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { isAuth, userData } = useAuth();
+  const { isAuth, userData, isLoading } = useAuth();
   const location = useLocation();
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
@@ -55,7 +56,9 @@ function Navbar({
           </div>
           <div className={style.right_container}>
             <NavbarSearch />
-            {isAuth ? (
+            {isLoading ? (
+              <LoadingCard classname={style.loading} spinnerSize={15} />
+            ) : isAuth ? (
               <OutsideClickHandler
                 onClickOutside={() => setProfileMenuVisible(false)}
               >

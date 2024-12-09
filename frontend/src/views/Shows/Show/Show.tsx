@@ -116,7 +116,7 @@ function Show() {
   };
 
   return (
-    <View background={true} backButton={true}>
+    <View background="green" backButton={true}>
       {loading ? (
         <LoadingCard classname={style.container} spinnerSize={75} />
       ) : (

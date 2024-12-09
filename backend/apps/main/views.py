@@ -12,9 +12,17 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from ..pagination import Pagination
+from rest_framework.exceptions import NotFound
+from itertools import zip_longest
+
 from ..games.models import Game
 from ..games.serializers.serializers import GamesSerializer
-from rest_framework.exceptions import NotFound
+from ..movies.models import Movie
+from ..movies.serializers.serializers import MoviesSerializer
+from ..shows.models import Show
+from ..shows.serializers.serializers import ShowsSerializer
+from ..music.models import Song
+from ..music.serializers.serializers import SongsSerializer
 
 
 class CustomAuthToken(APIView):
@@ -138,19 +146,20 @@ class RecentlyAddedView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
-        paginator = Pagination()
-        games = Game.objects.all().order_by('-created_at')
-        games_serializer = GamesSerializer(games, many=True)
-        recent_games = [
-            {**game, 'type': 'Game'}
-            for game in games_serializer.data
-            if game['recently_added'] and game['released']
-        ]
+        recent_games = Game.objects.order_by('-created_at')[:3]
+        recent_movies = Movie.objects.order_by('-created_at')[:3]
+        recent_shows = Show.objects.order_by('-created_at')[:3]
+        recent_songs = Song.objects.order_by('-created_at')[:3]
 
-        return paginator.get_paginated_response(paginator.paginate_queryset(recent_games, request))
+        games_data = GamesSerializer(recent_games, many=True).data
+        movies_data = MoviesSerializer(recent_movies, many=True).data
+        shows_data = ShowsSerializer(recent_shows, many=True).data
+        songs_data = SongsSerializer(recent_songs, many=True).data
 
-        # data = {
-        #     'data': paginator.paginate_queryset(recent_games, request),
-        # }
+        interwoven_items = []
+        for items in zip_longest(games_data, movies_data, shows_data, songs_data):
+            for item in items:
+                if item:
+                    interwoven_items.append(item)
 
-        # return paginator.get_paginated_response(data)
+        return Response(interwoven_items)

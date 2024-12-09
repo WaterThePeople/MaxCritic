@@ -116,7 +116,7 @@ function Movie() {
   };
 
   return (
-    <View background={true} backButton={true}>
+    <View background="yellow" backButton={true}>
       {loading ? (
         <LoadingCard classname={style.container} spinnerSize={75} />
       ) : (

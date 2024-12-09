@@ -98,7 +98,7 @@ function Search() {
   }, [search]);
 
   return (
-    <View background>
+    <View background="default">
       <div className={style.content}>
         <div className={style.title}>Search through our website.</div>
         <SearchBar setValue={setSearch} value={search} />

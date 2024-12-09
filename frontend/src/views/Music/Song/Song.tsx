@@ -116,7 +116,7 @@ function Song() {
   };
 
   return (
-    <View background={true} backButton={true}>
+    <View background="purple" backButton={true}>
       {loading ? (
         <LoadingCard classname={style.container} spinnerSize={75} />
       ) : (

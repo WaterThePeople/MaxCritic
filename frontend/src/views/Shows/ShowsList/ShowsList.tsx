@@ -140,6 +140,7 @@ function ShowsList() {
   const clearFilters = () => {
     setCategories([]);
     setAge([]);
+    navigate(``, { replace: true });
   };
 
   const toggleCategory = (category: string) => {
@@ -173,7 +174,7 @@ function ShowsList() {
   }, [width]);
 
   return (
-    <View background>
+    <View background="green">
       <div className={style.content}>
         <div className={style.title}>List of Shows</div>
         <div className={style.separator} />
