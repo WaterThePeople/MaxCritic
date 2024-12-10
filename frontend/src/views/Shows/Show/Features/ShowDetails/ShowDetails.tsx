@@ -10,7 +10,6 @@ function ShowDetails({
   episodes,
   director,
   writers,
-  production,
 }: {
   esrb: any;
   release_date: any;
@@ -18,7 +17,6 @@ function ShowDetails({
   episodes: number;
   director: any;
   writers: any;
-  production: any;
 }) {
   return (
     <div className={style.container}>
@@ -45,10 +43,6 @@ function ShowDetails({
             <ImageTextRow image={item?.image} text={item?.name} key={index} />
           ))}
         </div>
-      </div>
-      <div className={style.content}>
-        <span>Production:</span>
-        <ImageTextRow image={production?.image} text={production?.name} />
       </div>
       <div className={style.content}>
         <span>Age rating</span>

@@ -38,20 +38,6 @@ function ShowReview({
         <Score score={item?.rating} scale />
       </div>
       <div className={style.description}>{item?.description}</div>
-      <div className={style.separator} />
-      <div className={style.content}>
-        <span>Played on</span>
-        <div className={style.platforms}>
-          {item?.platform?.map((item: any, index: number) => (
-            <ImageTextRow
-              classname={style.platform}
-              image={item?.image}
-              text={item?.platform_name}
-              key={index}
-            />
-          ))}
-        </div>
-      </div>
     </div>
   );
 }

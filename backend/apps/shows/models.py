@@ -11,12 +11,6 @@ from django.dispatch import receiver
 
 class ShowESRB(models.Model):
     rating_name = models.CharField(max_length=50)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
 
     def __str__(self):
         return self.rating_name
@@ -37,7 +31,6 @@ class ShowCategory(models.Model):
 
 class ShowActors(models.Model):
     name = models.CharField(max_length=100)
-    character = models.CharField(max_length=100)
     image = models.BinaryField(blank=True, null=True)
 
     def image_as_base64(self):
@@ -51,12 +44,6 @@ class ShowActors(models.Model):
 
 class ShowDirectors(models.Model):
     name = models.CharField(max_length=120, unique=True)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
 
     def __str__(self):
         return self.name
@@ -64,25 +51,6 @@ class ShowDirectors(models.Model):
 
 class ShowWriters(models.Model):
     name = models.CharField(max_length=120, unique=True)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
-
-    def __str__(self):
-        return self.name
-
-
-class ShowProduction(models.Model):
-    name = models.CharField(max_length=120, unique=True)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
 
     def __str__(self):
         return self.name
@@ -124,8 +92,6 @@ class Show(models.Model):
     categories = models.ManyToManyField(ShowCategory)
     director = models.ManyToManyField(ShowDirectors)
     writers = models.ManyToManyField(ShowWriters)
-    production = models.ForeignKey(
-        ShowProduction, on_delete=models.CASCADE, null=True)
     ESRB = models.ForeignKey(
         ShowESRB, on_delete=models.CASCADE, null=True)
     score = models.IntegerField(blank=True, default=0)

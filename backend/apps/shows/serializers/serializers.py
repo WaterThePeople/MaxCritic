@@ -7,7 +7,6 @@ from .categories import *
 from .writers import *
 from .esrb import *
 from .directors import *
-from .production import *
 from .reviews import *
 
 
@@ -86,7 +85,6 @@ class ShowSerializer(serializers.ModelSerializer):
     ESRB = ShowESRBSerializer(many=False)
     writers = ShowWritersSerializer(many=True)
     actors = ShowActorsSerializer(many=True)
-    production = ShowProductionSerializer(many=False)
     in_library = serializers.SerializerMethodField()
     has_reviewed = serializers.SerializerMethodField()
     reviews = ShowReviewSerializer(many=True, source='show_reviews')

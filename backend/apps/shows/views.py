@@ -5,7 +5,6 @@ from .serializers.categories import *
 from .serializers.writers import *
 from .serializers.esrb import *
 from .serializers.directors import *
-from .serializers.production import *
 from .serializers.reviews import *
 from rest_framework.response import Response
 from rest_framework import status

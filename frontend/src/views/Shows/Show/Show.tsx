@@ -227,7 +227,6 @@ function Show() {
               duration={show?.episode_duration}
               director={show?.director}
               writers={show?.writers}
-              production={show?.production}
               episodes={show?.episodes}
             />
           </Section>

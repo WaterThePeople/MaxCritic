@@ -13,4 +13,4 @@ class ShowActorsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShowActors
-        fields = ['id', 'name', 'character', 'image']
+        fields = ['id', 'name', 'image']

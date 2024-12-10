@@ -35,9 +35,9 @@ class ShowAdmin(admin.ModelAdmin):
             for review in reviews:
                 review_html += (
                     f"<li>"
+                    f"<strong>ID:</strong> {review.id}, "
                     f"<strong>Rating:</strong> {review.rating}, "
-                    f"<strong>Author:</strong> {review.author if review.author else 'Unknown'}, "
-                    f"<strong>Description:</strong> {review.description[:50]}..."
+                    f"<strong>Author:</strong> {review.author.username if review.author else 'Unknown'}"
                     f"</li>"
                 )
             review_html += "</ul>"
@@ -59,19 +59,6 @@ class ShowReviewAdmin(admin.ModelAdmin):
 
 class ShowESRBAdmin(admin.ModelAdmin):
     list_display = ('rating_name',)
-    ShowESRBForm = get_image_display_form(ShowESRB, forms.ModelForm)
-    form = ShowESRBForm
-    readonly_fields = ('image_preview',)
-
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
 
 
 # Show Category
@@ -114,67 +101,17 @@ class ShowActorsAdmin(admin.ModelAdmin):
     image_preview.short_description = "Current Image"
 
 
-# Show Production
-
-
-class ShowProductionAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    ShowProductionForm = get_image_display_form(
-        ShowProduction, forms.ModelForm)
-    form = ShowProductionForm
-    readonly_fields = ('image_preview',)
-
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
-
-
 # Show Directors
 
 
 class ShowDirectorsAdmin(admin.ModelAdmin):
     list_display = ('name',)
-    ShowDirectorsForm = get_image_display_form(
-        ShowDirectors, forms.ModelForm)
-    form = ShowDirectorsForm
-    readonly_fields = ('image_preview',)
-
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
-
 
 # Show Writers
 
 
 class ShowWritersAdmin(admin.ModelAdmin):
     list_display = ('name',)
-    ShowWritersForm = get_image_display_form(
-        ShowWriters, forms.ModelForm)
-    form = ShowWritersForm
-    readonly_fields = ('image_preview',)
-
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
 
 
 # Show Library
@@ -187,7 +124,6 @@ class UserShowsLibraryAdmin(admin.ModelAdmin):
 admin.site.register(Show, ShowAdmin)
 admin.site.register(ShowReview, ShowReviewAdmin)
 admin.site.register(ShowCategory, ShowCategoryAdmin)
-admin.site.register(ShowProduction, ShowProductionAdmin)
 admin.site.register(ShowWriters, ShowWritersAdmin)
 admin.site.register(ShowDirectors, ShowDirectorsAdmin)
 admin.site.register(ShowActors, ShowActorsAdmin)

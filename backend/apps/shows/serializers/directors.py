@@ -4,13 +4,7 @@ from ..models import *
 
 
 class ShowDirectorsSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
-
-    def get_image(self, obj):
-        if obj.image:
-            return base64.b64encode(obj.image).decode('utf-8')
-        return None
 
     class Meta:
         model = ShowDirectors
-        fields = ['id', 'name', 'image']
+        fields = ['id', 'name']

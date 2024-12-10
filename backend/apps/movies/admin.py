@@ -35,9 +35,9 @@ class MovieAdmin(admin.ModelAdmin):
             for review in reviews:
                 review_html += (
                     f"<li>"
+                    f"<strong>ID:</strong> {review.id}, "
                     f"<strong>Rating:</strong> {review.rating}, "
-                    f"<strong>Author:</strong> {review.author if review.author else 'Unknown'}, "
-                    f"<strong>Description:</strong> {review.description[:50]}..."
+                    f"<strong>Author:</strong> {review.author.username if review.author else 'Unknown'}"
                     f"</li>"
                 )
             review_html += "</ul>"

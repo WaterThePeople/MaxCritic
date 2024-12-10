@@ -4,13 +4,7 @@ from ..models import *
 
 
 class ShowESRBSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
-
-    def get_image(self, obj):
-        if obj.image:
-            return base64.b64encode(obj.image).decode('utf-8')
-        return None
 
     class Meta:
         model = ShowESRB
-        fields = ['id', 'rating_name', 'image']
+        fields = ['id', 'rating_name']
