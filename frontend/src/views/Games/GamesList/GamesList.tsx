@@ -21,7 +21,7 @@ const orders = [
 ];
 
 const oldestYear = 1995;
-const newestYear = 2025;
+const newestYear = 2024;
 
 const pageSize = 10;
 

@@ -11,12 +11,6 @@ from django.dispatch import receiver
 
 class SongESRB(models.Model):
     rating_name = models.CharField(max_length=50)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
 
     def __str__(self):
         return self.rating_name
@@ -37,19 +31,6 @@ class SongCategory(models.Model):
 
 class SongAuthors(models.Model):
     name = models.CharField(max_length=100)
-    image = models.BinaryField(blank=True, null=True)
-
-    def image_as_base64(self):
-        if self.image:
-            return base64.b64encode(self.image).decode('utf-8')
-        return None
-
-    def __str__(self):
-        return self.name
-
-
-class SongProduction(models.Model):
-    name = models.CharField(max_length=120, unique=True)
     image = models.BinaryField(blank=True, null=True)
 
     def image_as_base64(self):
@@ -94,8 +75,6 @@ class Song(models.Model):
     duration = models.TextField(max_length=100, default='')
     authors = models.ManyToManyField(SongAuthors)
     categories = models.ManyToManyField(SongCategory)
-    production = models.ForeignKey(
-        SongProduction, on_delete=models.CASCADE, null=True)
     ESRB = models.ForeignKey(
         SongESRB, on_delete=models.CASCADE, null=True)
     score = models.IntegerField(blank=True, default=0)

@@ -59,19 +59,6 @@ class SongReviewAdmin(admin.ModelAdmin):
 
 class SongESRBAdmin(admin.ModelAdmin):
     list_display = ('rating_name',)
-    SongESRBForm = get_image_display_form(SongESRB, forms.ModelForm)
-    form = SongESRBForm
-    readonly_fields = ('image_preview',)
-
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
 
 
 # Song Category
@@ -114,27 +101,6 @@ class SongAuthorsAdmin(admin.ModelAdmin):
     image_preview.short_description = "Current Image"
 
 
-# Song Production
-
-
-class SongProductionAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    SongProductionForm = get_image_display_form(
-        SongProduction, forms.ModelForm)
-    form = SongProductionForm
-    readonly_fields = ('image_preview',)
-
-    def image_preview(self, obj):
-        if obj.image_as_base64():
-            return mark_safe(
-                f'<img src="data:image/jpeg;base64,{obj.image_as_base64()}" '
-                f'style="max-width: 200px; max-height: 200px;" />'
-            )
-        return "No image available."
-
-    image_preview.short_description = "Current Image"
-
-
 # Song Library
 
 class UserSongsLibraryAdmin(admin.ModelAdmin):
@@ -145,7 +111,6 @@ class UserSongsLibraryAdmin(admin.ModelAdmin):
 admin.site.register(Song, SongAdmin)
 admin.site.register(SongReview, SongReviewAdmin)
 admin.site.register(SongCategory, SongCategoryAdmin)
-admin.site.register(SongProduction, SongProductionAdmin)
 admin.site.register(SongAuthors, SongAuthorsAdmin)
 admin.site.register(SongESRB, SongESRBAdmin)
 admin.site.register(UserSongsLibrary, UserSongsLibraryAdmin)

@@ -225,7 +225,6 @@ function Song() {
               esrb={song?.ESRB}
               release_date={song?.release_date}
               duration={song?.duration}
-              production={song?.production}
             />
           </Section>
           <div className={style.separator} />

@@ -7,12 +7,10 @@ function SongDetails({
   esrb,
   release_date,
   duration,
-  production,
 }: {
   esrb: any;
   release_date: any;
-  duration: string;
-  production: any;
+  duration: any;
 }) {
   return (
     <div className={style.container}>
@@ -20,11 +18,7 @@ function SongDetails({
         <span>Song Length:</span>
         {duration}
       </div>
-      <div className={style.content}>
-        <span>Production:</span>
-        <ImageTextRow image={production?.image} text={production?.name} />
-      </div>
-      <div className={style.content}>
+      <div className={style.content_row}>
         <span>Age rating</span>
         <ImageTextRow image={esrb?.image} text={esrb?.rating_name} />
       </div>
