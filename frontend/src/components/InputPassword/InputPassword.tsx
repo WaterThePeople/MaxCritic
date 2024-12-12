@@ -24,9 +24,9 @@ function InputPassword({
             <div className={style.button_row}>
               <Icon
                 name={"eye"}
-                size={18}
+                size={24}
                 className={style.svg}
-                viewBox="0 0 20 20"
+                viewBox="0 0 24 24"
               />
               Show
             </div>
@@ -34,9 +34,9 @@ function InputPassword({
             <div className={style.button_row}>
               <Icon
                 name={"eye_slashed"}
-                size={18}
+                size={24}
                 className={style.svg}
-                viewBox="0 0 20 20"
+                viewBox="0 0 24 24"
               />
               Hide
             </div>

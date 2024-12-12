@@ -9,9 +9,9 @@ function Discover() {
         <div className={style.card}>
           <Icon
             name={"heart"}
-            size={48}
+            size={72}
             className={style.svg}
-            viewBox="0 0 24 24"
+            viewBox="-8 0 32 32"
           />
           <div className={style.title}>Check Out your Favourites</div>
           <div className={style.text}>

@@ -1,7 +1,5 @@
 import style from "./SearchBarItem.module.sass";
 import Image from "components/Image/Image";
-import Score from "components/Score/Score";
-import Date from "components/Date/Date";
 import DefaultLink from "components/DefaultLink/DefaultLink";
 
 function SearchBarItem({

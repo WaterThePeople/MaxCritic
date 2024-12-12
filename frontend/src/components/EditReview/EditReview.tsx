@@ -5,7 +5,6 @@ import DefaultButton from "components/DefaultButton/DefaultButton";
 import Section from "components/Section/Section";
 import axios from "axios";
 import { serverPath } from "BackendServerPath";
-import ImageTextRow from "components/ImageTextRow/ImageTextRow";
 import { Icon } from "components/Icon/Icon";
 import { returnAccessToken } from "utils/Authentication";
 import LoadingSpinner from "components/LoadingSpinner";
@@ -142,7 +141,7 @@ function EditReview({
                   name={"info"}
                   size={18}
                   className={style.svg}
-                  viewBox="-8 -5 18 18"
+                  viewBox="0 0 24 24"
                 />
               </div>
               <div className={style.error}>{error}</div>
