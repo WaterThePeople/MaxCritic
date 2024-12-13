@@ -21,7 +21,7 @@ function Menu({ menuVisible }: { menuVisible: boolean }) {
         href={`/games`}
         iconName="gamepad"
         size={width <= 1000 ? 24 : 36}
-        viewBox="-32 -32 512 512"
+        viewBox={width <= 1000 ? "-64 -64 640 640" : "-32 -32 512 512"}
         title="Games"
         isFocused={location.pathname === "/games"}
       />
